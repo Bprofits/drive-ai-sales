@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drive AI Sales — Concept</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #000; color: #fff; }
+body { overflow-x: hidden; font: 500 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+#stage {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 0;
+  background: #000;
+  pointer-events: none;
+}
+#v {
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+@media (min-aspect-ratio: 16/9) { #v { height: 100vh; width: auto; } }
+@media (max-aspect-ratio: 16/9) { #v { width: 100vw; height: auto; } }
+#v.ready { opacity: 1; }
+.s { height: 300vh; position: relative; z-index: 1; }
+#hint {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+#hint.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <video id="v" muted playsinline webkit-playsinline preload="auto">
+    <source src="driveai-scroll.mp4" type="video/mp4">
+  </video>
+</div>
+<div class="s"></div>
+<div id="hint">Scroll</div>
+<script>
+(function () {
+  var v = document.getElementById('v');
+  var hint = document.getElementById('hint');
+  var ready = false;
+  var currentT = 0;
+  var LERP = 0.18;
+
+  function computeTarget() {
+    if (!v.duration || isNaN(v.duration)) return 0;
+    var s = window.pageYOffset || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.max(0, Math.min(1, s / h)) : 0;
+    return p * v.duration;
+  }
+
+  function tick() {
+    if (ready) {
+      var target = computeTarget();
+      var delta = target - currentT;
+      if (Math.abs(delta) > 0.001) {
+        currentT += delta * LERP;
+        if (Math.abs(v.currentTime - currentT) > 0.01) {
+          if (typeof v.fastSeek === 'function') {
+            try { v.fastSeek(currentT); } catch (e) { v.currentTime = currentT; }
+          } else {
+            v.currentTime = currentT;
+          }
+        }
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function prime() {
+    if (ready) return;
+    var p = v.play();
+    var finish = function () { v.pause(); v.currentTime = 0; currentT = 0; ready = true; v.classList.add('ready'); hint.classList.add('show'); };
+    if (p && p.then) { p.then(finish).catch(finish); } else { finish(); }
+  }
+
+  v.addEventListener('loadedmetadata', prime);
+  v.addEventListener('canplay', prime);
+  window.addEventListener('scroll', function () {
+    if (ready && window.pageYOffset > 80) hint.classList.remove('show');
+  }, { passive: true });
+
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
