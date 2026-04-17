@@ -2,105 +2,476 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drive AI Sales — Concept</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Drive AI Sales Inc. — AI-Powered Lead Response for Dealerships</title>
+<meta name="description" content="Drive AI responds to every dealership lead in under 60 seconds. Text, email, voice. 24/7.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="logo/logo-hires.png" type="image/png">
+<link rel="apple-touch-icon" href="logo/logo-hires.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { background: #000; color: #fff; }
-body { overflow-x: hidden; font: 500 12px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-#stage {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  z-index: 0;
-  background: #000;
-  pointer-events: none;
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{overscroll-behavior:none}
+body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* STAGE (scroll-scrub canvas backdrop) */
+#stage{position:fixed;inset:0;z-index:0;pointer-events:none;background:#000}
+#stage canvas{display:block;width:100%;height:100%}
+#stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.55) 100%);pointer-events:none}
+
+/* LOADER */
+#loader{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;transition:opacity .6s ease}
+#loader.gone{opacity:0;pointer-events:none}
+#loader .lmark{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:rgba(255,255,255,.85);margin-bottom:1.5rem}
+#loader .lmark span{color:#E87A00}
+#loader .lbar{width:220px;height:2px;background:rgba(255,255,255,.12);overflow:hidden;border-radius:1px}
+#loader .lbar span{display:block;height:100%;width:0%;background:#E87A00;transition:width .15s ease}
+#loader .ltxt{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.9rem}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem 1rem 0;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.7) 0%,rgba(0,0,0,.4) 60%,rgba(0,0,0,0) 100%);transition:background .4s;-webkit-transform:translateZ(0);transform:translateZ(0);will-change:background}
+.nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-backdrop{display:none}
+.nav-mark{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:#fff;text-decoration:none;margin-left:1.5rem}
+.nav-mark span{color:#E87A00}
+.nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s,text-shadow .3s}
+.nav-links a:hover{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.3)}
+.nav-cta{background:#E87A00!important;color:#000!important;padding:.5rem 1.2rem;border-radius:4px;transition:all .3s!important}
+.nav-cta:hover{background:#FF8C00!important;box-shadow:0 0 20px rgba(232,122,0,.5),0 0 40px rgba(232,122,0,.2)!important;transform:scale(1.05)}
+
+/* MOBILE NAV TOGGLE */
+.nav-toggle{display:none;background:none;border:0;width:44px;height:44px;color:#fff;cursor:pointer;align-items:center;justify-content:center;padding:0;position:relative;z-index:110}
+.nav-toggle span{display:block;width:22px;height:1.5px;background:#fff;position:relative;transition:all .3s}
+.nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:0;width:22px;height:1.5px;background:#fff;transition:all .3s}
+.nav-toggle span::before{top:-7px}
+.nav-toggle span::after{top:7px}
+.nav.open .nav-toggle span{background:transparent}
+.nav.open .nav-toggle span::before{top:0;transform:rotate(45deg)}
+.nav.open .nav-toggle span::after{top:0;transform:rotate(-45deg)}
+
+/* SECTIONS */
+.sec{min-height:100vh;display:flex;align-items:center;position:relative;z-index:2}
+.sec-inner{max-width:1400px;margin:0 auto;padding:5rem 3rem;width:100%;display:flex;align-items:center}
+.sec-left .sec-inner{justify-content:flex-start}
+.sec-right .sec-inner{justify-content:flex-end}
+.sec-center .sec-inner{justify-content:center}
+
+.text-block{max-width:480px;padding:1.5rem 1.8rem;border-radius:14px;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.05);opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.215,.61,.355,1),transform .8s cubic-bezier(.215,.61,.355,1)}
+.text-block.visible{opacity:1;transform:translateY(0)}
+.sec-right .text-block{text-align:right}
+.sec-center .text-block{text-align:center;max-width:540px}
+
+.ol{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E87A00;margin-bottom:.6rem}
+.h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5.5rem);line-height:.93;letter-spacing:2px;margin-bottom:1rem}
+.h1 em,.h2 em{font-style:normal;color:#E87A00}
+.h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);line-height:1;letter-spacing:1px;margin-bottom:.8rem}
+.bd{font-size:1.02rem;font-weight:300;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:1.2rem}
+.bd strong{color:#fff;font-weight:600}
+.btn-row{display:flex;gap:.6rem;flex-wrap:wrap}
+.sec-right .btn-row{justify-content:flex-end}
+.sec-center .btn-row{justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .3s}
+.btn-fill{background:#E87A00;color:#000}
+.btn-fill:hover{background:#FF8C00;box-shadow:0 0 25px rgba(232,122,0,.3)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.18);border-radius:4px;transition:all .3s}
+.btn-ghost:hover{border-color:#E87A00;color:#E87A00;box-shadow:0 0 15px rgba(232,122,0,.15);transform:translateY(-2px)}
+
+.stats{display:flex;gap:2rem;margin-bottom:1rem}
+.sec-right .stats{justify-content:flex-end}
+.sv{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#E87A00;line-height:1}
+.sl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
+.pill{background:rgba(232,122,0,.1);border:1px solid rgba(232,122,0,.2);color:#E87A00;padding:.35rem .8rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:all .3s}
+.pill:hover{background:rgba(232,122,0,.18);border-color:rgba(232,122,0,.35)}
+.rr{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.rr:last-child{border:none}
+.rr-l{font-size:.95rem;color:rgba(255,255,255,.7)}
+.rr-v{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#E87A00}
+
+.btn-liquid{background:#E87A00;color:#000;position:relative;overflow:hidden;border-radius:50px;padding:.75rem 2rem}
+.btn-liquid:hover{background:#FF8C00;box-shadow:0 0 30px rgba(232,122,0,.4);transform:scale(1.03)}
+.btn-liquid .liquid-blob{position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%);transition:width .5s ease,height .5s ease;pointer-events:none}
+.btn-liquid:hover .liquid-blob{width:300px;height:300px}
+
+.counter-row{display:flex;gap:2.5rem;flex-wrap:wrap}
+.counter-item{text-align:center}
+.counter{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:#E87A00;line-height:1}
+
+@keyframes blink{50%{border-color:transparent}}
+@keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fu{from{opacity:0;transform:translateY(1rem)}to{opacity:1;transform:translateY(0)}}
+.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;opacity:0;animation:fu .5s 1.5s forwards}
+.scroll-cue-line{width:1px;height:25px;background:linear-gradient(to bottom,transparent,#E87A00);animation:sp 2s ease infinite}
+.scroll-cue-text{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+.footer{border-top:1px solid rgba(255,255,255,.06);background:#000;position:relative;z-index:2}
+.footer-inner{max-width:1400px;margin:0 auto;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center}
+.footer-c{font-size:.6rem;color:rgba(255,255,255,.28)}
+.footer-l{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}
+.footer-l a{font-size:.6rem;color:rgba(255,255,255,.28);text-decoration:none;transition:color .3s}
+.footer-l a:hover{color:#E87A00}
+
+@media(max-width:900px){
+  .nav{padding:.8rem 1.1rem}
+  .nav-toggle{display:inline-flex}
+  .nav-links{position:fixed;top:0;right:0;bottom:0;width:min(90vw,380px);height:100vh;min-height:100dvh;background:rgba(8,8,8,.98);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:block;padding:6rem 0 3rem;transform:translateX(100%);transition:transform .35s ease;z-index:105;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .nav-links li{display:block;width:100%;list-style:none;border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-links li:last-child{border-bottom:none;padding-top:.6rem}
+  .nav-links li a{display:block;padding:1.6rem 1.8rem;font-size:1.05rem;letter-spacing:2.5px;color:rgba(255,255,255,.85)}
+  .nav-links li a:hover{color:#fff;background:rgba(255,255,255,.03)}
+  .nav-links li a.nav-cta{display:block;margin:1.8rem 1.5rem 0;padding:1.15rem 1.4rem;text-align:center;border-radius:6px;font-size:.9rem}
+  .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:103}
+  .nav.open .nav-backdrop{opacity:1;pointer-events:auto}
+  .nav.open .nav-links{transform:translateX(0)}
+  .sec-inner{padding:6rem 1.2rem 3rem}
+  .text-block{max-width:100%;padding:1.3rem}
+  .sec-right .text-block,.sec-right .stats,.sec-right .btn-row{text-align:left;justify-content:flex-start}
+  .counter-row{gap:1.5rem}
+  .counter{font-size:2.2rem}
+  .stats{gap:1rem}
+  .footer-inner{flex-direction:column;gap:.6rem;text-align:center;padding:1.2rem}
+  .footer-l{justify-content:center}
+  .scroll-cue{bottom:1rem}
+  .sec{min-height:90vh}
+  .h1{font-size:clamp(2.2rem,9vw,3.4rem)}
 }
-#v {
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-  background: #000;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-@media (min-aspect-ratio: 16/9) { #v { height: 100vh; width: auto; } }
-@media (max-aspect-ratio: 16/9) { #v { width: 100vw; height: auto; } }
-#v.ready { opacity: 1; }
-.s { height: 300vh; position: relative; z-index: 1; }
-#hint {
-  position: fixed;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  pointer-events: none;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-#hint.show { opacity: 1; }
 </style>
 </head>
 <body>
-<div id="stage">
-  <video id="v" muted playsinline webkit-playsinline preload="auto">
-    <source src="https://github.com/Bprofits/drive-ai-sales/releases/download/v1/driveai-scroll.mp4" type="video/mp4">
-  </video>
+
+<!-- SCROLL-SCRUB CANVAS BACKDROP -->
+<div id="stage"><canvas id="c"></canvas></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="lmark">DRIVE <span>AI</span> SALES INC.</div>
+  <div class="lbar"><span id="pb"></span></div>
+  <div class="ltxt">Loading <span id="pct">0</span>%</div>
 </div>
-<div class="s"></div>
-<div id="hint">Scroll</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <a href="#s0" class="nav-mark">DRIVE <span>AI</span> SALES INC.</a>
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle"><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#s1">Problem</a></li>
+    <li><a href="#s2">Engine</a></li>
+    <li><a href="#s3">Drivetrain</a></li>
+    <li><a href="#s4">Results</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="diagnostic.html" class="nav-cta">Free Diagnostic</a></li>
+  </ul>
+</nav>
+
+<!-- HERO (scene 1) -->
+<section class="sec sec-left" id="s0">
+  <div class="sec-inner">
+    <div class="text-block">
+      <img src="logo/logo-hires.png" alt="Drive AI Sales" style="height:72px;width:auto;margin-bottom:1rem">
+      <div class="ol">AI-Powered Sales Intelligence for Dealerships</div>
+      <h1 class="h1">Your Leads Are<br>Calling Back.<br><em>Just Not You.</em></h1>
+      <div class="bd">78% of buyers purchase from the first dealership to respond. We respond in under 60 seconds. Text, email, voice. 24/7.</div>
+      <div style="font-family:monospace;font-size:14px;color:#E87A00;margin-bottom:1.2rem;min-height:1.5em;"><span id="typewriter"></span><span style="border-right:2px solid #E87A00;animation:blink .8s step-end infinite;">&nbsp;</span></div>
+      <div class="btn-row">
+        <a href="diagnostic.html" class="btn btn-liquid">Free Diagnostic</a>
+        <a href="#s2" class="btn btn-ghost">See How It Works</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="scroll-cue-line"></div><div class="scroll-cue-text">Scroll</div></div>
+</section>
+
+<!-- STATS BAND (scene 2: AI brain) -->
+<section class="sec sec-center" style="min-height:70vh">
+  <div class="sec-inner" style="justify-content:center">
+    <div class="text-block" style="background:rgba(0,0,0,.5);max-width:720px">
+      <div class="counter-row" style="justify-content:center">
+        <div class="counter-item"><div class="counter" data-target="60" data-suffix="s">&lt;60s</div><div class="sl">Response Time</div></div>
+        <div class="counter-item"><div class="counter" data-target="24" data-suffix="/7">24/7</div><div class="sl">Coverage</div></div>
+        <div class="counter-item"><div class="counter" data-target="68" data-suffix="%">68%</div><div class="sl">Show Rate</div></div>
+        <div class="counter-item"><div class="counter" data-target="0">0</div><div class="sl">New Tools to Learn</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM (scene 3: Sales Manager overwhelmed) -->
+<section class="sec sec-right" id="s1">
+  <div class="sec-inner">
+    <div class="text-block">
+      <div class="ol">The Problem</div>
+      <div class="h2">Your CRM Captures Leads.<br>It Can't <em>Work</em> Them.</div>
+      <div class="bd">The average dealership loses <strong>$15K-$45K/month</strong> to slow response, broken follow-up, and no-shows.</div>
+      <div class="counter-row" style="margin-top:1rem">
+        <div class="counter-item"><div class="counter" data-target="47" data-suffix="min">0</div><div class="sl">Avg Response</div></div>
+        <div class="counter-item"><div class="counter" data-target="40" data-suffix="%">0</div><div class="sl">Show Rate</div></div>
+        <div class="counter-item"><div class="counter" data-target="2">0</div><div class="sl">Follow-ups</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGINE / SOLUTION (scene 4: Lead Management) -->
+<section class="sec sec-left" id="s2">
+  <div class="sec-inner">
+    <div class="text-block">
+      <div class="ol">Under the Hood</div>
+      <div class="h2">We <em>Plug In</em><br>to Your CRM</div>
+      <div class="bd">We swap into any CRM your store runs. CDK, DealerTrack, VinSolutions, DealerSocket, Elead, you name it. Under a day. No migration, no disruption. Every lead gets a response in under 60 seconds.</div>
+      <div class="pills">
+        <div class="pill">Instant Response</div><div class="pill">24/7 Coverage</div><div class="pill">Zero Adoption</div><div class="pill">CRM Sync</div><div class="pill">DealerSocket</div><div class="pill">VinSolutions</div>
+      </div>
+      <div class="bd" style="font-size:.85rem;color:rgba(255,255,255,.55)">SOC 2 compliant. Your data stays in your CRM. We integrate, we don't replace.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DRIVETRAIN (scene 5: Leads Responded) -->
+<section class="sec sec-right" id="s3">
+  <div class="sec-inner">
+    <div class="text-block">
+      <div class="ol">The Drivetrain</div>
+      <div class="h2"><em>AI Takes Point.</em><br>Every Lead. Every Time.</div>
+      <div class="bd">7+ touchpoints over 30 days. Qualifies, follows up, books appointments, sends reminders, re-engages no-shows. Natural conversation, not robotic scripts.</div>
+      <div class="counter-row" style="margin-top:1rem">
+        <div class="counter-item"><div class="counter" data-target="60" data-prefix="<" data-suffix="s">0</div><div class="sl">Response</div></div>
+        <div class="counter-item"><div class="counter" data-target="7" data-suffix="+">0</div><div class="sl">Touches</div></div>
+        <div class="counter-item"><div class="counter" data-target="30" data-suffix="d">0</div><div class="sl">Cadence</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS (scene 6: Appointments Booked) -->
+<section class="sec sec-left" id="s4">
+  <div class="sec-inner">
+    <div class="text-block">
+      <div class="ol">Results</div>
+      <div class="h2">The Numbers<br>Speak <em>Dealer.</em></div>
+      <div style="margin-top:.5rem;max-width:22rem">
+        <div class="rr"><span class="rr-l">Response Time</span><span class="rr-v">4hrs → 47s</span></div>
+        <div class="rr"><span class="rr-l">Show Rate</span><span class="rr-v">41% → 68%</span></div>
+        <div class="rr"><span class="rr-l">Deals / Month</span><span class="rr-v">+11</span></div>
+        <div class="rr"><span class="rr-l">Gross Profit</span><span class="rr-v">+$33K</span></div>
+        <div class="rr"><span class="rr-l">Staff Added</span><span class="rr-v">0</span></div>
+      </div>
+      <div class="bd" style="margin-top:1rem;font-style:italic;color:rgba(255,255,255,.55)">"I stopped checking the CRM every hour because I finally trusted something was handling it."<br><span style="font-style:normal;font-size:.7rem;color:rgba(255,255,255,.35);">— GM, Mid-Size Franchise Dealer</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA (scene 7: Team Converts) -->
+<section class="sec sec-center" id="s5">
+  <div class="sec-inner">
+    <div class="text-block">
+      <div class="ol">Free Assessment</div>
+      <div class="h2">How Much Are You<br><em>Leaving on the Table?</em></div>
+      <div class="bd">7 questions. 2 minutes. Your score and revenue leak estimate.</div>
+      <div class="btn-row">
+        <a href="diagnostic.html" class="btn btn-liquid">Take the Diagnostic</a>
+        <a href="discovery.html" class="btn btn-liquid">Book a Discovery Call</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec sec-center" id="s6" style="min-height:60vh;border-top:1px solid rgba(232,122,0,.1)">
+  <div class="sec-inner">
+    <div class="text-block" style="max-width:560px">
+      <div class="ol">Get in Touch</div>
+      <div class="h2">Have a <em>Question?</em></div>
+      <div class="bd" style="font-size:1.1rem">Not ready for the diagnostic? No problem. Reach out directly and we'll have a real conversation about your store.</div>
+      <div class="btn-row" style="gap:1rem">
+        <a href="mailto:brandon@driveaisales.com" class="btn btn-liquid">Email Us</a>
+        <a href="discovery.html" class="btn btn-liquid">Book a Call</a>
+      </div>
+      <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08)">
+        <div style="font-size:.95rem;color:rgba(255,255,255,.75);font-weight:500">Brandon Rose</div>
+        <div style="font-size:.8rem;color:#E87A00;margin-top:.2rem">CEO, Drive AI Sales Inc.</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-top:.3rem">Edmonton, AB · brandon@driveaisales.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-c">© 2026 Drive AI Sales Inc. Edmonton, AB</div>
+    <div class="footer-l">
+      <a href="diagnostic.html">Diagnostic</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="discovery.html">Book a Call</a>
+      <a href="mailto:brandon@driveaisales.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
 <script>
-(function () {
-  var v = document.getElementById('v');
-  var hint = document.getElementById('hint');
-  var ready = false;
-  var currentT = 0;
-  var LERP = 0.18;
+/* ==== SCROLL-SCRUB FRAME SEQUENCE ==== */
+(function(){
+  var FRAME_COUNT = 672;
+  var FRAME_PAD = 4;
+  var FRAME_EXT = 'jpg';
+  var FRAME_DIR = 'frames/';
+  var LERP = 0.18;   // higher = snappier scrub
+  var BATCH = 16;    // parallel fetches
 
-  function computeTarget() {
-    if (!v.duration || isNaN(v.duration)) return 0;
-    var s = window.pageYOffset || document.documentElement.scrollTop;
-    var h = document.documentElement.scrollHeight - window.innerHeight;
-    var p = h > 0 ? Math.max(0, Math.min(1, s / h)) : 0;
-    return p * v.duration;
+  var c = document.getElementById('c');
+  var ctx = c.getContext('2d', { alpha:false });
+  var loader = document.getElementById('loader');
+  var pb = document.getElementById('pb');
+  var pctEl = document.getElementById('pct');
+  var frames = new Array(FRAME_COUNT);
+  var loaded = 0, ready = false, current = 0, lastDrawn = -1;
+
+  function pad(n){ n = String(n); while(n.length<FRAME_PAD) n='0'+n; return n; }
+  function frameUrl(i){ return FRAME_DIR + 'f_' + pad(i+1) + '.' + FRAME_EXT; }
+
+  function fitCanvas(){
+    var dpr = Math.min(window.devicePixelRatio||1, 2);
+    var W = window.innerWidth, H = window.innerHeight;
+    c.width = Math.round(W*dpr); c.height = Math.round(H*dpr);
+    c.style.width = W+'px'; c.style.height = H+'px';
+    if(lastDrawn >= 0) drawFrame(lastDrawn, true); else if(frames[0]) drawFrame(0, true);
   }
-
-  function tick() {
-    if (ready) {
-      var target = computeTarget();
-      var delta = target - currentT;
-      if (Math.abs(delta) > 0.001) {
-        currentT += delta * LERP;
-        if (Math.abs(v.currentTime - currentT) > 0.01) {
-          if (typeof v.fastSeek === 'function') {
-            try { v.fastSeek(currentT); } catch (e) { v.currentTime = currentT; }
-          } else {
-            v.currentTime = currentT;
-          }
-        }
+  function drawFrame(i, force){
+    if(!force && i === lastDrawn) return;
+    var img = frames[i] || frames[Math.max(0, Math.min(FRAME_COUNT-1, i))];
+    if(!img) return;
+    var cw = c.width, ch = c.height;
+    var iw = img.naturalWidth, ih = img.naturalHeight;
+    // cover (fills viewport; slightly crops on extreme aspects)
+    var scale = Math.max(cw/iw, ch/ih);
+    var dw = iw*scale, dh = ih*scale;
+    var dx = (cw-dw)/2, dy = (ch-dh)/2;
+    ctx.fillStyle = '#000'; ctx.fillRect(0,0,cw,ch);
+    ctx.drawImage(img, dx, dy, dw, dh);
+    lastDrawn = i;
+  }
+  function computeTarget(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    if(max <= 0) return 0;
+    var p = Math.max(0, Math.min(1, window.pageYOffset/max));
+    return p * (FRAME_COUNT - 1);
+  }
+  function tick(){
+    if(ready){
+      var t = computeTarget();
+      var d = t - current;
+      if(Math.abs(d) > 0.001){
+        current += d * LERP;
+        drawFrame(Math.round(current));
       }
     }
     requestAnimationFrame(tick);
   }
-
-  function prime() {
-    if (ready) return;
-    var p = v.play();
-    var finish = function () { v.pause(); v.currentTime = 0; currentT = 0; ready = true; v.classList.add('ready'); hint.classList.add('show'); };
-    if (p && p.then) { p.then(finish).catch(finish); } else { finish(); }
+  function loadOne(i){
+    return new Promise(function(resolve){
+      var img = new Image();
+      img.decoding = 'async';
+      img.onload = function(){
+        frames[i] = img; loaded++;
+        var pct = Math.round((loaded/FRAME_COUNT)*100);
+        pb.style.width = pct+'%'; pctEl.textContent = pct;
+        resolve();
+      };
+      img.onerror = function(){ loaded++; resolve(); };
+      img.src = frameUrl(i);
+    });
   }
-
-  v.addEventListener('loadedmetadata', prime);
-  v.addEventListener('canplay', prime);
-  window.addEventListener('scroll', function () {
-    if (ready && window.pageYOffset > 80) hint.classList.remove('show');
-  }, { passive: true });
-
+  async function preload(){
+    await loadOne(0);
+    fitCanvas(); drawFrame(0, true);
+    var i = 1;
+    async function worker(){ while(i < FRAME_COUNT){ var my=i++; await loadOne(my); } }
+    var workers = [];
+    for(var w=0; w<BATCH; w++) workers.push(worker());
+    await Promise.all(workers);
+    ready = true;
+    loader.classList.add('gone');
+    setTimeout(function(){ loader.style.display='none'; }, 700);
+  }
+  window.addEventListener('resize', fitCanvas, { passive:true });
   requestAnimationFrame(tick);
+  preload();
 })();
+
+/* ==== NAV SCROLL + MOBILE ==== */
+(function(){
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.pageYOffset > 60);
+  }, { passive:true });
+  var backdrop = document.getElementById('navBackdrop');
+  function setOpen(o){
+    nav.classList.toggle('open', o);
+    toggle.setAttribute('aria-expanded', String(o));
+    toggle.setAttribute('aria-label', o ? 'Close menu' : 'Menu');
+  }
+  toggle.addEventListener('click', function(){ setOpen(!nav.classList.contains('open')); });
+  if(backdrop) backdrop.addEventListener('click', function(){ setOpen(false); });
+  links.addEventListener('click', function(e){
+    if(e.target.tagName === 'A') setOpen(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && nav.classList.contains('open')) setOpen(false);
+  });
+})();
+
+/* ==== FADE-IN TEXT BLOCKS ==== */
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: .15 });
+  document.querySelectorAll('.text-block').forEach(function(el){ obs.observe(el); });
+  var first = document.querySelector('#s0 .text-block'); if(first) first.classList.add('visible');
+})();
+
+/* ==== ANIMATED COUNTERS ==== */
+(function(){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var el = e.target; var target = parseInt(el.dataset.target);
+        var prefix = el.dataset.prefix||''; var suffix = el.dataset.suffix||'';
+        if(target === 0){ el.textContent = prefix+'0'+suffix; obs.unobserve(el); return; }
+        var cur = 0, step = Math.max(1, Math.ceil(target/50));
+        var t = setInterval(function(){ cur += step; if(cur >= target){ cur = target; clearInterval(t); } el.textContent = prefix+cur+suffix; }, 30);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: .4 });
+  document.querySelectorAll('.counter').forEach(function(c){ obs.observe(c); });
+})();
+
+/* ==== TYPEWRITER ==== */
+(function(){
+  var el = document.getElementById('typewriter'); if(!el) return;
+  var phrases = [
+    'Responding to leads in under 60 seconds...',
+    'Booking appointments automatically...',
+    'Re-engaging no-shows...',
+    'Syncing with your CRM...',
+    'Working while your team sleeps...'
+  ];
+  var pi=0, ci=0, del=false;
+  function type(){
+    var p = phrases[pi];
+    if(!del){ el.textContent = p.substring(0, ci+1); ci++; if(ci === p.length){ del=true; setTimeout(type, 2000); return; } setTimeout(type, 50); }
+    else{ el.textContent = p.substring(0, ci-1); ci--; if(ci === 0){ del=false; pi=(pi+1)%phrases.length; setTimeout(type, 500); return; } setTimeout(type, 30); }
+  }
+  type();
+})();
+
+/* ==== LIQUID BUTTON BLOB ==== */
+document.querySelectorAll('.btn-liquid').forEach(function(btn){
+  var blob = document.createElement('span'); blob.className = 'liquid-blob'; btn.appendChild(blob);
+});
 </script>
 </body>
 </html>
