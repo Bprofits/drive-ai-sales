@@ -122,12 +122,12 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 @keyframes chev{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
 
 /* CPU CHIP — motherboard-style hub with L-shaped traces, vias, and traveling particle dots */
-.chip{position:relative;z-index:2;padding:5rem 2rem 6rem;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;overflow:hidden}
-.chip-hd{position:relative;width:min(640px,94vw);text-align:center;z-index:3}
+.chip{position:relative;z-index:2;padding:6rem 2rem 6rem;min-height:auto;display:flex;flex-direction:column;align-items:center;gap:4rem;overflow:hidden}
+.chip-hd{position:relative;width:min(640px,94vw);text-align:center;z-index:3;margin-bottom:0}
 .chip-hd .ol{margin-bottom:.5rem}
 .chip-hd .h2{font-size:clamp(1.9rem,4.2vw,3rem);margin-bottom:.5rem}
 .chip-hd .bd{font-size:.98rem;color:rgba(255,255,255,.72);max-width:520px;margin:0 auto}
-.chip-inner{position:relative;width:min(780px,94vw);aspect-ratio:1/1;margin:0 auto;z-index:1}
+.chip-inner{position:relative;width:min(760px,94vw);aspect-ratio:1/1;margin:0 auto;z-index:1}
 
 /* Square die in the middle with layered substrate rings */
 .chip-core{position:absolute;top:38%;left:38%;width:24%;height:24%;display:flex;align-items:center;justify-content:center;z-index:3;border-radius:14%;background:radial-gradient(circle at 30% 25%,rgba(255,180,90,.35),rgba(232,122,0,.08) 65%);border:1.5px solid rgba(232,122,0,.55);box-shadow:0 0 55px rgba(232,122,0,.45),0 0 110px rgba(232,122,0,.2),inset 0 0 38px rgba(232,122,0,.2),inset 0 0 0 4px rgba(0,0,0,.35)}
@@ -171,18 +171,32 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   .chip-node-dot{width:7px;height:7px}
 }
 
-/* SERVICES GRID (icons) */
-.services{background:rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:6rem 3rem;position:relative;z-index:2}
-.services-inner{max-width:1400px;margin:0 auto;text-align:center}
+/* SERVICES ACCORDION — single-column list, click each to expand */
+.services{background:rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:6rem 2rem;position:relative;z-index:2}
+.services-inner{max-width:880px;margin:0 auto;text-align:center}
 .services-hd .ol{margin-bottom:.8rem}
 .services-hd .h2{margin-bottom:.6rem}
 .services-hd .bd{max-width:640px;margin:0 auto 3.5rem;color:rgba(255,255,255,.72)}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.8rem}
-.svc{display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.4rem 1rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;transition:all .4s cubic-bezier(.2,.8,.2,1)}
-.svc:hover{background:rgba(232,122,0,.06);border-color:rgba(232,122,0,.25);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,122,0,.12),0 0 0 1px rgba(232,122,0,.15)}
-.svc img{width:96px;height:96px;object-fit:contain;margin-bottom:.8rem;transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .4s}
-.svc:hover img{transform:scale(1.06);filter:drop-shadow(0 0 16px rgba(232,122,0,.5))}
-.svc-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.services-list{display:flex;flex-direction:column;gap:.8rem;text-align:left}
+.svc{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:14px;transition:all .4s cubic-bezier(.2,.8,.2,1);overflow:hidden}
+.svc[open]{background:rgba(232,122,0,.055);border-color:rgba(232,122,0,.3);box-shadow:0 14px 36px rgba(232,122,0,.14),0 0 0 1px rgba(232,122,0,.12)}
+.svc:not([open]):hover{background:rgba(232,122,0,.03);border-color:rgba(232,122,0,.2);transform:translateX(4px)}
+.svc summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:1.4rem;padding:1.2rem 1.5rem;user-select:none}
+.svc summary::-webkit-details-marker{display:none}
+.svc-icon{width:88px;height:88px;flex-shrink:0;object-fit:contain;transition:transform .4s cubic-bezier(.2,.8,.2,1),filter .4s}
+.svc[open] .svc-icon{transform:scale(1.08);filter:drop-shadow(0 0 16px rgba(232,122,0,.55))}
+.svc:not([open]):hover .svc-icon{filter:drop-shadow(0 0 10px rgba(232,122,0,.35))}
+.svc-title{flex:1;display:flex;flex-direction:column;gap:.25rem;min-width:0}
+.svc-label{font-family:'Bebas Neue',sans-serif;font-size:1.45rem;letter-spacing:3px;color:#fff;line-height:1}
+.svc-tag{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#E87A00}
+.svc-chev{flex-shrink:0;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid rgba(232,122,0,.3);color:#E87A00;transition:all .4s cubic-bezier(.2,.8,.2,1)}
+.svc-chev svg{width:14px;height:14px;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.svc[open] .svc-chev{background:#E87A00;color:#000;border-color:#E87A00;box-shadow:0 0 18px rgba(232,122,0,.5)}
+.svc[open] .svc-chev svg{transform:rotate(180deg)}
+.svc-body{padding:0 1.5rem 1.5rem calc(88px + 1.5rem + 1.4rem);color:rgba(255,255,255,.78);line-height:1.6;font-size:.98rem;max-width:720px}
+.svc-body strong{color:#fff}
+.svc-body ul{list-style:none;padding:0;margin:.8rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem}
+.svc-body li{background:rgba(232,122,0,.12);border:1px solid rgba(232,122,0,.22);color:#E87A00;padding:.3rem .7rem;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;border-radius:4px}
 
 /* LEAD CAPTURE */
 .capture{position:relative;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.85) 100%);padding:6rem 3rem}
@@ -234,11 +248,14 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   .sec-right .counter-row,.sec-center .counter-row{justify-content:flex-start}
   .counter-row{gap:1.3rem}
   .counter{font-size:2.1rem}
-  .services{padding:4rem 1.2rem}
-  .services-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
-  .svc{padding:1rem .6rem}
-  .svc img{width:72px;height:72px}
-  .svc-label{font-size:.62rem;letter-spacing:1.5px}
+  .services{padding:4rem 1rem}
+  .svc summary{padding:1rem;gap:1rem}
+  .svc-icon{width:64px;height:64px}
+  .svc-label{font-size:1.15rem;letter-spacing:2px}
+  .svc-tag{font-size:.62rem;letter-spacing:1.8px}
+  .svc-chev{width:28px;height:28px}
+  .svc-chev svg{width:12px;height:12px}
+  .svc-body{padding:0 1rem 1.2rem calc(64px + 1rem + 1rem);font-size:.9rem}
   .capture{padding:4rem 1.2rem}
   .lead-form{flex-direction:column}
   .lead-form input,.lead-form button{flex:0 0 auto;width:100%}
@@ -331,25 +348,26 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       Traveling "electrons" = <circle> + <animateMotion> along the named path.
     -->
     <svg class="chip-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <!-- Static traces: L-shaped where needed, straight for cardinals -->
-      <path id="trN"  class="chip-trace" d="M 50 4 V 38"/>
-      <path id="trE"  class="chip-trace" d="M 96 50 H 62"/>
-      <path id="trS"  class="chip-trace" d="M 50 96 V 62"/>
-      <path id="trW"  class="chip-trace" d="M 4 50 H 38"/>
-      <path id="trNE" class="chip-trace" d="M 82 18 H 62 V 38"/>
-      <path id="trSE" class="chip-trace" d="M 82 82 H 62 V 62"/>
-      <path id="trSW" class="chip-trace" d="M 18 82 H 38 V 62"/>
-      <path id="trNW" class="chip-trace" d="M 18 18 H 38 V 38"/>
+      <!-- Static traces: from each new node position to the core die edge (38–62).
+           Cardinals are straight, diagonals L-bend at (38/62, 20) or (38/62, 80). -->
+      <path id="trN"  class="chip-trace" d="M 50 8 V 38"/>
+      <path id="trE"  class="chip-trace" d="M 92 50 H 62"/>
+      <path id="trS"  class="chip-trace" d="M 50 92 V 62"/>
+      <path id="trW"  class="chip-trace" d="M 8 50 H 38"/>
+      <path id="trNE" class="chip-trace" d="M 80 20 H 62 V 38"/>
+      <path id="trSE" class="chip-trace" d="M 80 80 H 62 V 62"/>
+      <path id="trSW" class="chip-trace" d="M 20 80 H 38 V 62"/>
+      <path id="trNW" class="chip-trace" d="M 20 20 H 38 V 38"/>
 
-      <!-- Vias at L-bend corners -->
-      <circle class="chip-via-ring" cx="62" cy="18" r="1.4"/>
-      <circle class="chip-via-ring" cx="62" cy="82" r="1.4"/>
-      <circle class="chip-via-ring" cx="38" cy="82" r="1.4"/>
-      <circle class="chip-via-ring" cx="38" cy="18" r="1.4"/>
-      <circle class="chip-via" cx="62" cy="18" r=".65"/>
-      <circle class="chip-via" cx="62" cy="82" r=".65"/>
-      <circle class="chip-via" cx="38" cy="82" r=".65"/>
-      <circle class="chip-via" cx="38" cy="18" r=".65"/>
+      <!-- Vias at L-bend corners (62/38, 20/80) -->
+      <circle class="chip-via-ring" cx="62" cy="20" r="1.4"/>
+      <circle class="chip-via-ring" cx="62" cy="80" r="1.4"/>
+      <circle class="chip-via-ring" cx="38" cy="80" r="1.4"/>
+      <circle class="chip-via-ring" cx="38" cy="20" r="1.4"/>
+      <circle class="chip-via" cx="62" cy="20" r=".65"/>
+      <circle class="chip-via" cx="62" cy="80" r=".65"/>
+      <circle class="chip-via" cx="38" cy="80" r=".65"/>
+      <circle class="chip-via" cx="38" cy="20" r=".65"/>
 
       <!-- Core-edge solder pads -->
       <rect class="chip-pad" x="49" y="37" width="2" height="2"/>
@@ -372,15 +390,16 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       <circle class="chip-particle" r="1.1"><animateMotion dur="3s" repeatCount="indefinite" begin="-2.8s"><mpath href="#trNW"/></animateMotion></circle>
     </svg>
 
-    <!-- Capability nodes (8 positioned via inline top/left %) -->
-    <div class="chip-node" style="top:3%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Phone AI</div></div>
-    <div class="chip-node" style="top:18%;left:82%"><div class="chip-node-dot"></div><div class="chip-node-lbl">SMS / Text</div></div>
-    <div class="chip-node" style="top:50%;left:97%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Email</div></div>
-    <div class="chip-node" style="top:82%;left:82%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Facebook DMs</div></div>
-    <div class="chip-node" style="top:97%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Instagram DMs</div></div>
-    <div class="chip-node" style="top:82%;left:18%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Appointments</div></div>
-    <div class="chip-node" style="top:50%;left:3%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Lead Qualification</div></div>
-    <div class="chip-node" style="top:18%;left:18%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Custom Automations</div></div>
+    <!-- Capability nodes (8 positioned via inline top/left %) — pulled inward
+         from extreme edges so cards never spill past chip-inner or into the header. -->
+    <div class="chip-node" style="top:8%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Phone AI</div></div>
+    <div class="chip-node" style="top:20%;left:80%"><div class="chip-node-dot"></div><div class="chip-node-lbl">SMS / Text</div></div>
+    <div class="chip-node" style="top:50%;left:92%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Email</div></div>
+    <div class="chip-node" style="top:80%;left:80%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Facebook DMs</div></div>
+    <div class="chip-node" style="top:92%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Instagram DMs</div></div>
+    <div class="chip-node" style="top:80%;left:20%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Appointments</div></div>
+    <div class="chip-node" style="top:50%;left:8%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Lead Qualification</div></div>
+    <div class="chip-node" style="top:20%;left:20%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Custom Automations</div></div>
   </div>
 </section>
 
@@ -475,29 +494,184 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- SERVICES GRID -->
+<!-- SERVICES ACCORDION — single-column, click to expand -->
 <section class="services" id="services">
   <div class="services-inner">
     <div class="services-hd">
       <div class="ol">What We Automate</div>
       <div class="h2">Every Touch.<br><em>Automated.</em></div>
-      <div class="bd">14 workflows your team used to do manually — phone calls, SMS, email campaigns, Facebook DMs, appointment setting, test-drive booking, pipeline cleanup — all running 24/7 inside your CRM without anyone lifting a finger.</div>
+      <div class="bd">14 workflows your team used to do manually — now running 24/7 inside your stack. Tap any to expand.</div>
     </div>
-    <div class="services-grid">
-      <div class="svc"><img src="icons/leads-handled-icon.png" alt=""><div class="svc-label">Lead Response</div></div>
-      <div class="svc"><img src="icons/calendar-icon.png" alt=""><div class="svc-label">Appointments</div></div>
-      <div class="svc"><img src="icons/phone-icon.png" alt=""><div class="svc-label">Voice AI</div></div>
-      <div class="svc"><img src="icons/email-icon.png" alt=""><div class="svc-label">Email Campaigns</div></div>
-      <div class="svc"><img src="icons/live-chat.png" alt=""><div class="svc-label">Live Chat</div></div>
-      <div class="svc"><img src="icons/funnel-icon.png" alt=""><div class="svc-label">Pipeline Mgmt</div></div>
-      <div class="svc"><img src="icons/test-drive-icon.png" alt=""><div class="svc-label">Test Drives</div></div>
-      <div class="svc"><img src="icons/duplicate-contacts-icon.png" alt=""><div class="svc-label">De-duping</div></div>
-      <div class="svc"><img src="icons/templates-icon.png" alt=""><div class="svc-label">Templates</div></div>
-      <div class="svc"><img src="icons/marketing-icon.png" alt=""><div class="svc-label">Marketing</div></div>
-      <div class="svc"><img src="icons/forecasting-icon.png" alt=""><div class="svc-label">Forecasting</div></div>
-      <div class="svc"><img src="icons/reports-icon.png" alt=""><div class="svc-label">Reports</div></div>
-      <div class="svc"><img src="icons/reports-icon-2.png" alt=""><div class="svc-label">Analytics</div></div>
-      <div class="svc"><img src="icons/settings-icon.png" alt=""><div class="svc-label">Integrations</div></div>
+    <div class="services-list">
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/leads-handled-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Lead Response</div><div class="svc-tag">Under 60 seconds · Every channel</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Every inbound lead gets a response in <strong>under 60 seconds</strong>, on the exact channel the buyer used — phone, SMS, email, or social DM. No leads sitting in the CRM while your team is on the floor.
+          <ul><li>Phone · SMS · Email · Social</li><li>24/7</li><li>Channel-matched</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/calendar-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Appointments</div><div class="svc-tag">Qualified · Confirmed · Reminded</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Qualified, booked, and confirmed. SMS reminders land the night before and morning of — the one-two that lifts show rates from an industry-average <strong>41% to 68%</strong>.
+          <ul><li>SMS reminders</li><li>Rebooking</li><li>No-show recovery</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/phone-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Voice AI</div><div class="svc-tag">Inbound + outbound calls</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          A natural-sounding phone agent that handles inbound calls and outbound follow-ups. Knows your inventory, financing programs, and hours. <strong>Transfers to a human</strong> the moment the deal is ready.
+          <ul><li>Natural voice</li><li>Inventory-aware</li><li>Human handoff</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/email-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Email Campaigns</div><div class="svc-tag">Sequenced · Personalized · Tracked</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Personalized sequences by customer segment. <strong>7+ touches across 30 days</strong>. Opens and clicks tracked. The instant a customer engages, the thread routes to a human.
+          <ul><li>7+ touches</li><li>Segment-aware</li><li>Engagement routing</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/live-chat.png" alt="">
+          <div class="svc-title"><div class="svc-label">Live Chat</div><div class="svc-tag">Website · 24/7 · Instant</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          24/7 website chat that actually answers. Inventory questions, pricing, trade-in estimates, test-drive booking — all handled in-chat, with a human pulled in for anything that needs one.
+          <ul><li>Always on</li><li>Trade-in estimates</li><li>Instant booking</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/funnel-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Pipeline Management</div><div class="svc-tag">Clean · Organized · Nudged</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Dedupes records, flags stale leads, resurfaces lost opportunities, nudges stuck deals along. Your CRM stays organized without anyone touching it.
+          <ul><li>Auto-dedupe</li><li>Stale-lead revival</li><li>Deal nudges</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/test-drive-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Test Drive Booking</div><div class="svc-tag">Select · Book · Confirm · Follow up</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          End-to-end flow: vehicle selection, time slot, driver confirmation, pre-flight reminder texts, and post-drive follow-up to capture the next step while interest is hot.
+          <ul><li>Vehicle selector</li><li>Pre-drive confirm</li><li>Post-drive follow-up</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/duplicate-contacts-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">De-Duping</div><div class="svc-tag">Merge · Clean · Never chase twice</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Spots duplicate lead records across phone, email, web form, and social channels. Merges them automatically so your team never chases the same customer twice with competing messages.
+          <ul><li>Cross-channel matching</li><li>Auto-merge</li><li>Conflict resolution</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/templates-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Templates</div><div class="svc-tag">Brand-matched · Scenario-tuned</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Pre-built response templates for every common dealership scenario — fresh lead, no-show, financing question, trade-in, post-sale — all customized to your brand voice, activated automatically on pattern match.
+          <ul><li>Scenario library</li><li>Brand-voice tuned</li><li>Auto-trigger</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/marketing-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Marketing</div><div class="svc-tag">Drip · Seasonal · Event-driven</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Drip campaigns, seasonal promos, event invitations, incentive rollouts — launched on your schedule, measured against actual conversions not just opens.
+          <ul><li>Drip sequences</li><li>Seasonal promos</li><li>Conversion-tracked</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/forecasting-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Forecasting</div><div class="svc-tag">Know the month before it ends</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Predictive close-rate modeling based on current pipeline health, response times, and your historical patterns. See what the month looks like before it lands.
+          <ul><li>Close-rate forecast</li><li>Pipeline health</li><li>Trend-based</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/reports-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Reports</div><div class="svc-tag">Daily · Weekly · Monthly</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Automated dashboards covering response times, show rates, deals closed, and gross profit delta. Delivered to your inbox on whatever cadence you want.
+          <ul><li>Response metrics</li><li>Show rate</li><li>Gross profit delta</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/reports-icon-2.png" alt="">
+          <div class="svc-title"><div class="svc-label">Analytics</div><div class="svc-tag">Source → Response → Show → Close</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Full-funnel visibility: source → response → appointment → show → close. Find the lead channel and message type that prints money, double down on it.
+          <ul><li>Full funnel</li><li>Source attribution</li><li>Message testing</li></ul>
+        </div>
+      </details>
+
+      <details class="svc" name="svc">
+        <summary>
+          <img class="svc-icon" src="icons/settings-icon.png" alt="">
+          <div class="svc-title"><div class="svc-label">Custom Integrations</div><div class="svc-tag">Built around your stack</div></div>
+          <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </summary>
+        <div class="svc-body">
+          Custom integrations built around your CRM, phone, inventory, chat, and DMS — whatever you run, we work around it. Direct integrations depend on what your platform allows; we scope it on the discovery call.
+          <ul><li>CRM sync</li><li>Phone system</li><li>Inventory feed</li><li>DMS</li></ul>
+        </div>
+      </details>
+
     </div>
   </div>
 </section>
