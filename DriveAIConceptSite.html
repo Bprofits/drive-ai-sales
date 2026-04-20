@@ -111,9 +111,51 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 @keyframes blink{50%{border-color:transparent}}
 @keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
 @keyframes fu{from{opacity:0;transform:translateY(1rem)}to{opacity:1;transform:translateY(0)}}
-.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;opacity:0;animation:fu .5s 1.2s forwards}
-.scroll-cue-line{width:1px;height:25px;background:linear-gradient(to bottom,transparent,#E87A00);animation:sp 2s ease infinite}
-.scroll-cue-text{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.scroll-cue{position:absolute;bottom:2.6rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fu .5s 1.2s forwards}
+.scroll-cue-text{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.85);text-shadow:0 0 14px rgba(232,122,0,.35)}
+.scroll-cue-mouse{width:26px;height:42px;border:2px solid rgba(255,255,255,.65);border-radius:13px;position:relative;box-shadow:0 0 18px rgba(232,122,0,.25)}
+.scroll-cue-mouse::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;background:#E87A00;border-radius:2px;transform:translateX(-50%);animation:sw 1.6s ease infinite;box-shadow:0 0 8px #E87A00}
+.scroll-cue-chev{display:flex;flex-direction:column;gap:4px;margin-top:.1rem}
+.scroll-cue-chev svg{width:22px;height:10px;opacity:.6;animation:chev 1.6s ease infinite}
+.scroll-cue-chev svg:nth-child(2){animation-delay:.2s}
+@keyframes sw{0%{transform:translate(-50%,0);opacity:1}70%{transform:translate(-50%,14px);opacity:.2}100%{transform:translate(-50%,0);opacity:0}}
+@keyframes chev{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
+
+/* CPU CHIP — radial hub with particles flowing to core */
+.chip{position:relative;z-index:2;padding:5rem 2rem 6rem;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.chip-inner{position:relative;width:min(780px,92vw);aspect-ratio:1/1;margin:0 auto}
+.chip-hd{position:absolute;top:-3rem;left:50%;transform:translateX(-50%);width:min(600px,92vw);text-align:center;z-index:3}
+.chip-hd .ol{margin-bottom:.5rem}
+.chip-hd .h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:.4rem}
+.chip-hd .bd{font-size:.95rem;color:rgba(255,255,255,.7);max-width:500px;margin:0 auto}
+.chip-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;z-index:2}
+.chip-core-inner{width:100%;height:100%;border-radius:18%;background:radial-gradient(circle at 30% 30%,rgba(232,122,0,.4),rgba(232,122,0,.05) 70%);border:2px solid rgba(232,122,0,.5);box-shadow:0 0 40px rgba(232,122,0,.5),0 0 80px rgba(232,122,0,.2),inset 0 0 30px rgba(232,122,0,.2);display:flex;align-items:center;justify-content:center;position:relative;animation:corepulse 3s ease-in-out infinite}
+.chip-core-inner::before{content:"";position:absolute;inset:10%;border:1px solid rgba(232,122,0,.3);border-radius:14%}
+.chip-core-inner::after{content:"";position:absolute;inset:20%;border:1px solid rgba(232,122,0,.2);border-radius:10%}
+.chip-core-lbl{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2.4vw,1.6rem);letter-spacing:3px;color:#fff;text-shadow:0 0 12px rgba(232,122,0,.9);position:relative;z-index:2;text-align:center;line-height:1}
+.chip-core-lbl em{font-style:normal;color:#E87A00;display:block}
+@keyframes corepulse{0%,100%{box-shadow:0 0 40px rgba(232,122,0,.5),0 0 80px rgba(232,122,0,.2),inset 0 0 30px rgba(232,122,0,.2)}50%{box-shadow:0 0 55px rgba(232,122,0,.7),0 0 110px rgba(232,122,0,.35),inset 0 0 40px rgba(232,122,0,.3)}}
+
+.chip-svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.chip-trace{stroke:rgba(232,122,0,.3);stroke-width:1.2;fill:none}
+.chip-flow{stroke:#E87A00;stroke-width:2;fill:none;stroke-linecap:round;filter:drop-shadow(0 0 3px #E87A00);stroke-dasharray:3 14;animation:flow 2.4s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-34}}
+
+.chip-node{position:absolute;width:140px;transform:translate(-50%,-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.45rem;padding:.9rem .4rem;background:rgba(10,10,12,.85);border:1px solid rgba(232,122,0,.2);border-radius:12px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .4s cubic-bezier(.2,.8,.2,1);cursor:default}
+.chip-node:hover{border-color:rgba(232,122,0,.6);background:rgba(232,122,0,.08);box-shadow:0 0 0 1px rgba(232,122,0,.3),0 10px 30px rgba(232,122,0,.25),0 0 40px rgba(232,122,0,.15);transform:translate(-50%,-50%) scale(1.06)}
+.chip-node-dot{width:10px;height:10px;border-radius:50%;background:#E87A00;box-shadow:0 0 10px #E87A00,0 0 20px rgba(232,122,0,.5);animation:nodepulse 2s ease-in-out infinite}
+.chip-node:nth-child(even) .chip-node-dot{animation-delay:.4s}
+.chip-node:nth-child(3n) .chip-node-dot{animation-delay:.8s}
+@keyframes nodepulse{0%,100%{box-shadow:0 0 10px #E87A00,0 0 20px rgba(232,122,0,.5);transform:scale(1)}50%{box-shadow:0 0 16px #E87A00,0 0 32px rgba(232,122,0,.7);transform:scale(1.2)}}
+.chip-node-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.88);text-align:center;line-height:1.15}
+@media(max-width:900px){
+  .chip{padding:4rem 1rem 5rem;min-height:auto}
+  .chip-inner{width:94vw}
+  .chip-hd{position:relative;top:auto;left:auto;transform:none;margin-bottom:1.5rem;width:100%}
+  .chip-node{width:110px;padding:.6rem .3rem}
+  .chip-node-lbl{font-size:.6rem;letter-spacing:1.2px}
+  .chip-node-dot{width:8px;height:8px}
+}
 
 /* SERVICES GRID (icons) */
 .services{background:rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:6rem 3rem;position:relative;z-index:2}
@@ -243,23 +285,63 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       </div>
     </div>
   </div>
-  <div class="scroll-cue"><div class="scroll-cue-line"></div><div class="scroll-cue-text">Scroll</div></div>
+  <div class="scroll-cue">
+    <div class="scroll-cue-text">Scroll</div>
+    <div class="scroll-cue-mouse"></div>
+    <div class="scroll-cue-chev">
+      <svg viewBox="0 0 22 10" fill="none"><path d="M2 2L11 8L20 2" stroke="#E87A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 22 10" fill="none"><path d="M2 2L11 8L20 2" stroke="#E87A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
 </section>
 
-<!-- SCENE 2: AI INTELLIGENCE (frames 714-1427) -->
-<section class="sec sec-center" id="s-ai" data-scene-start="714" data-scene-end="1427" style="min-height:80vh">
-  <div class="sec-inner" style="justify-content:center">
-    <div class="text-block" style="max-width:720px">
+<!-- SCENE 2: AI INTELLIGENCE — CPU chip hub (frames 714-1427) -->
+<section class="chip sec-gated" id="s-ai" data-scene-anchor="ai">
+  <div class="chip-inner">
+    <div class="chip-hd text-block" style="background:none;border:none;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none">
       <div class="ol">The Intelligence</div>
-      <div class="h2">An AI That Sells<br>Like Your <em>Best Closer.</em></div>
-      <div class="bd">Trained on millions of dealership conversations. Knows your inventory, your financing programs, your current incentives. Answers via <strong>phone, email, SMS, and social DMs</strong> — and sounds like a human, because it was built by people who actually sell cars.</div>
-      <div class="counter-row" style="justify-content:center">
-        <div class="counter-item"><div class="counter" data-target="60" data-prefix="&lt;" data-suffix="s">&lt;60s</div><div class="sl">Response Time</div></div>
-        <div class="counter-item"><div class="counter" data-target="24" data-suffix="/7">24/7</div><div class="sl">Coverage</div></div>
-        <div class="counter-item"><div class="counter" data-target="4" data-suffix=" channels">0</div><div class="sl">Phone · Email · SMS · Social</div></div>
-        <div class="counter-item"><div class="counter" data-target="0">0</div><div class="sl">New Tools to Learn</div></div>
+      <div class="h2">One AI. <em>Every Channel.</em></div>
+      <div class="bd">A dealership nervous system. Lead comes in on any channel — we pick it up, qualify it, book it, follow up. All routed through one AI core.</div>
+    </div>
+
+    <!-- Center AI core -->
+    <div class="chip-core">
+      <div class="chip-core-inner">
+        <div class="chip-core-lbl">Drive AI<em>Core</em></div>
       </div>
     </div>
+
+    <!-- SVG layer: static traces + flowing orange particles between each node and the core -->
+    <svg class="chip-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <!-- Static traces (thin orange glow) from each node → core -->
+      <line class="chip-trace" x1="50" y1="3"  x2="50" y2="50"/>
+      <line class="chip-trace" x1="84" y1="16" x2="50" y2="50"/>
+      <line class="chip-trace" x1="97" y1="50" x2="50" y2="50"/>
+      <line class="chip-trace" x1="84" y1="84" x2="50" y2="50"/>
+      <line class="chip-trace" x1="50" y1="97" x2="50" y2="50"/>
+      <line class="chip-trace" x1="16" y1="84" x2="50" y2="50"/>
+      <line class="chip-trace" x1="3"  y1="50" x2="50" y2="50"/>
+      <line class="chip-trace" x1="16" y1="16" x2="50" y2="50"/>
+      <!-- Flowing orange particles (dashed line with animated dashoffset) -->
+      <line class="chip-flow" x1="50" y1="3"  x2="50" y2="50" style="animation-delay:0s"/>
+      <line class="chip-flow" x1="84" y1="16" x2="50" y2="50" style="animation-delay:-0.3s"/>
+      <line class="chip-flow" x1="97" y1="50" x2="50" y2="50" style="animation-delay:-0.6s"/>
+      <line class="chip-flow" x1="84" y1="84" x2="50" y2="50" style="animation-delay:-0.9s"/>
+      <line class="chip-flow" x1="50" y1="97" x2="50" y2="50" style="animation-delay:-1.2s"/>
+      <line class="chip-flow" x1="16" y1="84" x2="50" y2="50" style="animation-delay:-1.5s"/>
+      <line class="chip-flow" x1="3"  y1="50" x2="50" y2="50" style="animation-delay:-1.8s"/>
+      <line class="chip-flow" x1="16" y1="16" x2="50" y2="50" style="animation-delay:-2.1s"/>
+    </svg>
+
+    <!-- Capability nodes (positioned via inline style) -->
+    <div class="chip-node" style="top:3%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Phone AI</div></div>
+    <div class="chip-node" style="top:16%;left:84%"><div class="chip-node-dot"></div><div class="chip-node-lbl">SMS / Text</div></div>
+    <div class="chip-node" style="top:50%;left:97%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Email</div></div>
+    <div class="chip-node" style="top:84%;left:84%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Facebook DMs</div></div>
+    <div class="chip-node" style="top:97%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Instagram DMs</div></div>
+    <div class="chip-node" style="top:84%;left:16%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Appointment Booking</div></div>
+    <div class="chip-node" style="top:50%;left:3%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Lead Qualification</div></div>
+    <div class="chip-node" style="top:16%;left:16%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Custom Automations</div></div>
   </div>
 </section>
 
@@ -280,24 +362,24 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- SCENE 4: THE ENGINE (frames 2142-2855) -->
+<!-- SCENE 4: THE INTEGRATION (frames 2142-2855) -->
 <section class="sec sec-left" id="s2" data-scene-start="2142" data-scene-end="2855">
   <div class="sec-inner">
     <div class="text-block">
-      <div class="ol">The Plug-In</div>
-      <div class="h2">We <em>Work Inside</em><br>Your CRM.</div>
-      <div class="bd">CDK, DealerSocket, VinSolutions, DealerTrack, Elead, Reynolds — we don't replace, we amplify. Live in under a day. No migration, no disruption, no new tools for your team to learn. Every conversation logs back to the lead record automatically.</div>
+      <div class="ol">The Integration</div>
+      <div class="h2">We <em>Integrate</em> With<br>Your Current Tools.</div>
+      <div class="bd">Whatever you're already running — CRM, phone system, inventory software, booking platform — we work around it. We build <strong>custom integrations and automations</strong> tailored to your stack, so nothing changes for your team except that leads stop falling through the cracks.</div>
       <div class="pills">
         <div class="pill">Phone Automation</div>
         <div class="pill">SMS / Text</div>
         <div class="pill">Email Sequences</div>
         <div class="pill">Facebook / IG DMs</div>
         <div class="pill">24/7 Coverage</div>
-        <div class="pill">CRM Sync</div>
-        <div class="pill">SOC 2 Ready</div>
+        <div class="pill">Custom Automations</div>
+        <div class="pill">Tailored Integrations</div>
         <div class="pill">Live in &lt;24h</div>
       </div>
-      <div class="bd" style="font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:0">Your data stays in your CRM. We integrate, we don't replace.</div>
+      <div class="bd" style="font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:0">Built around your existing tools. Direct integrations depend on what your platform allows — we'll scope it with you on the discovery call.</div>
     </div>
   </div>
 </section>
@@ -509,7 +591,6 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
         current += d * LERP;
         drawFrame(Math.round(current));
       }
-      updateSceneGating(Math.round(current));
     }
     requestAnimationFrame(tick);
   }
@@ -562,55 +643,46 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   requestAnimationFrame(tick);
   preload();
 
-  /* ==== FRAME-RANGE SCENE GATING ==== */
-  // Each section has data-scene-start and data-scene-end attributes (in frame indices).
-  // Text block is visible ONLY when current frame is in its range.
-  var gatedSections = document.querySelectorAll('.sec[data-scene-start]');
-  var sceneBlocks = [];
-  gatedSections.forEach(function(sec){
-    var el = sec.querySelector('.text-block');
-    if(!el) return;
-    sceneBlocks.push({
-      el: el,
-      start: parseInt(sec.dataset.sceneStart, 10),
-      end: parseInt(sec.dataset.sceneEnd, 10),
-      sec: sec
+  /* ==== SECTION REVEAL (IntersectionObserver, viewport-based) ==== */
+  // Earlier we gated on frame index, which decoupled from DOM position and
+  // caused "invisible on scroll down" — by the time the user was looking at a
+  // section, its frame window had already passed. Fix: reveal when section
+  // actually enters the viewport. Simpler, and matches what the eye expects.
+  var textBlocks = document.querySelectorAll('.sec .text-block, .chip-hd.text-block');
+  var revealObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('in-scene');
+      else e.target.classList.remove('in-scene');
     });
-  });
-  function updateSceneGating(frameIdx){
-    for(var i=0; i<sceneBlocks.length; i++){
-      var b = sceneBlocks[i];
-      // Fade zones: 15% fade-in at start, 15% fade-out at end of range
-      var range = b.end - b.start;
-      var pad = Math.round(range * 0.15);
-      var active = frameIdx >= (b.start - pad) && frameIdx <= (b.end + pad);
-      if(active && !b.el.classList.contains('in-scene')) b.el.classList.add('in-scene');
-      else if(!active && b.el.classList.contains('in-scene')) b.el.classList.remove('in-scene');
-    }
-  }
+  }, { threshold: 0.18, rootMargin: '-8% 0px -8% 0px' });
+  textBlocks.forEach(function(el){ revealObs.observe(el); });
 
   /* ==== SCROLL-SPY NAV + PROGRESS RAIL ==== */
+  // Map nav links to their target sections; whichever section's top is nearest
+  // viewport center → that link is active. Also drives the thin orange rail.
   var navLinks = document.querySelectorAll('.nav-links a[data-scene]');
   var navProgress = document.getElementById('navProgress');
+  var sceneMap = [];
+  navLinks.forEach(function(a, idx){
+    var href = a.getAttribute('href');
+    if(!href || href.charAt(0) !== '#') return;
+    var target = document.getElementById(href.slice(1));
+    if(target) sceneMap.push({ link: a, target: target });
+  });
   function updateScrollSpy(){
     var max = document.documentElement.scrollHeight - window.innerHeight;
     var pct = max > 0 ? (window.pageYOffset / max) * 100 : 0;
     navProgress.style.width = pct + '%';
-    // Active nav link = whichever data-scene matches current frame range
-    var frame = Math.round(current);
-    var activeScene = 0;
-    for(var i=0; i<sceneBlocks.length; i++){
-      if(frame >= sceneBlocks[i].start && frame <= sceneBlocks[i].end){
-        activeScene = i + 1; // 0-indexed → scene num (1-based)
-        break;
-      }
+    var mid = window.innerHeight * 0.4; // consider "active" when top of section is above this line
+    var activeIdx = -1;
+    for(var i=0; i<sceneMap.length; i++){
+      var r = sceneMap[i].target.getBoundingClientRect();
+      if(r.top <= mid && r.bottom > mid){ activeIdx = i; break; }
     }
-    navLinks.forEach(function(a){
-      var s = parseInt(a.dataset.scene, 10);
-      a.classList.toggle('active', s === activeScene);
-    });
+    sceneMap.forEach(function(s, i){ s.link.classList.toggle('active', i === activeIdx); });
   }
   window.addEventListener('scroll', updateScrollSpy, { passive:true });
+  updateScrollSpy();
 })();
 
 /* ==== NAV MOBILE TOGGLE ==== */
