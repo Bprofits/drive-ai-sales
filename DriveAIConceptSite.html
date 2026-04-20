@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Drive AI Sales Inc. — AI-Powered Lead Response for Dealerships</title>
-<meta name="description" content="Drive AI responds to every dealership lead in under 60 seconds. Text, email, voice. 24/7.">
+<title>Drive AI Sales Inc. — Every Lead. Answered. Now.</title>
+<meta name="description" content="AI-powered lead response for dealerships. Under 60 seconds. 24/7. Text, email, voice. Works inside your CRM.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="logo/logo-hires.png" type="image/png">
 <link rel="apple-touch-icon" href="logo/logo-hires.png">
@@ -14,7 +14,7 @@
 html,body{overscroll-behavior:none}
 body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* STAGE (scroll-scrub canvas backdrop) */
+/* SCROLL-SCRUB CANVAS BACKDROP */
 #stage{position:fixed;inset:0;z-index:0;pointer-events:none;background:#000}
 #stage canvas{display:block;width:100%;height:100%}
 #stage::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.55) 100%);pointer-events:none}
@@ -22,11 +22,14 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 /* LOADER */
 #loader{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;transition:opacity .6s ease}
 #loader.gone{opacity:0;pointer-events:none}
-#loader .lmark{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:rgba(255,255,255,.85);margin-bottom:1.5rem}
-#loader .lmark span{color:#E87A00}
-#loader .lbar{width:220px;height:2px;background:rgba(255,255,255,.12);overflow:hidden;border-radius:1px}
-#loader .lbar span{display:block;height:100%;width:0%;background:#E87A00;transition:width .15s ease}
-#loader .ltxt{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.9rem}
+.lmark{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:4px;color:rgba(255,255,255,.92);margin-bottom:1.6rem;text-transform:uppercase}
+.lmark em{font-style:normal;color:#E87A00}
+.lparticles{width:280px;height:18px;display:flex;align-items:center;justify-content:space-between;gap:2px}
+.lparticle{flex:1;height:3px;min-width:2px;background:rgba(255,255,255,.08);border-radius:50%;transition:all .35s cubic-bezier(.4,0,.2,1);transform:scale(.7)}
+.lparticle.on{background:#E87A00;box-shadow:0 0 8px rgba(232,122,0,.9),0 0 16px rgba(232,122,0,.4);transform:scale(1);height:5px;border-radius:50%}
+.lparticle.tip{background:#FFD08A;box-shadow:0 0 12px rgba(255,200,130,1),0 0 24px rgba(232,122,0,.6);transform:scale(1.3);height:6px;animation:lpulse .8s ease-in-out infinite}
+@keyframes lpulse{0%,100%{transform:scale(1.1);opacity:.85}50%{transform:scale(1.4);opacity:1}}
+.ltxt{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:1.1rem}
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem 1rem 0;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.7) 0%,rgba(0,0,0,.4) 60%,rgba(0,0,0,0) 100%);transition:background .4s;-webkit-transform:translateZ(0);transform:translateZ(0);will-change:background}
@@ -35,10 +38,16 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 .nav-mark{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:#fff;text-decoration:none;margin-left:1.5rem}
 .nav-mark span{color:#E87A00}
 .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
-.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s,text-shadow .3s}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s,text-shadow .3s;position:relative}
 .nav-links a:hover{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.3)}
+.nav-links a.active{color:#E87A00}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:#E87A00;box-shadow:0 0 8px #E87A00}
 .nav-cta{background:#E87A00!important;color:#000!important;padding:.5rem 1.2rem;border-radius:4px;transition:all .3s!important}
+.nav-cta::after{display:none!important}
 .nav-cta:hover{background:#FF8C00!important;box-shadow:0 0 20px rgba(232,122,0,.5),0 0 40px rgba(232,122,0,.2)!important;transform:scale(1.05)}
+
+/* Progress rail: thin bar under the nav showing scroll % */
+.nav-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(to right,#E87A00,#FF8C00);z-index:101;width:0%;transition:width .1s linear;box-shadow:0 0 8px rgba(232,122,0,.6)}
 
 /* MOBILE NAV TOGGLE */
 .nav-toggle{display:none;background:none;border:0;width:44px;height:44px;color:#fff;cursor:pointer;align-items:center;justify-content:center;padding:0;position:relative;z-index:110}
@@ -57,82 +66,128 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 .sec-right .sec-inner{justify-content:flex-end}
 .sec-center .sec-inner{justify-content:center}
 
-.text-block{max-width:480px;padding:1.5rem 1.8rem;border-radius:14px;background:rgba(0,0,0,.38);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.05);opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.215,.61,.355,1),transform .8s cubic-bezier(.215,.61,.355,1)}
-.text-block.visible{opacity:1;transform:translateY(0)}
+/* Text block: frame-range gated — visible only when canvas is in its scene.
+   Drives a cinematic sync between video and story. */
+.text-block{max-width:500px;padding:1.75rem 2rem;border-radius:14px;background:rgba(0,0,0,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.06);opacity:0;transform:translateY(30px);transition:opacity .6s cubic-bezier(.215,.61,.355,1),transform .6s cubic-bezier(.215,.61,.355,1)}
+.text-block.in-scene{opacity:1;transform:translateY(0)}
 .sec-right .text-block{text-align:right}
-.sec-center .text-block{text-align:center;max-width:540px}
+.sec-center .text-block{text-align:center;max-width:600px}
 
 .ol{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#E87A00;margin-bottom:.6rem}
 .h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,8vw,5.5rem);line-height:.93;letter-spacing:2px;margin-bottom:1rem}
 .h1 em,.h2 em{font-style:normal;color:#E87A00}
 .h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);line-height:1;letter-spacing:1px;margin-bottom:.8rem}
-.bd{font-size:1.02rem;font-weight:300;line-height:1.7;color:rgba(255,255,255,.82);margin-bottom:1.2rem}
+.bd{font-size:1.05rem;font-weight:300;line-height:1.7;color:rgba(255,255,255,.84);margin-bottom:1.2rem}
 .bd strong{color:#fff;font-weight:600}
+
 .btn-row{display:flex;gap:.6rem;flex-wrap:wrap}
 .sec-right .btn-row{justify-content:flex-end}
 .sec-center .btn-row{justify-content:center}
-.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .3s}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .3s}
 .btn-fill{background:#E87A00;color:#000}
 .btn-fill:hover{background:#FF8C00;box-shadow:0 0 25px rgba(232,122,0,.3)}
 .btn-ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.18);border-radius:4px;transition:all .3s}
 .btn-ghost:hover{border-color:#E87A00;color:#E87A00;box-shadow:0 0 15px rgba(232,122,0,.15);transform:translateY(-2px)}
-
-.stats{display:flex;gap:2rem;margin-bottom:1rem}
-.sec-right .stats{justify-content:flex-end}
-.sv{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#E87A00;line-height:1}
-.sl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
-.pill{background:rgba(232,122,0,.1);border:1px solid rgba(232,122,0,.2);color:#E87A00;padding:.35rem .8rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:all .3s}
-.pill:hover{background:rgba(232,122,0,.18);border-color:rgba(232,122,0,.35)}
-.rr{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.rr:last-child{border:none}
-.rr-l{font-size:.95rem;color:rgba(255,255,255,.7)}
-.rr-v{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#E87A00}
-
-.btn-liquid{background:#E87A00;color:#000;position:relative;overflow:hidden;border-radius:50px;padding:.75rem 2rem}
+.btn-liquid{background:#E87A00;color:#000;position:relative;overflow:hidden;border-radius:50px;padding:.8rem 2.2rem}
 .btn-liquid:hover{background:#FF8C00;box-shadow:0 0 30px rgba(232,122,0,.4);transform:scale(1.03)}
 .btn-liquid .liquid-blob{position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.2);border-radius:50%;transform:translate(-50%,-50%);transition:width .5s ease,height .5s ease;pointer-events:none}
 .btn-liquid:hover .liquid-blob{width:300px;height:300px}
 
-.counter-row{display:flex;gap:2.5rem;flex-wrap:wrap}
+.pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
+.pill{background:rgba(232,122,0,.1);border:1px solid rgba(232,122,0,.2);color:#E87A00;padding:.35rem .8rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:all .3s}
+.pill:hover{background:rgba(232,122,0,.18);border-color:rgba(232,122,0,.35)}
+
+.counter-row{display:flex;gap:2.2rem;flex-wrap:wrap;margin-top:.5rem}
 .counter-item{text-align:center}
-.counter{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:#E87A00;line-height:1}
+.counter{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:#E87A00;line-height:1}
+.sl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:.3rem}
+
+.rr{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.rr:last-child{border:none}
+.rr-l{font-size:.95rem;color:rgba(255,255,255,.72)}
+.rr-v{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#E87A00}
 
 @keyframes blink{50%{border-color:transparent}}
 @keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
 @keyframes fu{from{opacity:0;transform:translateY(1rem)}to{opacity:1;transform:translateY(0)}}
-.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;opacity:0;animation:fu .5s 1.5s forwards}
+.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.3rem;opacity:0;animation:fu .5s 1.2s forwards}
 .scroll-cue-line{width:1px;height:25px;background:linear-gradient(to bottom,transparent,#E87A00);animation:sp 2s ease infinite}
 .scroll-cue-text{font-family:'Barlow Condensed',sans-serif;font-size:.55rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4)}
 
-.footer{border-top:1px solid rgba(255,255,255,.06);background:#000;position:relative;z-index:2}
-.footer-inner{max-width:1400px;margin:0 auto;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center}
-.footer-c{font-size:.6rem;color:rgba(255,255,255,.28)}
-.footer-l{display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}
-.footer-l a{font-size:.6rem;color:rgba(255,255,255,.28);text-decoration:none;transition:color .3s}
+/* SERVICES GRID (icons) */
+.services{background:rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:6rem 3rem;position:relative;z-index:2}
+.services-inner{max-width:1400px;margin:0 auto;text-align:center}
+.services-hd .ol{margin-bottom:.8rem}
+.services-hd .h2{margin-bottom:.6rem}
+.services-hd .bd{max-width:640px;margin:0 auto 3.5rem;color:rgba(255,255,255,.72)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.8rem}
+.svc{display:flex;flex-direction:column;align-items:center;text-align:center;padding:1.4rem 1rem;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);border-radius:14px;transition:all .4s cubic-bezier(.2,.8,.2,1)}
+.svc:hover{background:rgba(232,122,0,.06);border-color:rgba(232,122,0,.25);transform:translateY(-3px);box-shadow:0 12px 30px rgba(232,122,0,.12),0 0 0 1px rgba(232,122,0,.15)}
+.svc img{width:96px;height:96px;object-fit:contain;margin-bottom:.8rem;transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .4s}
+.svc:hover img{transform:scale(1.06);filter:drop-shadow(0 0 16px rgba(232,122,0,.5))}
+.svc-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+
+/* LEAD CAPTURE */
+.capture{position:relative;z-index:2;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.85) 100%);padding:6rem 3rem}
+.capture-inner{max-width:700px;margin:0 auto;text-align:center}
+.capture .ol{margin-bottom:.6rem}
+.capture .h2{margin-bottom:.6rem}
+.capture .bd{color:rgba(255,255,255,.8);margin-bottom:2rem}
+.lead-form{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem}
+.lead-form input{flex:1 1 260px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:#fff;padding:.95rem 1.1rem;font-family:'Barlow',sans-serif;font-size:.95rem;border-radius:6px;transition:all .3s;min-width:220px}
+.lead-form input:focus{outline:none;border-color:#E87A00;box-shadow:0 0 0 3px rgba(232,122,0,.18);background:rgba(255,255,255,.06)}
+.lead-form input::placeholder{color:rgba(255,255,255,.4);letter-spacing:.5px}
+.lead-form button{background:#E87A00;color:#000;border:0;padding:.95rem 1.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;border-radius:6px;cursor:pointer;transition:all .3s}
+.lead-form button:hover{background:#FF8C00;box-shadow:0 0 24px rgba(232,122,0,.5);transform:translateY(-1px)}
+.capture-alt{font-size:.78rem;color:rgba(255,255,255,.4);letter-spacing:1px}
+.capture-alt a{color:#E87A00;text-decoration:none;border-bottom:1px solid transparent;transition:border .3s}
+.capture-alt a:hover{border-bottom-color:#E87A00}
+
+/* FOOTER */
+.footer{border-top:1px solid rgba(255,255,255,.06);background:#000;position:relative;z-index:2;padding:2.5rem 3rem 1.5rem}
+.footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:1.6rem;align-items:center}
+.social-row{display:flex;gap:1.2rem;align-items:center}
+.social-row a{display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);transition:all .4s cubic-bezier(.2,.8,.2,1)}
+.social-row a:hover{background:rgba(232,122,0,.08);border-color:rgba(232,122,0,.4);transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(232,122,0,.2)}
+.social-row img{width:34px;height:34px;object-fit:contain;transition:filter .3s}
+.social-row a:hover img{filter:drop-shadow(0 0 8px rgba(232,122,0,.6))}
+.footer-bot{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;align-items:center}
+.footer-c{font-size:.6rem;color:rgba(255,255,255,.3);letter-spacing:.5px}
+.footer-l{display:flex;gap:1rem;flex-wrap:wrap}
+.footer-l a{font-size:.6rem;color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s;letter-spacing:1px}
 .footer-l a:hover{color:#E87A00}
 
 @media(max-width:900px){
   .nav{padding:.8rem 1.1rem}
+  .nav-mark{margin-left:0}
   .nav-toggle{display:inline-flex}
   .nav-links{position:fixed;top:0;right:0;bottom:0;width:min(90vw,380px);height:100vh;min-height:100dvh;background:rgba(8,8,8,.98);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:block;padding:6rem 0 3rem;transform:translateX(100%);transition:transform .35s ease;z-index:105;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .nav-links li{display:block;width:100%;list-style:none;border-bottom:1px solid rgba(255,255,255,.07)}
-  .nav-links li:last-child{border-bottom:none;padding-top:.6rem}
-  .nav-links li a{display:block;padding:1.6rem 1.8rem;font-size:1.05rem;letter-spacing:2.5px;color:rgba(255,255,255,.85)}
-  .nav-links li a:hover{color:#fff;background:rgba(255,255,255,.03)}
-  .nav-links li a.nav-cta{display:block;margin:1.8rem 1.5rem 0;padding:1.15rem 1.4rem;text-align:center;border-radius:6px;font-size:.9rem}
-  .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:103}
+  .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:103}
   .nav.open .nav-backdrop{opacity:1;pointer-events:auto}
   .nav.open .nav-links{transform:translateX(0)}
+  .nav-links li{display:block;width:100%;list-style:none;border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-links li:last-child{border-bottom:none;padding-top:.6rem}
+  .nav-links li a{display:block;padding:1.55rem 1.8rem;font-size:1rem;letter-spacing:2.5px;color:rgba(255,255,255,.85)}
+  .nav-links li a.nav-cta{display:block;margin:1.8rem 1.5rem 0;padding:1.15rem 1.4rem;text-align:center;border-radius:6px;font-size:.9rem}
+  .nav-links a.active::after{display:none}
   .sec-inner{padding:6rem 1.2rem 3rem}
-  .text-block{max-width:100%;padding:1.3rem}
-  .sec-right .text-block,.sec-right .stats,.sec-right .btn-row{text-align:left;justify-content:flex-start}
-  .counter-row{gap:1.5rem}
-  .counter{font-size:2.2rem}
-  .stats{gap:1rem}
-  .footer-inner{flex-direction:column;gap:.6rem;text-align:center;padding:1.2rem}
-  .footer-l{justify-content:center}
-  .scroll-cue{bottom:1rem}
+  .text-block{max-width:100%;padding:1.4rem}
+  .sec-right .text-block,.sec-right .btn-row,.sec-right .counter-row{text-align:left;justify-content:flex-start}
+  .sec-right .counter-row,.sec-center .counter-row{justify-content:flex-start}
+  .counter-row{gap:1.3rem}
+  .counter{font-size:2.1rem}
+  .services{padding:4rem 1.2rem}
+  .services-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+  .svc{padding:1rem .6rem}
+  .svc img{width:72px;height:72px}
+  .svc-label{font-size:.62rem;letter-spacing:1.5px}
+  .capture{padding:4rem 1.2rem}
+  .lead-form{flex-direction:column}
+  .lead-form input,.lead-form button{flex:0 0 auto;width:100%}
+  .footer{padding:2rem 1.2rem 1.2rem}
+  .footer-bot{gap:.8rem;text-align:center}
+  .social-row a{width:44px;height:44px}
+  .social-row img{width:30px;height:30px}
   .sec{min-height:90vh}
   .h1{font-size:clamp(2.2rem,9vw,3.4rem)}
 }
@@ -140,39 +195,41 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 </head>
 <body>
 
-<!-- SCROLL-SCRUB CANVAS BACKDROP -->
+<!-- SCROLL-SCRUB CANVAS -->
 <div id="stage"><canvas id="c"></canvas></div>
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="lmark">DRIVE <span>AI</span> SALES INC.</div>
-  <div class="lbar"><span id="pb"></span></div>
+  <div class="lmark">Drive <em>AI</em> Sales Inc.</div>
+  <div class="lparticles" id="lparticles"></div>
   <div class="ltxt">Loading <span id="pct">0</span>%</div>
 </div>
 
 <!-- NAV -->
+<div class="nav-progress" id="navProgress"></div>
 <nav class="nav" id="nav">
   <div class="nav-backdrop" id="navBackdrop"></div>
   <a href="#s0" class="nav-mark">DRIVE <span>AI</span> SALES INC.</a>
   <button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle"><span></span></button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#s1">Problem</a></li>
-    <li><a href="#s2">Engine</a></li>
-    <li><a href="#s3">Drivetrain</a></li>
-    <li><a href="#s4">Results</a></li>
+    <li><a href="#s1" data-scene="2">Problem</a></li>
+    <li><a href="#s2" data-scene="3">Engine</a></li>
+    <li><a href="#s3" data-scene="4">Drivetrain</a></li>
+    <li><a href="#s4" data-scene="5">Results</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="diagnostic.html" class="nav-cta">Free Diagnostic</a></li>
   </ul>
 </nav>
 
-<!-- HERO (scene 1) -->
-<section class="sec sec-left" id="s0">
+<!-- SCENE 1: HERO (frames 0-713) -->
+<section class="sec sec-left" id="s0" data-scene-start="0" data-scene-end="713">
   <div class="sec-inner">
     <div class="text-block">
       <img src="logo/logo-hires.png" alt="Drive AI Sales" style="height:72px;width:auto;margin-bottom:1rem">
-      <div class="ol">AI-Powered Sales Intelligence for Dealerships</div>
-      <h1 class="h1">Your Leads Are<br>Calling Back.<br><em>Just Not You.</em></h1>
-      <div class="bd">78% of buyers purchase from the first dealership to respond. We respond in under 60 seconds. Text, email, voice. 24/7.</div>
+      <div class="ol">Built for Dealerships</div>
+      <h1 class="h1">Every Lead.<br>Answered.<br><em>Now.</em></h1>
+      <div class="bd">While your team sleeps, we're closing. While they're on the floor, we're booking appointments. Drive AI never misses a lead.</div>
       <div style="font-family:monospace;font-size:14px;color:#E87A00;margin-bottom:1.2rem;min-height:1.5em;"><span id="typewriter"></span><span style="border-right:2px solid #E87A00;animation:blink .8s step-end infinite;">&nbsp;</span></div>
       <div class="btn-row">
         <a href="diagnostic.html" class="btn btn-liquid">Free Diagnostic</a>
@@ -183,28 +240,31 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   <div class="scroll-cue"><div class="scroll-cue-line"></div><div class="scroll-cue-text">Scroll</div></div>
 </section>
 
-<!-- STATS BAND (scene 2: AI brain) -->
-<section class="sec sec-center" style="min-height:70vh">
+<!-- SCENE 2: AI INTELLIGENCE (frames 714-1427) -->
+<section class="sec sec-center" id="s-ai" data-scene-start="714" data-scene-end="1427" style="min-height:80vh">
   <div class="sec-inner" style="justify-content:center">
-    <div class="text-block" style="background:rgba(0,0,0,.5);max-width:720px">
+    <div class="text-block" style="max-width:700px">
+      <div class="ol">The Intelligence</div>
+      <div class="h2">An AI That Sells<br>Like Your <em>Best Closer.</em></div>
+      <div class="bd">Trained on millions of dealer conversations. Knows your inventory, your financing, your incentives. Talks like a human — because it was built by people who actually sell cars.</div>
       <div class="counter-row" style="justify-content:center">
-        <div class="counter-item"><div class="counter" data-target="60" data-suffix="s">&lt;60s</div><div class="sl">Response Time</div></div>
+        <div class="counter-item"><div class="counter" data-target="60" data-prefix="&lt;" data-suffix="s">&lt;60s</div><div class="sl">Response Time</div></div>
         <div class="counter-item"><div class="counter" data-target="24" data-suffix="/7">24/7</div><div class="sl">Coverage</div></div>
         <div class="counter-item"><div class="counter" data-target="68" data-suffix="%">68%</div><div class="sl">Show Rate</div></div>
-        <div class="counter-item"><div class="counter" data-target="0">0</div><div class="sl">New Tools to Learn</div></div>
+        <div class="counter-item"><div class="counter" data-target="0">0</div><div class="sl">New Tools</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM (scene 3: Sales Manager overwhelmed) -->
-<section class="sec sec-right" id="s1">
+<!-- SCENE 3: THE PROBLEM (frames 1428-2141) -->
+<section class="sec sec-right" id="s1" data-scene-start="1428" data-scene-end="2141">
   <div class="sec-inner">
     <div class="text-block">
       <div class="ol">The Problem</div>
-      <div class="h2">Your CRM Captures Leads.<br>It Can't <em>Work</em> Them.</div>
-      <div class="bd">The average dealership loses <strong>$15K-$45K/month</strong> to slow response, broken follow-up, and no-shows.</div>
-      <div class="counter-row" style="margin-top:1rem">
+      <div class="h2">Your Sales Manager<br>Is <em>Drowning.</em></div>
+      <div class="bd">87 leads in the pipeline. 41 haven't been touched in 3 days. By the time your team gets to them, <strong>they've already bought somewhere else.</strong> The average dealership loses $15K-$45K/month to slow response and broken follow-up.</div>
+      <div class="counter-row">
         <div class="counter-item"><div class="counter" data-target="47" data-suffix="min">0</div><div class="sl">Avg Response</div></div>
         <div class="counter-item"><div class="counter" data-target="40" data-suffix="%">0</div><div class="sl">Show Rate</div></div>
         <div class="counter-item"><div class="counter" data-target="2">0</div><div class="sl">Follow-ups</div></div>
@@ -213,30 +273,35 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- ENGINE / SOLUTION (scene 4: Lead Management) -->
-<section class="sec sec-left" id="s2">
+<!-- SCENE 4: THE ENGINE (frames 2142-2855) -->
+<section class="sec sec-left" id="s2" data-scene-start="2142" data-scene-end="2855">
   <div class="sec-inner">
     <div class="text-block">
-      <div class="ol">Under the Hood</div>
-      <div class="h2">We <em>Plug In</em><br>to Your CRM</div>
-      <div class="bd">We swap into any CRM your store runs. CDK, DealerTrack, VinSolutions, DealerSocket, Elead, you name it. Under a day. No migration, no disruption. Every lead gets a response in under 60 seconds.</div>
+      <div class="ol">The Plug-In</div>
+      <div class="h2">We <em>Work Inside</em><br>Your CRM.</div>
+      <div class="bd">CDK, DealerSocket, VinSolutions, DealerTrack, Elead — we don't replace, we amplify. Live in under a day. No migration, no disruption, no new tools for your team to learn.</div>
       <div class="pills">
-        <div class="pill">Instant Response</div><div class="pill">24/7 Coverage</div><div class="pill">Zero Adoption</div><div class="pill">CRM Sync</div><div class="pill">DealerSocket</div><div class="pill">VinSolutions</div>
+        <div class="pill">Instant Response</div>
+        <div class="pill">24/7 Coverage</div>
+        <div class="pill">Zero Adoption</div>
+        <div class="pill">CRM Sync</div>
+        <div class="pill">SOC 2</div>
+        <div class="pill">Under 24h</div>
       </div>
-      <div class="bd" style="font-size:.85rem;color:rgba(255,255,255,.55)">SOC 2 compliant. Your data stays in your CRM. We integrate, we don't replace.</div>
+      <div class="bd" style="font-size:.85rem;color:rgba(255,255,255,.55)">Your data stays in your CRM. We integrate, we don't replace.</div>
     </div>
   </div>
 </section>
 
-<!-- DRIVETRAIN (scene 5: Leads Responded) -->
-<section class="sec sec-right" id="s3">
+<!-- SCENE 5: THE RESPONSE (frames 2856-3569) -->
+<section class="sec sec-right" id="s3" data-scene-start="2856" data-scene-end="3569">
   <div class="sec-inner">
     <div class="text-block">
-      <div class="ol">The Drivetrain</div>
-      <div class="h2"><em>AI Takes Point.</em><br>Every Lead. Every Time.</div>
-      <div class="bd">7+ touchpoints over 30 days. Qualifies, follows up, books appointments, sends reminders, re-engages no-shows. Natural conversation, not robotic scripts.</div>
-      <div class="counter-row" style="margin-top:1rem">
-        <div class="counter-item"><div class="counter" data-target="60" data-prefix="<" data-suffix="s">0</div><div class="sl">Response</div></div>
+      <div class="ol">The Response</div>
+      <div class="h2"><em>Under 60 Seconds.</em><br>Every Time.</div>
+      <div class="bd">78% of buyers purchase from the first dealership that calls back. We answer before they've finished submitting. Text, email, voice — on whichever channel they reached out on.</div>
+      <div class="counter-row">
+        <div class="counter-item"><div class="counter" data-target="60" data-prefix="&lt;" data-suffix="s">0</div><div class="sl">Response</div></div>
         <div class="counter-item"><div class="counter" data-target="7" data-suffix="+">0</div><div class="sl">Touches</div></div>
         <div class="counter-item"><div class="counter" data-target="30" data-suffix="d">0</div><div class="sl">Cadence</div></div>
       </div>
@@ -244,12 +309,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- RESULTS (scene 6: Appointments Booked) -->
-<section class="sec sec-left" id="s4">
+<!-- SCENE 6: THE RESULT (frames 3570-4283) -->
+<section class="sec sec-left" id="s4" data-scene-start="3570" data-scene-end="4283">
   <div class="sec-inner">
     <div class="text-block">
       <div class="ol">Results</div>
-      <div class="h2">The Numbers<br>Speak <em>Dealer.</em></div>
+      <div class="h2">Appointments That<br><em>Actually Show.</em></div>
+      <div class="bd">Qualified. Confirmed. Reminded. Your floor traffic on autopilot while your team focuses on closing deals.</div>
       <div style="margin-top:.5rem;max-width:22rem">
         <div class="rr"><span class="rr-l">Response Time</span><span class="rr-v">4hrs → 47s</span></div>
         <div class="rr"><span class="rr-l">Show Rate</span><span class="rr-v">41% → 68%</span></div>
@@ -262,73 +328,133 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- CTA (scene 7: Team Converts) -->
-<section class="sec sec-center" id="s5">
+<!-- SCENE 7: THE CLOSE (frames 4284-4992) -->
+<section class="sec sec-center" id="s-close" data-scene-start="4284" data-scene-end="4992" style="min-height:80vh">
   <div class="sec-inner">
     <div class="text-block">
-      <div class="ol">Free Assessment</div>
-      <div class="h2">How Much Are You<br><em>Leaving on the Table?</em></div>
-      <div class="bd">7 questions. 2 minutes. Your score and revenue leak estimate.</div>
+      <div class="ol">The Close</div>
+      <div class="h2">Your Team Closes.<br>We <em>Handle Everything Else.</em></div>
+      <div class="bd">You focus on walking deals across the line. We handle the top 80% of the funnel — the qualifying, the chasing, the reminding, the re-engaging. Zero new staff. Zero new tools. Just more deals.</div>
       <div class="btn-row">
-        <a href="diagnostic.html" class="btn btn-liquid">Take the Diagnostic</a>
-        <a href="discovery.html" class="btn btn-liquid">Book a Discovery Call</a>
+        <a href="#capture" class="btn btn-liquid">See Your Score</a>
+        <a href="discovery.html" class="btn btn-ghost">Book a Call</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="sec sec-center" id="s6" style="min-height:60vh;border-top:1px solid rgba(232,122,0,.1)">
-  <div class="sec-inner">
-    <div class="text-block" style="max-width:560px">
-      <div class="ol">Get in Touch</div>
-      <div class="h2">Have a <em>Question?</em></div>
-      <div class="bd" style="font-size:1.1rem">Not ready for the diagnostic? No problem. Reach out directly and we'll have a real conversation about your store.</div>
-      <div class="btn-row" style="gap:1rem">
-        <a href="mailto:brandon@driveaisales.com" class="btn btn-liquid">Email Us</a>
-        <a href="discovery.html" class="btn btn-liquid">Book a Call</a>
-      </div>
-      <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08)">
-        <div style="font-size:.95rem;color:rgba(255,255,255,.75);font-weight:500">Brandon Rose</div>
-        <div style="font-size:.8rem;color:#E87A00;margin-top:.2rem">CEO, Drive AI Sales Inc.</div>
-        <div style="font-size:.8rem;color:rgba(255,255,255,.5);margin-top:.3rem">Edmonton, AB · brandon@driveaisales.com</div>
-      </div>
+<!-- SERVICES GRID -->
+<section class="services" id="services">
+  <div class="services-inner">
+    <div class="services-hd">
+      <div class="ol">What We Automate</div>
+      <div class="h2">Every Touch.<br><em>Automated.</em></div>
+      <div class="bd">14 workflows your team used to do manually. Now running 24/7 inside your CRM, hitting every lead without anyone lifting a finger.</div>
+    </div>
+    <div class="services-grid">
+      <div class="svc"><img src="icons/leads-handled-icon.png" alt=""><div class="svc-label">Lead Response</div></div>
+      <div class="svc"><img src="icons/calendar-icon.png" alt=""><div class="svc-label">Appointments</div></div>
+      <div class="svc"><img src="icons/phone-icon.png" alt=""><div class="svc-label">Voice AI</div></div>
+      <div class="svc"><img src="icons/email-icon.png" alt=""><div class="svc-label">Email Campaigns</div></div>
+      <div class="svc"><img src="icons/live-chat.png" alt=""><div class="svc-label">Live Chat</div></div>
+      <div class="svc"><img src="icons/funnel-icon.png" alt=""><div class="svc-label">Pipeline Mgmt</div></div>
+      <div class="svc"><img src="icons/test-drive-icon.png" alt=""><div class="svc-label">Test Drives</div></div>
+      <div class="svc"><img src="icons/duplicate-contacts-icon.png" alt=""><div class="svc-label">De-duping</div></div>
+      <div class="svc"><img src="icons/templates-icon.png" alt=""><div class="svc-label">Templates</div></div>
+      <div class="svc"><img src="icons/marketing-icon.png" alt=""><div class="svc-label">Marketing</div></div>
+      <div class="svc"><img src="icons/forecasting-icon.png" alt=""><div class="svc-label">Forecasting</div></div>
+      <div class="svc"><img src="icons/reports-icon.png" alt=""><div class="svc-label">Reports</div></div>
+      <div class="svc"><img src="icons/reports-icon-2.png" alt=""><div class="svc-label">Analytics</div></div>
+      <div class="svc"><img src="icons/settings-icon.png" alt=""><div class="svc-label">Integrations</div></div>
     </div>
   </div>
 </section>
 
+<!-- LEAD CAPTURE -->
+<section class="capture" id="capture">
+  <div class="capture-inner">
+    <div class="ol">Free Assessment</div>
+    <div class="h2">See What You're<br><em>Leaving On The Table.</em></div>
+    <div class="bd">7 questions. 2 minutes. Your personalized revenue-leak estimate and response-time score, delivered to your inbox.</div>
+    <form class="lead-form" id="leadForm" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
+      <input type="text" name="name" placeholder="Full name" required>
+      <input type="email" name="email" placeholder="Work email" required>
+      <input type="text" name="dealership" placeholder="Dealership" required>
+      <button type="submit">Send me the audit →</button>
+    </form>
+    <div class="capture-alt">Or <a href="discovery.html">book a 15-min discovery call</a> — zero pressure.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-c">© 2026 Drive AI Sales Inc. Edmonton, AB</div>
-    <div class="footer-l">
-      <a href="diagnostic.html">Diagnostic</a>
-      <a href="pricing.html">Pricing</a>
-      <a href="discovery.html">Book a Call</a>
-      <a href="mailto:brandon@driveaisales.com">Contact</a>
+    <div class="social-row">
+      <a href="https://instagram.com/driveai.sales" target="_blank" rel="noopener" aria-label="Instagram"><img src="icons/instagram-icon.png" alt=""></a>
+      <a href="https://facebook.com/driveaisalesinc" target="_blank" rel="noopener" aria-label="Facebook"><img src="icons/facebook-icon.png" alt=""></a>
+      <a href="https://tiktok.com/@drive.ai.sales" target="_blank" rel="noopener" aria-label="TikTok"><img src="icons/tik-tok-icon.png" alt=""></a>
+      <a href="https://linkedin.com/company/drive-ai-sales" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="icons/linkedin-icon.png" alt=""></a>
+    </div>
+    <div class="footer-bot">
+      <div class="footer-c">© 2026 Drive AI Sales Inc. — Edmonton, AB</div>
+      <div class="footer-l">
+        <a href="diagnostic.html">Diagnostic</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="discovery.html">Book a Call</a>
+        <a href="mailto:brandon@driveaisales.com">Contact</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <script>
-/* ==== SCROLL-SCRUB FRAME SEQUENCE ==== */
+/* ==== SCROLL-SCRUB FRAME SEQUENCE (canvas 2D, 4993 frames) ==== */
 (function(){
-  var FRAME_COUNT = 672;
-  var FRAME_PAD = 4;
-  var FRAME_EXT = 'jpg';
-  var FRAME_DIR = 'frames/';
-  var LERP = 0.18;   // higher = snappier scrub
-  var BATCH = 16;    // parallel fetches
+  var FRAME_COUNT    = 4993;
+  var FRAME_PAD      = 4;
+  var FRAME_EXT      = 'jpg';
+  var FRAME_DIR      = 'frames/';
+  var LERP           = 0.22;
+  var SENSITIVITY    = 1.0;
+  var BATCH          = 24;
+  var BLOCK_UNTIL    = 300;    // first N frames must load before scroll activates (fast first-paint)
+  var EASING         = 'smoothstep';
 
   var c = document.getElementById('c');
   var ctx = c.getContext('2d', { alpha:false });
   var loader = document.getElementById('loader');
-  var pb = document.getElementById('pb');
   var pctEl = document.getElementById('pct');
+  var lparticles = document.getElementById('lparticles');
+
+  // Build particle loader bar (48 particles)
+  var PARTICLE_COUNT = 48;
+  var particleEls = [];
+  for(var pi=0; pi<PARTICLE_COUNT; pi++){
+    var d = document.createElement('div');
+    d.className = 'lparticle';
+    lparticles.appendChild(d);
+    particleEls.push(d);
+  }
+  function updateParticleBar(pct){
+    var lit = Math.round((pct/100) * PARTICLE_COUNT);
+    for(var i=0; i<PARTICLE_COUNT; i++){
+      var el = particleEls[i];
+      el.classList.remove('on','tip');
+      if(i === lit - 1 && lit < PARTICLE_COUNT) el.classList.add('tip');
+      else if(i < lit) el.classList.add('on');
+    }
+  }
+
   var frames = new Array(FRAME_COUNT);
   var loaded = 0, ready = false, current = 0, lastDrawn = -1;
 
   function pad(n){ n = String(n); while(n.length<FRAME_PAD) n='0'+n; return n; }
   function frameUrl(i){ return FRAME_DIR + 'f_' + pad(i+1) + '.' + FRAME_EXT; }
+  function shape(t){
+    if(EASING === 'smoothstep') return t*t*(3-2*t);
+    if(EASING === 'easeInOut')  return t<0.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2;
+    return t;
+  }
 
   function fitCanvas(){
     var dpr = Math.min(window.devicePixelRatio||1, 2);
@@ -339,11 +465,17 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   }
   function drawFrame(i, force){
     if(!force && i === lastDrawn) return;
-    var img = frames[i] || frames[Math.max(0, Math.min(FRAME_COUNT-1, i))];
+    // Walk to nearest loaded frame if i isn't loaded yet (progressive streaming)
+    var img = frames[i];
+    if(!img){
+      for(var step=1; step<60 && !img; step++){
+        if(frames[i-step]) { img = frames[i-step]; break; }
+        if(frames[i+step]) { img = frames[i+step]; break; }
+      }
+    }
     if(!img) return;
     var cw = c.width, ch = c.height;
     var iw = img.naturalWidth, ih = img.naturalHeight;
-    // cover (fills viewport; slightly crops on extreme aspects)
     var scale = Math.max(cw/iw, ch/ih);
     var dw = iw*scale, dh = ih*scale;
     var dx = (cw-dw)/2, dy = (ch-dh)/2;
@@ -354,8 +486,8 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   function computeTarget(){
     var max = document.documentElement.scrollHeight - window.innerHeight;
     if(max <= 0) return 0;
-    var p = Math.max(0, Math.min(1, window.pageYOffset/max));
-    return p * (FRAME_COUNT - 1);
+    var raw = Math.max(0, Math.min(1, (window.pageYOffset / max) * SENSITIVITY));
+    return shape(raw) * (FRAME_COUNT - 1);
   }
   function tick(){
     if(ready){
@@ -365,6 +497,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
         current += d * LERP;
         drawFrame(Math.round(current));
       }
+      updateSceneGating(Math.round(current));
     }
     requestAnimationFrame(tick);
   }
@@ -375,7 +508,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       img.onload = function(){
         frames[i] = img; loaded++;
         var pct = Math.round((loaded/FRAME_COUNT)*100);
-        pb.style.width = pct+'%'; pctEl.textContent = pct;
+        pctEl.textContent = pct; updateParticleBar(pct);
         resolve();
       };
       img.onerror = function(){ loaded++; resolve(); };
@@ -383,56 +516,106 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     });
   }
   async function preload(){
-    await loadOne(0);
-    fitCanvas(); drawFrame(0, true);
-    var i = 1;
-    async function worker(){ while(i < FRAME_COUNT){ var my=i++; await loadOne(my); } }
-    var workers = [];
-    for(var w=0; w<BATCH; w++) workers.push(worker());
-    await Promise.all(workers);
+    // Phase 1: blocking load of first N frames so scroll unlocks fast
+    var blocking = [];
+    for(var i=0; i<Math.min(BLOCK_UNTIL, FRAME_COUNT); i++){
+      blocking.push(i);
+    }
+    var bi = 0;
+    async function blockWorker(){
+      while(bi < blocking.length){ var my = bi++; await loadOne(blocking[my]); }
+    }
+    var blockWorkers = [];
+    for(var w=0; w<BATCH; w++) blockWorkers.push(blockWorker());
+    await Promise.all(blockWorkers);
+
+    // Draw the first frame, fit canvas, release loader — user can scroll now
+    fitCanvas();
+    drawFrame(0, true);
     ready = true;
     loader.classList.add('gone');
     setTimeout(function(){ loader.style.display='none'; }, 700);
+
+    // Phase 2: stream remaining frames in background
+    var i2 = BLOCK_UNTIL;
+    async function streamWorker(){
+      while(i2 < FRAME_COUNT){ var my = i2++; await loadOne(my); }
+    }
+    var streamWorkers = [];
+    for(var w=0; w<BATCH; w++) streamWorkers.push(streamWorker());
+    await Promise.all(streamWorkers);
   }
+
   window.addEventListener('resize', fitCanvas, { passive:true });
   requestAnimationFrame(tick);
   preload();
+
+  /* ==== FRAME-RANGE SCENE GATING ==== */
+  // Each section has data-scene-start and data-scene-end attributes (in frame indices).
+  // Text block is visible ONLY when current frame is in its range.
+  var gatedSections = document.querySelectorAll('.sec[data-scene-start]');
+  var sceneBlocks = [];
+  gatedSections.forEach(function(sec){
+    var el = sec.querySelector('.text-block');
+    if(!el) return;
+    sceneBlocks.push({
+      el: el,
+      start: parseInt(sec.dataset.sceneStart, 10),
+      end: parseInt(sec.dataset.sceneEnd, 10),
+      sec: sec
+    });
+  });
+  function updateSceneGating(frameIdx){
+    for(var i=0; i<sceneBlocks.length; i++){
+      var b = sceneBlocks[i];
+      // Fade zones: 15% fade-in at start, 15% fade-out at end of range
+      var range = b.end - b.start;
+      var pad = Math.round(range * 0.15);
+      var active = frameIdx >= (b.start - pad) && frameIdx <= (b.end + pad);
+      if(active && !b.el.classList.contains('in-scene')) b.el.classList.add('in-scene');
+      else if(!active && b.el.classList.contains('in-scene')) b.el.classList.remove('in-scene');
+    }
+  }
+
+  /* ==== SCROLL-SPY NAV + PROGRESS RAIL ==== */
+  var navLinks = document.querySelectorAll('.nav-links a[data-scene]');
+  var navProgress = document.getElementById('navProgress');
+  function updateScrollSpy(){
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? (window.pageYOffset / max) * 100 : 0;
+    navProgress.style.width = pct + '%';
+    // Active nav link = whichever data-scene matches current frame range
+    var frame = Math.round(current);
+    var activeScene = 0;
+    for(var i=0; i<sceneBlocks.length; i++){
+      if(frame >= sceneBlocks[i].start && frame <= sceneBlocks[i].end){
+        activeScene = i + 1; // 0-indexed → scene num (1-based)
+        break;
+      }
+    }
+    navLinks.forEach(function(a){
+      var s = parseInt(a.dataset.scene, 10);
+      a.classList.toggle('active', s === activeScene);
+    });
+  }
+  window.addEventListener('scroll', updateScrollSpy, { passive:true });
 })();
 
-/* ==== NAV SCROLL + MOBILE ==== */
+/* ==== NAV MOBILE TOGGLE ==== */
 (function(){
   var nav = document.getElementById('nav');
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
-  window.addEventListener('scroll', function(){
-    nav.classList.toggle('scrolled', window.pageYOffset > 60);
-  }, { passive:true });
   var backdrop = document.getElementById('navBackdrop');
-  function setOpen(o){
-    nav.classList.toggle('open', o);
-    toggle.setAttribute('aria-expanded', String(o));
-    toggle.setAttribute('aria-label', o ? 'Close menu' : 'Menu');
-  }
+  function setOpen(o){ nav.classList.toggle('open', o); toggle.setAttribute('aria-expanded', String(o)); toggle.setAttribute('aria-label', o ? 'Close menu' : 'Menu'); }
+  window.addEventListener('scroll', function(){ nav.classList.toggle('scrolled', window.pageYOffset > 60); }, { passive:true });
   toggle.addEventListener('click', function(){ setOpen(!nav.classList.contains('open')); });
   if(backdrop) backdrop.addEventListener('click', function(){ setOpen(false); });
-  links.addEventListener('click', function(e){
-    if(e.target.tagName === 'A') setOpen(false);
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && nav.classList.contains('open')) setOpen(false);
-  });
+  links.addEventListener('click', function(e){ if(e.target.tagName === 'A') setOpen(false); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && nav.classList.contains('open')) setOpen(false); });
 })();
 
-/* ==== FADE-IN TEXT BLOCKS ==== */
-(function(){
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: .15 });
-  document.querySelectorAll('.text-block').forEach(function(el){ obs.observe(el); });
-  var first = document.querySelector('#s0 .text-block'); if(first) first.classList.add('visible');
-})();
-
-/* ==== ANIMATED COUNTERS ==== */
+/* ==== COUNTERS ==== */
 (function(){
   var obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -453,7 +636,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 (function(){
   var el = document.getElementById('typewriter'); if(!el) return;
   var phrases = [
-    'Responding to leads in under 60 seconds...',
+    'Answering leads in under 60 seconds...',
     'Booking appointments automatically...',
     'Re-engaging no-shows...',
     'Syncing with your CRM...',
@@ -468,10 +651,26 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   type();
 })();
 
-/* ==== LIQUID BUTTON BLOB ==== */
+/* ==== LIQUID BLOB ==== */
 document.querySelectorAll('.btn-liquid').forEach(function(btn){
   var blob = document.createElement('span'); blob.className = 'liquid-blob'; btn.appendChild(blob);
 });
+
+/* ==== LEAD FORM (fallback to mailto if formspree not configured) ==== */
+(function(){
+  var form = document.getElementById('leadForm');
+  if(!form) return;
+  form.addEventListener('submit', function(e){
+    if(form.action.indexOf('REPLACE_WITH_FORMSPREE_ID') !== -1){
+      // Fallback: mailto with prefilled body (no formspree set up yet)
+      e.preventDefault();
+      var fd = new FormData(form);
+      var subject = 'Drive AI — Diagnostic request from ' + (fd.get('name') || '');
+      var body = 'Name: ' + (fd.get('name')||'') + '\nEmail: ' + (fd.get('email')||'') + '\nDealership: ' + (fd.get('dealership')||'') + '\n\n—';
+      window.location.href = 'mailto:brandon@driveaisales.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+  });
+})();
 </script>
 </body>
 </html>
