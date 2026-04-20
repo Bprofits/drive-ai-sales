@@ -123,7 +123,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 
 /* CPU CHIP — motherboard-style hub with L-shaped traces, vias, and traveling particle dots */
 .chip{position:relative;z-index:2;padding:6rem 2rem 6rem;min-height:auto;display:flex;flex-direction:column;align-items:center;gap:4rem;overflow:hidden}
-.chip-hd{position:relative;width:min(640px,94vw);text-align:center;z-index:3;margin-bottom:0}
+.chip-hd{position:relative;width:min(640px,94vw);max-width:640px;text-align:center;z-index:3;margin:0 auto;align-self:center}
 .chip-hd .ol{margin-bottom:.5rem}
 .chip-hd .h2{font-size:clamp(1.9rem,4.2vw,3rem);margin-bottom:.5rem}
 .chip-hd .bd{font-size:.98rem;color:rgba(255,255,255,.72);max-width:520px;margin:0 auto}
@@ -326,13 +326,15 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 
 <!-- SCENE 2: AI INTELLIGENCE — CPU chip hub -->
 <section class="chip" id="s-ai">
-  <div class="chip-inner">
-    <div class="chip-hd text-block" style="background:none;border:none;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none">
-      <div class="ol">The Intelligence</div>
-      <div class="h2">One AI. <em>Every Channel.</em></div>
-      <div class="bd">A dealership nervous system. Lead comes in on any channel — we pick it up, qualify it, book it, follow up. All routed through one AI core.</div>
-    </div>
+  <!-- Header is a SIBLING of chip-inner (not a child), so the flex column layout
+       stacks it above the chip cleanly. -->
+  <div class="chip-hd text-block" style="background:none;border:none;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none">
+    <div class="ol">The Intelligence</div>
+    <div class="h2">One AI. <em>Every Channel.</em></div>
+    <div class="bd">A dealership nervous system. Lead comes in on any channel — we pick it up, qualify it, book it, follow up. All routed through one AI core.</div>
+  </div>
 
+  <div class="chip-inner">
     <!-- Central AI die -->
     <div class="chip-core">
       <div class="chip-core-tick">AI-01</div>
