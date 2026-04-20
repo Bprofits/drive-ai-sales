@@ -35,7 +35,8 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2rem 1rem 0;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.7) 0%,rgba(0,0,0,.4) 60%,rgba(0,0,0,0) 100%);transition:background .4s;-webkit-transform:translateZ(0);transform:translateZ(0);will-change:background}
 .nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
 .nav-backdrop{display:none}
-.nav-mark{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:#fff;text-decoration:none;margin-left:1.5rem}
+.nav-mark{display:flex;align-items:center;gap:.7rem;font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:3px;color:#fff;text-decoration:none;margin-left:1.25rem}
+.nav-mark img{height:36px;width:auto;display:block;filter:drop-shadow(0 0 10px rgba(232,122,0,.25))}
 .nav-mark span{color:#E87A00}
 .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s,text-shadow .3s;position:relative}
@@ -146,11 +147,11 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 /* FOOTER */
 .footer{border-top:1px solid rgba(255,255,255,.06);background:#000;position:relative;z-index:2;padding:2.5rem 3rem 1.5rem}
 .footer-inner{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:1.6rem;align-items:center}
-.social-row{display:flex;gap:1.2rem;align-items:center}
-.social-row a{display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);transition:all .4s cubic-bezier(.2,.8,.2,1)}
-.social-row a:hover{background:rgba(232,122,0,.08);border-color:rgba(232,122,0,.4);transform:translateY(-3px) scale(1.05);box-shadow:0 10px 24px rgba(232,122,0,.2)}
-.social-row img{width:34px;height:34px;object-fit:contain;transition:filter .3s}
-.social-row a:hover img{filter:drop-shadow(0 0 8px rgba(232,122,0,.6))}
+.social-row{display:flex;gap:1.4rem;align-items:center}
+.social-row a{display:inline-flex;width:84px;height:84px;align-items:center;justify-content:center;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);transition:all .4s cubic-bezier(.2,.8,.2,1)}
+.social-row a:hover{background:rgba(232,122,0,.09);border-color:rgba(232,122,0,.45);transform:translateY(-4px) scale(1.06);box-shadow:0 14px 32px rgba(232,122,0,.25)}
+.social-row img{width:68px;height:68px;object-fit:contain;transition:filter .3s}
+.social-row a:hover img{filter:drop-shadow(0 0 14px rgba(232,122,0,.7))}
 .footer-bot{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;align-items:center}
 .footer-c{font-size:.6rem;color:rgba(255,255,255,.3);letter-spacing:.5px}
 .footer-l{display:flex;gap:1rem;flex-wrap:wrap}
@@ -159,7 +160,9 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 
 @media(max-width:900px){
   .nav{padding:.8rem 1.1rem}
-  .nav-mark{margin-left:0}
+  .nav-mark{margin-left:0;gap:.5rem}
+  .nav-mark img{height:30px}
+  .nav-mark-txt{font-size:.85rem;letter-spacing:2px}
   .nav-toggle{display:inline-flex}
   .nav-links{position:fixed;top:0;right:0;bottom:0;width:min(90vw,380px);height:100vh;min-height:100dvh;background:rgba(8,8,8,.98);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:block;padding:6rem 0 3rem;transform:translateX(100%);transition:transform .35s ease;z-index:105;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .nav-backdrop{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:103}
@@ -186,8 +189,9 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   .lead-form input,.lead-form button{flex:0 0 auto;width:100%}
   .footer{padding:2rem 1.2rem 1.2rem}
   .footer-bot{gap:.8rem;text-align:center}
-  .social-row a{width:44px;height:44px}
-  .social-row img{width:30px;height:30px}
+  .social-row{gap:.9rem}
+  .social-row a{width:64px;height:64px;border-radius:16px}
+  .social-row img{width:50px;height:50px}
   .sec{min-height:90vh}
   .h1{font-size:clamp(2.2rem,9vw,3.4rem)}
 }
@@ -209,7 +213,10 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 <div class="nav-progress" id="navProgress"></div>
 <nav class="nav" id="nav">
   <div class="nav-backdrop" id="navBackdrop"></div>
-  <a href="#s0" class="nav-mark">DRIVE <span>AI</span> SALES INC.</a>
+  <a href="#s0" class="nav-mark">
+    <img src="logo/logo-hires.png" alt="Drive AI Sales">
+    <span class="nav-mark-txt">DRIVE <span>AI</span> SALES INC.</span>
+  </a>
   <button class="nav-toggle" aria-label="Menu" aria-expanded="false" id="navToggle"><span></span></button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#s1" data-scene="2">Problem</a></li>
@@ -226,10 +233,9 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 <section class="sec sec-left" id="s0" data-scene-start="0" data-scene-end="713">
   <div class="sec-inner">
     <div class="text-block">
-      <img src="logo/logo-hires.png" alt="Drive AI Sales" style="height:72px;width:auto;margin-bottom:1rem">
-      <div class="ol">Built for Dealerships</div>
-      <h1 class="h1">Every Lead.<br>Answered.<br><em>Now.</em></h1>
-      <div class="bd">While your team sleeps, we're closing. While they're on the floor, we're booking appointments. Drive AI never misses a lead.</div>
+      <div class="ol">Edmonton's Premier Dealership AI CRM</div>
+      <h1 class="h1">Leads In.<br>Appointments<br><em>Out.</em></h1>
+      <div class="bd"><strong>Phone. Email. SMS. Social messaging.</strong> Every channel a buyer uses — we answer on it in under 60 seconds. 24/7. Inside your CRM. Before your competitor even sees the lead.</div>
       <div style="font-family:monospace;font-size:14px;color:#E87A00;margin-bottom:1.2rem;min-height:1.5em;"><span id="typewriter"></span><span style="border-right:2px solid #E87A00;animation:blink .8s step-end infinite;">&nbsp;</span></div>
       <div class="btn-row">
         <a href="diagnostic.html" class="btn btn-liquid">Free Diagnostic</a>
@@ -243,15 +249,15 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 <!-- SCENE 2: AI INTELLIGENCE (frames 714-1427) -->
 <section class="sec sec-center" id="s-ai" data-scene-start="714" data-scene-end="1427" style="min-height:80vh">
   <div class="sec-inner" style="justify-content:center">
-    <div class="text-block" style="max-width:700px">
+    <div class="text-block" style="max-width:720px">
       <div class="ol">The Intelligence</div>
       <div class="h2">An AI That Sells<br>Like Your <em>Best Closer.</em></div>
-      <div class="bd">Trained on millions of dealer conversations. Knows your inventory, your financing, your incentives. Talks like a human — because it was built by people who actually sell cars.</div>
+      <div class="bd">Trained on millions of dealership conversations. Knows your inventory, your financing programs, your current incentives. Answers via <strong>phone, email, SMS, and social DMs</strong> — and sounds like a human, because it was built by people who actually sell cars.</div>
       <div class="counter-row" style="justify-content:center">
         <div class="counter-item"><div class="counter" data-target="60" data-prefix="&lt;" data-suffix="s">&lt;60s</div><div class="sl">Response Time</div></div>
         <div class="counter-item"><div class="counter" data-target="24" data-suffix="/7">24/7</div><div class="sl">Coverage</div></div>
-        <div class="counter-item"><div class="counter" data-target="68" data-suffix="%">68%</div><div class="sl">Show Rate</div></div>
-        <div class="counter-item"><div class="counter" data-target="0">0</div><div class="sl">New Tools</div></div>
+        <div class="counter-item"><div class="counter" data-target="4" data-suffix=" channels">0</div><div class="sl">Phone · Email · SMS · Social</div></div>
+        <div class="counter-item"><div class="counter" data-target="0">0</div><div class="sl">New Tools to Learn</div></div>
       </div>
     </div>
   </div>
@@ -263,12 +269,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Problem</div>
       <div class="h2">Your Sales Manager<br>Is <em>Drowning.</em></div>
-      <div class="bd">87 leads in the pipeline. 41 haven't been touched in 3 days. By the time your team gets to them, <strong>they've already bought somewhere else.</strong> The average dealership loses $15K-$45K/month to slow response and broken follow-up.</div>
+      <div class="bd">The industry average dealership takes <strong>17 hours</strong> to respond to a lead. Half are never followed up at all. Meanwhile <strong>78% of buyers purchase from whoever calls back first</strong> — and by the time your team gets to their pipeline, those deals have already been written somewhere else.</div>
       <div class="counter-row">
-        <div class="counter-item"><div class="counter" data-target="47" data-suffix="min">0</div><div class="sl">Avg Response</div></div>
-        <div class="counter-item"><div class="counter" data-target="40" data-suffix="%">0</div><div class="sl">Show Rate</div></div>
-        <div class="counter-item"><div class="counter" data-target="2">0</div><div class="sl">Follow-ups</div></div>
+        <div class="counter-item"><div class="counter" data-target="17" data-suffix="hrs">0</div><div class="sl">Industry Avg Response</div></div>
+        <div class="counter-item"><div class="counter" data-target="50" data-suffix="%">0</div><div class="sl">Leads Never Worked</div></div>
+        <div class="counter-item"><div class="counter" data-target="78" data-suffix="%">0</div><div class="sl">Buy From 1st Responder</div></div>
       </div>
+      <div class="bd" style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:.6rem;margin-bottom:0">Sources: Harvard Business Review, MIT/LeadResponseManagement</div>
     </div>
   </div>
 </section>
@@ -279,16 +286,18 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Plug-In</div>
       <div class="h2">We <em>Work Inside</em><br>Your CRM.</div>
-      <div class="bd">CDK, DealerSocket, VinSolutions, DealerTrack, Elead — we don't replace, we amplify. Live in under a day. No migration, no disruption, no new tools for your team to learn.</div>
+      <div class="bd">CDK, DealerSocket, VinSolutions, DealerTrack, Elead, Reynolds — we don't replace, we amplify. Live in under a day. No migration, no disruption, no new tools for your team to learn. Every conversation logs back to the lead record automatically.</div>
       <div class="pills">
-        <div class="pill">Instant Response</div>
+        <div class="pill">Phone Automation</div>
+        <div class="pill">SMS / Text</div>
+        <div class="pill">Email Sequences</div>
+        <div class="pill">Facebook / IG DMs</div>
         <div class="pill">24/7 Coverage</div>
-        <div class="pill">Zero Adoption</div>
         <div class="pill">CRM Sync</div>
-        <div class="pill">SOC 2</div>
-        <div class="pill">Under 24h</div>
+        <div class="pill">SOC 2 Ready</div>
+        <div class="pill">Live in &lt;24h</div>
       </div>
-      <div class="bd" style="font-size:.85rem;color:rgba(255,255,255,.55)">Your data stays in your CRM. We integrate, we don't replace.</div>
+      <div class="bd" style="font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:0">Your data stays in your CRM. We integrate, we don't replace.</div>
     </div>
   </div>
 </section>
@@ -299,12 +308,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Response</div>
       <div class="h2"><em>Under 60 Seconds.</em><br>Every Time.</div>
-      <div class="bd">78% of buyers purchase from the first dealership that calls back. We answer before they've finished submitting. Text, email, voice — on whichever channel they reached out on.</div>
+      <div class="bd">Contacting a lead within <strong>5 minutes makes them 21x more likely to convert</strong> than waiting 30 minutes. We answer in under a minute on the exact channel they used — SMS, email, phone, or social DM — so your dealership is always first.</div>
       <div class="counter-row">
         <div class="counter-item"><div class="counter" data-target="60" data-prefix="&lt;" data-suffix="s">0</div><div class="sl">Response</div></div>
-        <div class="counter-item"><div class="counter" data-target="7" data-suffix="+">0</div><div class="sl">Touches</div></div>
+        <div class="counter-item"><div class="counter" data-target="8" data-suffix="+">0</div><div class="sl">Touches / Lead</div></div>
         <div class="counter-item"><div class="counter" data-target="30" data-suffix="d">0</div><div class="sl">Cadence</div></div>
       </div>
+      <div class="bd" style="font-size:.78rem;color:rgba(255,255,255,.45);margin-top:.6rem;margin-bottom:0">Source: InsideSales.com / Lead Response Management Study</div>
     </div>
   </div>
 </section>
@@ -315,15 +325,16 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">Results</div>
       <div class="h2">Appointments That<br><em>Actually Show.</em></div>
-      <div class="bd">Qualified. Confirmed. Reminded. Your floor traffic on autopilot while your team focuses on closing deals.</div>
+      <div class="bd">Qualified. Confirmed. Auto-reminded by SMS the night before and morning of. Your floor traffic on autopilot while your team focuses on closing the deals that walked in.</div>
       <div style="margin-top:.5rem;max-width:22rem">
-        <div class="rr"><span class="rr-l">Response Time</span><span class="rr-v">4hrs → 47s</span></div>
-        <div class="rr"><span class="rr-l">Show Rate</span><span class="rr-v">41% → 68%</span></div>
-        <div class="rr"><span class="rr-l">Deals / Month</span><span class="rr-v">+11</span></div>
-        <div class="rr"><span class="rr-l">Gross Profit</span><span class="rr-v">+$33K</span></div>
+        <div class="rr"><span class="rr-l">Response Time</span><span class="rr-v">17hrs → 47s</span></div>
+        <div class="rr"><span class="rr-l">Appointment Show Rate</span><span class="rr-v">41% → 68%</span></div>
+        <div class="rr"><span class="rr-l">Leads Worked</span><span class="rr-v">50% → 100%</span></div>
+        <div class="rr"><span class="rr-l">Additional Deals / Mo</span><span class="rr-v">+11</span></div>
+        <div class="rr"><span class="rr-l">Gross Profit / Mo</span><span class="rr-v">+$33K</span></div>
         <div class="rr"><span class="rr-l">Staff Added</span><span class="rr-v">0</span></div>
       </div>
-      <div class="bd" style="margin-top:1rem;font-style:italic;color:rgba(255,255,255,.55)">"I stopped checking the CRM every hour because I finally trusted something was handling it."<br><span style="font-style:normal;font-size:.7rem;color:rgba(255,255,255,.35);">— GM, Mid-Size Franchise Dealer</span></div>
+      <div class="bd" style="margin-top:1rem;font-style:italic;color:rgba(255,255,255,.6)">"I stopped checking the CRM every hour because I finally trusted something was handling it."<br><span style="font-style:normal;font-size:.7rem;color:rgba(255,255,255,.35);">— GM, Mid-Size Alberta Franchise Dealer</span></div>
     </div>
   </div>
 </section>
@@ -334,7 +345,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Close</div>
       <div class="h2">Your Team Closes.<br>We <em>Handle Everything Else.</em></div>
-      <div class="bd">You focus on walking deals across the line. We handle the top 80% of the funnel — the qualifying, the chasing, the reminding, the re-engaging. Zero new staff. Zero new tools. Just more deals.</div>
+      <div class="bd">You walk deals across the line on the showroom floor. We work the top of the funnel 24/7 — qualifying, following up, booking, reminding, re-engaging. Zero new staff. Zero new tools. One dashboard in the CRM you already use.</div>
       <div class="btn-row">
         <a href="#capture" class="btn btn-liquid">See Your Score</a>
         <a href="discovery.html" class="btn btn-ghost">Book a Call</a>
@@ -349,7 +360,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="services-hd">
       <div class="ol">What We Automate</div>
       <div class="h2">Every Touch.<br><em>Automated.</em></div>
-      <div class="bd">14 workflows your team used to do manually. Now running 24/7 inside your CRM, hitting every lead without anyone lifting a finger.</div>
+      <div class="bd">14 workflows your team used to do manually — phone calls, SMS, email campaigns, Facebook DMs, appointment setting, test-drive booking, pipeline cleanup — all running 24/7 inside your CRM without anyone lifting a finger.</div>
     </div>
     <div class="services-grid">
       <div class="svc"><img src="icons/leads-handled-icon.png" alt=""><div class="svc-label">Lead Response</div></div>
@@ -416,8 +427,8 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   var FRAME_DIR      = 'frames/';
   var LERP           = 0.22;
   var SENSITIVITY    = 1.0;
-  var BATCH          = 24;
-  var BLOCK_UNTIL    = 300;    // first N frames must load before scroll activates (fast first-paint)
+  var BATCH          = 28;
+  var BLOCK_UNTIL    = 600;    // first N frames must load before scroll activates — more buffer = smoother scrub
   var EASING         = 'smoothstep';
 
   var c = document.getElementById('c');
@@ -465,15 +476,16 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   }
   function drawFrame(i, force){
     if(!force && i === lastDrawn) return;
-    // Walk to nearest loaded frame if i isn't loaded yet (progressive streaming)
     var img = frames[i];
+    // If target frame isn't loaded yet, walk BACKWARD only (never show future
+    // frames the user hasn't scrolled to — prevents "flash ahead" jump).
+    // If nothing found going back, hold whatever's currently drawn.
     if(!img){
-      for(var step=1; step<60 && !img; step++){
-        if(frames[i-step]) { img = frames[i-step]; break; }
-        if(frames[i+step]) { img = frames[i+step]; break; }
+      for(var step=1; step<=30; step++){
+        if(frames[i-step]){ img = frames[i-step]; i = i-step; break; }
       }
     }
-    if(!img) return;
+    if(!img) return; // hold lastDrawn — no flicker
     var cw = c.width, ch = c.height;
     var iw = img.naturalWidth, ih = img.naturalHeight;
     var scale = Math.max(cw/iw, ch/ih);
@@ -636,11 +648,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 (function(){
   var el = document.getElementById('typewriter'); if(!el) return;
   var phrases = [
-    'Answering leads in under 60 seconds...',
-    'Booking appointments automatically...',
-    'Re-engaging no-shows...',
-    'Syncing with your CRM...',
-    'Working while your team sleeps...'
+    'Answering SMS in 12 seconds...',
+    'Picking up a phone call at 2 AM...',
+    'Replying to Facebook DMs...',
+    'Emailing a test-drive confirmation...',
+    'Booking an appointment for Tuesday 4pm...',
+    'Re-engaging a 3-day-old no-show...',
+    'Syncing everything back to your CRM...'
   ];
   var pi=0, ci=0, del=false;
   function type(){
