@@ -379,18 +379,21 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       </div>
     </div>
 
+    <!-- Scroll cue: absolute on desktop (anchored to section bottom), static on mobile
+         where it flows in the normal column between text-block and orb-wrap. -->
+    <div class="scroll-cue">
+      <div class="scroll-cue-text">Scroll</div>
+      <div class="scroll-cue-mouse"></div>
+      <div class="scroll-cue-chev">
+        <svg viewBox="0 0 22 10" fill="none"><path d="M2 2L11 8L20 2" stroke="#E87A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 22 10" fill="none"><path d="M2 2L11 8L20 2" stroke="#E87A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
     <!-- WANDA particle orb — click to open call modal. Canvas renders orange particle field. -->
     <div class="orb-wrap" id="wandaOrb" role="button" tabindex="0" aria-label="Talk to Wanda, our AI voice agent">
       <canvas class="orb-canvas" id="wandaHeroCanvas"></canvas>
       <div class="orb-caption">Tap to talk to <strong>Wanda</strong></div>
-    </div>
-  </div>
-  <div class="scroll-cue">
-    <div class="scroll-cue-text">Scroll</div>
-    <div class="scroll-cue-mouse"></div>
-    <div class="scroll-cue-chev">
-      <svg viewBox="0 0 22 10" fill="none"><path d="M2 2L11 8L20 2" stroke="#E87A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg viewBox="0 0 22 10" fill="none"><path d="M2 2L11 8L20 2" stroke="#E87A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
   </div>
 </section>
