@@ -111,7 +111,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 @keyframes blink{50%{border-color:transparent}}
 @keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
 @keyframes fu{from{opacity:0;transform:translateY(1rem)}to{opacity:1;transform:translateY(0)}}
-.scroll-cue{position:absolute;bottom:2.6rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fu .5s 1.2s forwards}
+.scroll-cue{position:absolute;bottom:2.6rem;left:0;right:0;margin:0 auto;width:fit-content;z-index:3;display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fu .5s 1.2s forwards;pointer-events:none}
 .scroll-cue-text{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,.85);text-shadow:0 0 14px rgba(232,122,0,.35)}
 .scroll-cue-mouse{width:26px;height:42px;border:2px solid rgba(255,255,255,.65);border-radius:13px;position:relative;box-shadow:0 0 18px rgba(232,122,0,.25)}
 .scroll-cue-mouse::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:8px;background:#E87A00;border-radius:2px;transform:translateX(-50%);animation:sw 1.6s ease infinite;box-shadow:0 0 8px #E87A00}
