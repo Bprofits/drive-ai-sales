@@ -46,10 +46,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 .wanda-close:hover{background:rgba(232,122,0,.15);border-color:rgba(232,122,0,.4);color:#E87A00}
 
 @media(max-width:900px){
-  .orb-wrap{width:320px;height:320px;margin:1rem auto 2.5rem}
-  .orb-caption{bottom:-2.2rem;font-size:.7rem}
+  /* Orb: responsive width so it never clips on narrow phones (iPhone SE 320px etc) */
+  .orb-wrap{width:min(320px,82vw);height:min(320px,82vw);margin:1.5rem auto 5rem}
+  .orb-caption{bottom:-2rem;font-size:.7rem}
   #s0.hero-split .sec-inner{flex-direction:column}
   #s0.hero-split .text-block{margin-right:0;max-width:100%}
+  /* Scroll cue on mobile: was overlapping the orb at the bottom of the hero. Hide it. */
+  #s0 .scroll-cue{display:none}
   .wanda-avatar{width:140px;height:140px}
   .wanda-modal-inner{padding:1.8rem 1.3rem 1.5rem}
   .wanda-title{font-size:1.7rem}
