@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Objection Rolodex - Drive AI Sales</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a; color: #e2e8f0;
+      min-height: 100vh; line-height: 1.5;
+    }
+    :root {
+      --orange: #f47920;
+      --orange-glow: rgba(244,121,32,0.15);
+      --blue: #3b82f6;
+      --blue-glow: rgba(59,130,246,0.12);
+      --purple: #a855f7;
+      --purple-glow: rgba(168,85,247,0.12);
+      --green: #22c55e;
+      --green-glow: rgba(34,197,94,0.12);
+      --red: #ef4444;
+      --red-glow: rgba(239,68,68,0.12);
+      --yellow: #eab308;
+      --yellow-glow: rgba(234,179,8,0.12);
+      --pink: #ec4899;
+      --pink-glow: rgba(236,72,153,0.12);
+      --surface: #111111;
+      --surface-2: #161616;
+      --border: #1e1e1e;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+    }
+    header {
+      background: linear-gradient(135deg, #141414 0%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    header h1 { font-size: 20px; font-weight: 700; color: #f7fafc; letter-spacing: -0.3px; }
+    header .subtitle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .badge {
+      background: var(--orange-glow); color: var(--orange);
+      font-size: 11px; font-weight: 600;
+      padding: 5px 12px; border-radius: 20px;
+      border: 1px solid rgba(244,121,32,0.3);
+    }
+    .nav-bar {
+      padding: 12px 32px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+    .nav-bar a {
+      color: var(--text-dim); text-decoration: none;
+      padding: 8px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-bar a:hover { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.2); }
+    .nav-bar a.active { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.3); font-weight: 600; }
+    .nav-bar .spacer { flex: 1; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 32px; }
+
+    .intro {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 12px;
+      padding: 22px 26px; margin-bottom: 24px;
+    }
+    .intro h2 { font-size: 19px; color: #f7fafc; margin-bottom: 8px; }
+    .intro p { font-size: 13.5px; color: var(--text); margin-bottom: 6px; }
+    .intro .actions {
+      margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .intro .actions button, .intro .actions a {
+      font-size: 12px; font-weight: 600;
+      padding: 7px 14px; border-radius: 6px;
+      background: var(--orange); color: #0a0a0a;
+      border: none; cursor: pointer;
+      text-decoration: none; display: inline-block;
+    }
+    .intro .actions a.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .category-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .category-bar .tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px;
+      border: 1px solid;
+    }
+    .tag.t-price { color: var(--green); background: var(--green-glow); border-color: rgba(34,197,94,0.3); }
+    .tag.t-trust { color: var(--blue); background: var(--blue-glow); border-color: rgba(59,130,246,0.3); }
+    .tag.t-time  { color: var(--yellow); background: var(--yellow-glow); border-color: rgba(234,179,8,0.3); }
+    .tag.t-fit   { color: var(--pink); background: var(--pink-glow); border-color: rgba(236,72,153,0.3); }
+    .tag.t-power { color: var(--red); background: var(--red-glow); border-color: rgba(239,68,68,0.3); }
+    .tag.t-tech  { color: var(--purple); background: var(--purple-glow); border-color: rgba(168,85,247,0.3); }
+
+    .rolodex {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      position: relative;
+      page-break-inside: avoid;
+    }
+    .card-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 12px; margin-bottom: 12px;
+    }
+    .card-num {
+      font-size: 10px; font-weight: 700; color: var(--text-muted);
+      letter-spacing: 1.5px;
+    }
+    .card .obj {
+      font-size: 16px; font-weight: 700; color: #f7fafc;
+      line-height: 1.35;
+      font-style: italic;
+      margin-bottom: 4px;
+    }
+    .card .obj::before {
+      content: '\201C'; color: var(--orange); font-size: 22px;
+      vertical-align: -2px; margin-right: 2px;
+    }
+    .card .obj::after {
+      content: '\201D'; color: var(--orange); font-size: 22px;
+      vertical-align: -2px; margin-left: 2px;
+    }
+    .card .ctag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
+      border: 1px solid;
+      white-space: nowrap;
+      align-self: flex-start;
+      flex-shrink: 0;
+    }
+    .ctag.t-price { color: var(--green); background: var(--green-glow); border-color: rgba(34,197,94,0.3); }
+    .ctag.t-trust { color: var(--blue); background: var(--blue-glow); border-color: rgba(59,130,246,0.3); }
+    .ctag.t-time  { color: var(--yellow); background: var(--yellow-glow); border-color: rgba(234,179,8,0.3); }
+    .ctag.t-fit   { color: var(--pink); background: var(--pink-glow); border-color: rgba(236,72,153,0.3); }
+    .ctag.t-power { color: var(--red); background: var(--red-glow); border-color: rgba(239,68,68,0.3); }
+    .ctag.t-tech  { color: var(--purple); background: var(--purple-glow); border-color: rgba(168,85,247,0.3); }
+
+    .card .technique {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      color: var(--purple); text-transform: uppercase;
+      margin: 12px 0 6px;
+    }
+    .card .master-cite {
+      font-size: 10.5px; color: var(--text-muted);
+      font-style: italic; font-weight: 500;
+      margin-left: 6px;
+    }
+    .card .script {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--orange);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+    .card .why {
+      font-size: 11.5px; color: var(--text-dim);
+      line-height: 1.45;
+      padding: 8px 12px;
+      background: rgba(168,85,247,0.05);
+      border-left: 2px solid var(--purple);
+      border-radius: 4px;
+      margin-top: 8px;
+    }
+    .card .why strong { color: var(--purple); font-weight: 700; }
+
+    .legend {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 24px;
+      font-size: 12.5px; color: var(--text-dim);
+    }
+    .legend strong { color: #f7fafc; }
+    .legend .row { margin-bottom: 6px; }
+
+    footer {
+      text-align: center; padding: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-muted); margin-top: 40px;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+
+    @media print {
+      body { background: white; color: black; font-size: 11pt; }
+      header, .nav-bar, .intro .actions, footer { display: none; }
+      .container { max-width: 100%; padding: 0; }
+      .intro, .legend { background: white; border: 1px solid #999; }
+      .intro p, .intro h2 { color: black; }
+      .rolodex { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .card { background: white; border: 1px solid #666; padding: 12px; }
+      .card .obj, .card .technique { color: black; }
+      .card .script { background: #f5f5f5; color: black; border-color: #999; }
+      .card .why { background: #f9f0fa; color: #444; }
+      .card-num { color: #777; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Objection Rolodex</h1>
+    <div class="subtitle">Every common dealer objection, mastered. Print + carry.</div>
+  </div>
+  <span class="badge">Quick-Reference</span>
+</header>
+
+<div class="nav-bar">
+  <a href="index.html">Edmonton</a>
+  <a href="calgary-dealers.html">Calgary</a>
+  <a href="sales-process.html">Sales Process</a>
+  <a href="spin-drills.html">SPIN Drills</a>
+  <a href="objection-rolodex.html" class="active">Objection Rolodex</a>
+  <a href="sales-guide.html">Sales Guide</a>
+  <a href="glossary.html">CRM Glossary</a>
+  <span class="spacer"></span>
+  <a href="https://driveaisales.com" target="_blank" style="color: var(--orange);">driveaisales.com &rarr;</a>
+</div>
+
+<div class="container">
+
+<div class="intro">
+  <h2>15 Cards, 5 Categories, Master-Tested Responses</h2>
+  <p>Every objection a dealer throws at you, mapped to a specific master's technique with the exact script. Color-coded by category. Print landscape, fold once, carries in a pocket. Memorize the scripts. Adapt the words, never the structure.</p>
+  <div class="category-bar">
+    <span class="tag t-price">Price</span>
+    <span class="tag t-trust">Trust</span>
+    <span class="tag t-time">Timing</span>
+    <span class="tag t-fit">Fit</span>
+    <span class="tag t-power">Power / Authority</span>
+    <span class="tag t-tech">Tech / Adoption</span>
+  </div>
+  <div class="actions">
+    <a href="#" onclick="window.print(); return false;">Print Rolodex</a>
+    <a href="sales-process.html" class="secondary">Back to Sales Process</a>
+  </div>
+</div>
+
+<div class="rolodex">
+
+<!-- CARD 01 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 01</div>
+      <div class="obj">We already have a BDC.</div>
+    </div>
+    <span class="ctag t-fit">Fit</span>
+  </div>
+  <div class="technique">Voss Label <span class="master-cite">Chris Voss</span></div>
+  <div class="script">"It sounds like your BDC is doing well enough that you're not actively looking, and you're worried this is going to be a redundant pitch."
+
+[Wait. They will say "yeah, basically."]
+
+"Totally fair. What if the goal isn't to replace your BDC, but to give them 4x throughput for the same payroll? Worth 12 minutes to see?"</div>
+  <div class="why"><strong>Why it lands:</strong> Naming the resistance defuses it. The 4x reframe takes the threat off the table, you're now an ally to the BDC, not their replacement.</div>
+</div>
+
+<!-- CARD 02 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 02</div>
+      <div class="obj">Too expensive.</div>
+    </div>
+    <span class="ctag t-price">Price</span>
+  </div>
+  <div class="technique">Sandler Pain Reversal <span class="master-cite">David Sandler</span></div>
+  <div class="script">"Maybe this isn't the right fit. What were you hoping it would cost?"
+
+[Most will say "I dunno, depends on what it does." Or name a price.]
+
+"OK, walk me through what would justify [their number] vs. [our number] in your mind."</div>
+  <div class="why"><strong>Why it lands:</strong> Negative reverse. You permission-give them to walk. They flip into justifying buying TO you. They are now the one selling.</div>
+</div>
+
+<!-- CARD 03 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 03</div>
+      <div class="obj">Too expensive. (alt)</div>
+    </div>
+    <span class="ctag t-price">Price</span>
+  </div>
+  <div class="technique">Hopkins Reduction to the Ridiculous <span class="master-cite">Tom Hopkins</span></div>
+  <div class="script">"Base plan is $1,500/month. That's $50 a day. Your in-house BDC costs you $400+ a day in wages, benefits, taxes.
+
+Are you saying $50 to fix the system that drives the $400 isn't worth it? Or are we looking at the wrong number?"</div>
+  <div class="why"><strong>Why it lands:</strong> Per-day framing makes the price feel trivial against the ongoing cost they're already eating. The "are we looking at the wrong number" line is permission to reframe.</div>
+</div>
+
+<!-- CARD 04 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 04</div>
+      <div class="obj">Send me some info, I'll review it.</div>
+    </div>
+    <span class="ctag t-trust">Trust</span>
+  </div>
+  <div class="technique">Voss No-Oriented Question <span class="master-cite">Chris Voss</span></div>
+  <div class="script">"Would it be ridiculous if instead of sending a PDF, I just did 12 minutes on screen-share with you this afternoon? You can ask anything in real time, way better than a deck."</div>
+  <div class="why"><strong>Why it lands:</strong> "Would it be ridiculous" is a Voss-trademark no-oriented frame. Prospects feel safer saying no than yes, paradoxically that makes them more likely to agree. 2x meeting bookings vs. "would you be open to."</div>
+</div>
+
+<!-- CARD 05 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 05</div>
+      <div class="obj">Not the right time.</div>
+    </div>
+    <span class="ctag t-time">Timing</span>
+  </div>
+  <div class="technique">Voss Calibrated Question <span class="master-cite">Chris Voss</span></div>
+  <div class="script">"How will you know when it IS the right time?"
+
+[Silence. Wait for them to answer.]</div>
+  <div class="why"><strong>Why it lands:</strong> If they can't answer = "not the right time" was a polite no. Now you know. If they CAN answer = you've got the criteria. Re-engage on that exact date with that exact trigger.</div>
+</div>
+
+<!-- CARD 06 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 06</div>
+      <div class="obj">Not the right time. (alt)</div>
+    </div>
+    <span class="ctag t-time">Timing</span>
+  </div>
+  <div class="technique">Sandler Up-Front Contract <span class="master-cite">David Sandler</span></div>
+  <div class="script">"Help me out. If I check back in 60 days and your BDC is still missing 40% of leads, do you want me to push hard, or accept that this just isn't a priority for your store?"</div>
+  <div class="why"><strong>Why it lands:</strong> Pre-arranges the next call + the trigger. Now you don't have to chase. You have written permission to follow up at a specific time with specific criteria.</div>
+</div>
+
+<!-- CARD 07 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 07</div>
+      <div class="obj">I need to think about it.</div>
+    </div>
+    <span class="ctag t-trust">Trust</span>
+  </div>
+  <div class="technique">Hopkins Tie-Down <span class="master-cite">Tom Hopkins</span></div>
+  <div class="script">"That's fair. So when you say 'think about it,' is it the math, the integration with your CRM, the team-adoption risk, or something else I haven't addressed?"</div>
+  <div class="why"><strong>Why it lands:</strong> Forces specificity. "Think about it" almost always means one of those four. Surface the real objection, then handle it. The trick is the menu of 4, it feels like you're trying to help, not pressure.</div>
+</div>
+
+<!-- CARD 08 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 08</div>
+      <div class="obj">My BDC manager will hate this.</div>
+    </div>
+    <span class="ctag t-power">Power</span>
+  </div>
+  <div class="technique">Carnegie + Reframe <span class="master-cite">Dale Carnegie</span></div>
+  <div class="script">"That's a real concern. Here's the play: we don't fire BDCs, we make them look like geniuses.
+
+Drive AI handles the noise (low-quality leads, after-hours, follow-ups). That frees your BDC manager to focus on hot leads and coaching. They get a 4x throughput stat to share at ownership review.
+
+We position THEM as the hero who brought this in. Want me to walk through how that conversation goes?"</div>
+  <div class="why"><strong>Why it lands:</strong> Turns the threatened middle-manager into a champion before they sabotage the deal. You're not just selling the tool, you're selling a career win to whoever owns the BDC seat.</div>
+</div>
+
+<!-- CARD 09 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 09</div>
+      <div class="obj">I don't have authority to decide that.</div>
+    </div>
+    <span class="ctag t-power">Power</span>
+  </div>
+  <div class="technique">Voss Mirror + Calibrated <span class="master-cite">Chris Voss</span></div>
+  <div class="script">"Don't have authority?"
+
+[They explain who does.]
+
+"Got it. So if I bring [the decider] into a 20-minute call, and they have everything they need to say yes or no, what's your role in that meeting, would you champion it, neutral, or do they want your honest read?"</div>
+  <div class="why"><strong>Why it lands:</strong> Mirror surfaces the chain of command. Calibrated question forces them to declare a side. You'd rather know they're a blocker now than ride a fake champion for three months.</div>
+</div>
+
+<!-- CARD 10 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 10</div>
+      <div class="obj">We tried AI/chatbots before, didn't work.</div>
+    </div>
+    <span class="ctag t-trust">Trust</span>
+  </div>
+  <div class="technique">Voss Label + SPIN Implication <span class="master-cite">Voss + Rackham</span></div>
+  <div class="script">"It sounds like whoever pitched the last one over-promised, the bot couldn't really book test drives, and your team had to redo all the work."
+
+[Almost always: "yeah exactly."]
+
+"What did that cost you in lost trust internally, and how much rework was your BDC doing on top of the bot?
+
+The reason we're different: we don't sell a chatbot, we sell booked appointments. You don't pay us till one books. Worth 12 min to see the actual conversation flow?"</div>
+  <div class="why"><strong>Why it lands:</strong> Acknowledges scar tissue (Voss label), surfaces the cost of the bad experience (SPIN), differentiates on outcome-based pricing. The "you don't pay till one books" line removes their risk entirely.</div>
+</div>
+
+<!-- CARD 11 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 11</div>
+      <div class="obj">My customers want to talk to a human, not AI.</div>
+    </div>
+    <span class="ctag t-fit">Fit</span>
+  </div>
+  <div class="technique">Belfort Loop + Reframe <span class="master-cite">Jordan Belfort</span></div>
+  <div class="script">"Makes sense, that's the gut reaction every dealer has. Here's the data: our average customer doesn't realize they're talking to AI until they're already booked.
+
+What customers actually hate is waiting. 18 hours for a reply. Getting transferred 4 times. Repeating themselves to 3 different reps.
+
+We solve the wait. The human handoff happens when there's a hot lead in the showroom door. Want to see the conversation log from yesterday's bookings at [a comp dealer]?"</div>
+  <div class="why"><strong>Why it lands:</strong> Belfort's looping technique, take the objection, validate it, then loop it back into the close. The reframe (customers hate waiting, not AI) is the unlock.</div>
+</div>
+
+<!-- CARD 12 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 12</div>
+      <div class="obj">Our CRM is custom, you can't integrate.</div>
+    </div>
+    <span class="ctag t-tech">Tech</span>
+  </div>
+  <div class="technique">Ziglar Assumed + Calibrated <span class="master-cite">Zig Ziglar + Chris Voss</span></div>
+  <div class="script">"Custom CRM, fair concern. We integrate with VinSolutions, DealerSocket, Reynolds, CDK, Promax, and 14 others natively. For anything else, we build a Zapier or webhook bridge in under 5 business days.
+
+What's the CRM, so I can confirm which path applies?"</div>
+  <div class="why"><strong>Why it lands:</strong> Assumed close on integration ("we DO integrate"). The 14 natively-supported names projects authority. The calibrated question converts the objection into a discovery question.</div>
+</div>
+
+<!-- CARD 13 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 13</div>
+      <div class="obj">My team won't adopt it, they hate new tools.</div>
+    </div>
+    <span class="ctag t-tech">Tech</span>
+  </div>
+  <div class="technique">SPIN Implication + Sandler <span class="master-cite">Rackham + Sandler</span></div>
+  <div class="script">"Real concern. Two questions, what's the last tool you tried to roll out that failed, and what specifically killed adoption?
+
+[They tell you.]
+
+OK so the issue was [reason]. Here's how we de-risk: AI replies before your team even sees the lead. They don't have to log into anything new. The only thing they do differently is walk into the showroom and have an appointment already booked. Adoption isn't a barrier, the team has nothing to learn."</div>
+  <div class="why"><strong>Why it lands:</strong> SPIN Implication question to surface adoption history. Then specifically address the failure mode they named. Zero-adoption framing ("nothing new to learn") removes the perceived risk.</div>
+</div>
+
+<!-- CARD 14 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 14</div>
+      <div class="obj">Just walk me through it, I'll re-pitch internally.</div>
+    </div>
+    <span class="ctag t-power">Power</span>
+  </div>
+  <div class="technique">Voss Mirror + Reputation Reframe <span class="master-cite">Chris Voss</span></div>
+  <div class="script">"Re-pitch internally?"
+
+[They confirm.]
+
+"It sounds like you've done this before and the boss kicks back wanting to hear it from the source anyway."
+
+[Yes.]
+
+"That's why I want all three of you on the same 20-min call. Every time I've done a one-then-relay, the deal stalls and you end up looking like the messenger explaining a product you didn't build. 20 min once is faster than 3 rounds of telephone."</div>
+  <div class="why"><strong>Why it lands:</strong> Mirror + label + reframe combo. Protects THEIR reputation. They'd rather not look like the messenger, so they get the right people on the call.</div>
+</div>
+
+<!-- CARD 15 -->
+<div class="card">
+  <div class="card-head">
+    <div>
+      <div class="card-num">CARD 15</div>
+      <div class="obj">I'm not the decision-maker / I just want to learn.</div>
+    </div>
+    <span class="ctag t-power">Power</span>
+  </div>
+  <div class="technique">Sandler Disqualify + Cardone Direct <span class="master-cite">Sandler + Cardone</span></div>
+  <div class="script">"Appreciate the curiosity, and I respect your time too much to do a full demo for someone who isn't deciding.
+
+Two options. Option A, I send you a 90-second video and a one-page summary, you share with the actual decider, we book a real call if they're interested. Option B, you bring the decider on a 15-min call next week and we cover everything in one go.
+
+Which works for you?"</div>
+  <div class="why"><strong>Why it lands:</strong> Sandler-style disqualification respects your own time and theirs. The choice close (A or B = both forward motion) gets them out of "tire kicker" mode. No long demo to a non-decider.</div>
+</div>
+
+</div>
+
+<div class="legend">
+  <div class="row"><strong>Category guide:</strong></div>
+  <div class="row"><strong>Price</strong> &middot; Objection is about money. Use Sandler reversals or Hopkins reductions.</div>
+  <div class="row"><strong>Trust</strong> &middot; They're hesitating because they don't trust the product or the rep yet. Use Voss labels + tonality.</div>
+  <div class="row"><strong>Timing</strong> &middot; "Not now" objection. Use Voss calibrated questions to pin down when, or Sandler up-front contract to schedule the follow-up.</div>
+  <div class="row"><strong>Fit</strong> &middot; They think the product isn't for them. Use Voss label + reframe.</div>
+  <div class="row"><strong>Power</strong> &middot; Authority / decision-maker gap. Use mirror + reputation reframe.</div>
+  <div class="row"><strong>Tech / Adoption</strong> &middot; Integration or team-adoption fear. Use SPIN Implication + de-risking language.</div>
+</div>
+
+</div>
+
+<footer>
+  Drive AI Sales Inc. &middot; <a href="https://driveaisales.com">driveaisales.com</a> &middot; Objection Rolodex &middot; May 2026 &middot; Print landscape, fold once
+</footer>
+
+</body>
+</html>

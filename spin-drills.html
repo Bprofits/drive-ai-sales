@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPIN Drills - Drive AI Sales</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a; color: #e2e8f0;
+      min-height: 100vh; line-height: 1.55;
+    }
+    :root {
+      --orange: #f47920;
+      --orange-glow: rgba(244,121,32,0.15);
+      --blue: #3b82f6;
+      --blue-glow: rgba(59,130,246,0.12);
+      --purple: #a855f7;
+      --green: #22c55e;
+      --green-glow: rgba(34,197,94,0.12);
+      --red: #ef4444;
+      --red-glow: rgba(239,68,68,0.12);
+      --surface: #111111;
+      --surface-2: #161616;
+      --border: #1e1e1e;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+    }
+    header {
+      background: linear-gradient(135deg, #141414 0%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    header h1 { font-size: 20px; font-weight: 700; color: #f7fafc; letter-spacing: -0.3px; }
+    header .subtitle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .badge {
+      background: var(--orange-glow); color: var(--orange);
+      font-size: 11px; font-weight: 600;
+      padding: 5px 12px; border-radius: 20px;
+      border: 1px solid rgba(244,121,32,0.3);
+    }
+    .nav-bar {
+      padding: 12px 32px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+    .nav-bar a {
+      color: var(--text-dim); text-decoration: none;
+      padding: 8px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-bar a:hover { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.2); }
+    .nav-bar a.active { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.3); font-weight: 600; }
+    .nav-bar .spacer { flex: 1; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 32px; }
+
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 28px;
+    }
+    .intro-card .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--orange); text-transform: uppercase; margin-bottom: 8px;
+    }
+    .intro-card h2 {
+      font-size: 22px; color: #f7fafc; margin-bottom: 12px;
+    }
+    .intro-card p {
+      font-size: 14px; color: var(--text); margin-bottom: 10px;
+    }
+
+    .spin-key {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px; margin: 20px 0 28px;
+    }
+    .spin-letter {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .spin-letter .big {
+      font-size: 32px; font-weight: 800; color: var(--orange);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .spin-letter .name {
+      font-size: 14px; font-weight: 700; color: #f7fafc;
+      margin-bottom: 6px;
+    }
+    .spin-letter .what {
+      font-size: 12.5px; color: var(--text-dim); line-height: 1.5;
+    }
+
+    .scenario {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 30px;
+      margin-bottom: 24px;
+    }
+    .scenario-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: var(--blue-glow);
+      padding: 4px 10px; border-radius: 4px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(59,130,246,0.25);
+    }
+    .scenario h2 {
+      font-size: 19px; color: #f7fafc; margin-bottom: 8px;
+    }
+    .scenario .briefing {
+      font-size: 13.5px; color: var(--text);
+      background: var(--surface-2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0 18px;
+      border-left: 2px solid var(--text-muted);
+    }
+    .scenario .briefing strong { color: var(--orange); }
+    .scenario h3 {
+      font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin: 18px 0 8px;
+    }
+
+    details {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    details[open] {
+      background: rgba(244,121,32,0.04);
+      border-color: rgba(244,121,32,0.25);
+    }
+    summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: var(--text);
+      list-style: none;
+      display: flex; align-items: center; gap: 10px;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      content: '\002B';
+      color: var(--orange);
+      font-weight: 700;
+      font-size: 16px;
+      width: 16px;
+    }
+    details[open] summary::before { content: '\002212'; }
+    summary .q-tag {
+      background: rgba(168,85,247,0.15); color: var(--purple);
+      font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    details > div {
+      padding: 4px 16px 14px 42px;
+      font-size: 13px;
+      color: #cbd5e1;
+      font-family: 'SF Mono', Monaco, monospace;
+      line-height: 1.6;
+    }
+    details > div strong { color: var(--orange); font-style: normal; }
+
+    .bank {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 30px;
+      margin-bottom: 24px;
+    }
+    .bank h2 { font-size: 19px; color: #f7fafc; margin-bottom: 8px; }
+    .bank .tagline { font-size: 13px; color: var(--text-dim); margin-bottom: 18px; }
+    .bank h3 {
+      font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange); margin: 18px 0 8px;
+    }
+    .bank ul {
+      margin: 0; padding: 0; list-style: none;
+    }
+    .bank li {
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    .self-drill {
+      background: linear-gradient(135deg, rgba(34,197,94,0.06) 0%, rgba(34,197,94,0.02) 100%);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-left: 3px solid var(--green);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .self-drill h2 {
+      font-size: 18px; color: #f7fafc; margin-bottom: 12px;
+    }
+    .self-drill ol {
+      margin: 12px 0 0 24px; font-size: 13.5px; color: var(--text);
+    }
+    .self-drill ol li { margin-bottom: 10px; }
+    .self-drill code {
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 12.5px;
+      color: var(--green);
+    }
+
+    .principle {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .principle .quote {
+      font-size: 16px; color: #f7fafc;
+      font-style: italic; line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .principle .attrib {
+      font-size: 12px; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 1.2px;
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center; padding: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-muted); margin-top: 40px;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+
+    @media print {
+      body { background: white; color: black; }
+      header, .nav-bar, footer { display: none; }
+      .container { max-width: 100%; padding: 0; }
+      .scenario, .bank, .intro-card, .self-drill, .principle {
+        background: white; border: 1px solid #ccc; page-break-inside: avoid;
+      }
+      summary { color: #333; }
+      details > div { color: #555; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>SPIN Drills</h1>
+    <div class="subtitle">Memorize the framework. Adapt it on the floor.</div>
+  </div>
+  <span class="badge">Rep Training</span>
+</header>
+
+<div class="nav-bar">
+  <a href="index.html">Edmonton</a>
+  <a href="calgary-dealers.html">Calgary</a>
+  <a href="sales-process.html">Sales Process</a>
+  <a href="spin-drills.html" class="active">SPIN Drills</a>
+  <a href="objection-rolodex.html">Objection Rolodex</a>
+  <a href="sales-guide.html">Sales Guide</a>
+  <a href="glossary.html">CRM Glossary</a>
+  <span class="spacer"></span>
+  <a href="https://driveaisales.com" target="_blank" style="color: var(--orange);">driveaisales.com &rarr;</a>
+</div>
+
+<div class="container">
+
+<div class="intro-card">
+  <div class="eyebrow">Neil Rackham · SPIN Selling · 35,000 calls analyzed</div>
+  <h2>The Question Framework That Built B2B Sales</h2>
+  <p>SPIN is the only sales methodology proven by empirical research to lift close rate by 17% in complex B2B. The order matters more than the questions themselves. Loser reps pitch too early. Closer reps ask questions in this exact sequence: Situation → Problem → Implication → Need-Payoff.</p>
+</div>
+
+<div class="spin-key">
+  <div class="spin-letter">
+    <div class="big">S</div>
+    <div class="name">Situation</div>
+    <div class="what">Fact-gathering. Keep short, prospects find these boring. 3-5 max.</div>
+  </div>
+  <div class="spin-letter">
+    <div class="big">P</div>
+    <div class="name">Problem</div>
+    <div class="what">Find the wound. Surface explicit pain. The prospect names it out loud.</div>
+  </div>
+  <div class="spin-letter">
+    <div class="big">I</div>
+    <div class="name">Implication</div>
+    <div class="what">Rub salt in the wound. Force them to calculate cost themselves. The killer step.</div>
+  </div>
+  <div class="spin-letter">
+    <div class="big">N</div>
+    <div class="name">Need-Payoff</div>
+    <div class="what">Paint the future. Prospect describes the value in their own words.</div>
+  </div>
+</div>
+
+<div class="principle">
+  <div class="quote">"The most successful salespeople don't ask the most questions. They ask the most powerful questions, in the right order."</div>
+  <div class="attrib">Neil Rackham</div>
+</div>
+
+<!-- SCENARIO 1 -->
+<div class="scenario">
+  <div class="scenario-tag">Scenario 1</div>
+  <h2>The High-Volume Dealer With a Slow BDC</h2>
+  <div class="briefing">
+    <strong>Setting:</strong> Mid-size GM dealership, 180 units/month, 4-person BDC, on VinSolutions. The GM took your call after the QR scan and said "honestly our BDC is slow." Run SPIN. Click each line to reveal the question.
+  </div>
+
+  <h3>Situation (3 questions)</h3>
+  <details><summary><span class="q-tag">S</span>What CRM are you on, and is your BDC fully integrated?</summary><div>Reveals tech stack. VinSolutions vs DealerSocket vs Reynolds changes the integration story. Reveals if BDC is plugged in or working off spreadsheets.</div></details>
+  <details><summary><span class="q-tag">S</span>How many BDC reps right now, and are they in-house or outsourced?</summary><div>In-house BDC = pure replacement story. Outsourced BDC = "we replace what you're paying $4-6/lead for at 1/3 the cost".</div></details>
+  <details><summary><span class="q-tag">S</span>Walk me through what happens when a lead comes in at 9pm on a Tuesday.</summary><div>Operational map. Surfaces the after-hours gap without asking about it directly.</div></details>
+
+  <h3>Problem (4 questions)</h3>
+  <details><summary><span class="q-tag">P</span>When you say "slow," what specifically is slow, first response or follow-up cadence?</summary><div>Forces specificity. "Slow" is vague, you need to know if it's the 30-second touch or the 90-day nurture that's broken.</div></details>
+  <details><summary><span class="q-tag">P</span>How many leads per month do you estimate go untouched until the next morning?</summary><div>Gets a number on the table. Even an estimate. Owning a number is owning the problem.</div></details>
+  <details><summary><span class="q-tag">P</span>What's your BDC turnover been like in the last 12 months?</summary><div>BDC churn is the silent killer. Industry average is 80%/year. Every owner has felt this.</div></details>
+  <details><summary><span class="q-tag">P</span>Has there been a specific deal you can think of recently that slipped through the BDC?</summary><div>The story question. A specific lost deal is more painful than a generic statistic.</div></details>
+
+  <h3>Implication (5 questions)</h3>
+  <details><summary><span class="q-tag">I</span>If you're missing, say, 40% of after-hours leads and your average gross is $3,800, what's that adding up to a year?</summary><div>Let them do the math out loud. Don't say the number for them. <strong>Their number = their problem.</strong> "I dunno, maybe $200k?" Now $200k is their reality.</div></details>
+  <details><summary><span class="q-tag">I</span>What does BDC turnover cost you, in retraining time and missed closes during the gap?</summary><div>Hidden cost. Most owners have never quantified it. Once they do, they can't unsee it.</div></details>
+  <details><summary><span class="q-tag">I</span>How does slow lead response affect your CSI score, and what does CSI affect at this store?</summary><div>CSI affects manufacturer co-op, allocations, and bonus structure. Massive ripple effect.</div></details>
+  <details><summary><span class="q-tag">I</span>What's the morale hit on your floor reps when they get leads 18 hours stale?</summary><div>Soft cost question. Floor reps hate cold leads. High turnover follows. Now the BDC problem is a sales-floor problem too.</div></details>
+  <details><summary><span class="q-tag">I</span>If this doesn't get fixed in 12 months, where does the store sit competitively against Crowfoot or Country Hills?</summary><div>Threat framing. Their direct competitors are running the same race. Falling behind = existential.</div></details>
+
+  <h3>Need-Payoff (4 questions)</h3>
+  <details><summary><span class="q-tag">N</span>If every lead got a personalized text inside 60 seconds, even 2am, what does that do to your closing ratio?</summary><div>They will picture the upside themselves. Self-described future = stronger commitment.</div></details>
+  <details><summary><span class="q-tag">N</span>If your BDC manager could refocus on coaching instead of doing the work themselves, what would that unlock?</summary><div>Reframes from "replace your team" to "make your team better." Critical for buy-in.</div></details>
+  <details><summary><span class="q-tag">N</span>If you could reduce BDC payroll by 40% with no drop in coverage, what would you do with that budget?</summary><div>Forward-looking. Asks them to imagine spending the saved money. Now they're invested in the saving.</div></details>
+  <details><summary><span class="q-tag">N</span>If your store became known for the fastest lead response in Calgary, what does that do for repeat-buy and referral?</summary><div>Brand-level outcome. Gets them out of "saving money" mode and into "winning the market" mode.</div></details>
+</div>
+
+<!-- SCENARIO 2 -->
+<div class="scenario">
+  <div class="scenario-tag">Scenario 2</div>
+  <h2>The Small Independent Used-Car Dealer (No BDC)</h2>
+  <div class="briefing">
+    <strong>Setting:</strong> 30-unit/month independent. Owner answers all leads personally on his cell. No CRM, just AutoTrader inbox + voicemail. Says "I don't have a BDC, I handle it." Run SPIN, the play here is different.
+  </div>
+
+  <h3>Situation</h3>
+  <details><summary><span class="q-tag">S</span>How many inbound leads do you typically get a month between phone, web, and AutoTrader?</summary><div>Establish volume. Most small dealers underestimate, "maybe 30?" when it's 80+.</div></details>
+  <details><summary><span class="q-tag">S</span>What does a typical day look like, are you on the lot, in the office, or running deals?</summary><div>Where are they when leads arrive? On the lot = phone in pocket = missed calls.</div></details>
+  <details><summary><span class="q-tag">S</span>Roughly how many hours a week do you personally spend on lead reply?</summary><div>Surfaces the owner's time cost. They will say "too many."</div></details>
+
+  <h3>Problem</h3>
+  <details><summary><span class="q-tag">P</span>When you're closing a deal in the showroom, what happens to the lead that comes in?</summary><div>The catch-22 question. Either they ignore one or rush the other. Both are losing strategies.</div></details>
+  <details><summary><span class="q-tag">P</span>How often do you get a lead at 9pm and only reply the next morning?</summary><div>After-hours gap. Independents are worse at this than franchises.</div></details>
+  <details><summary><span class="q-tag">P</span>Have you ever lost a deal because someone said "your competitor got back to me first"?</summary><div>A specific failure they remember. Anchor the conversation.</div></details>
+
+  <h3>Implication</h3>
+  <details><summary><span class="q-tag">I</span>If you closed even 3 more deals a month because every lead got an instant reply, what's that in gross?</summary><div>At 30 units/month, 3 more = 10% lift. Owners feel this.</div></details>
+  <details><summary><span class="q-tag">I</span>How much sleep do you lose checking your phone in case a hot lead came in at 11pm?</summary><div>The personal cost question. Lifestyle impact. Independents are exhausted.</div></details>
+  <details><summary><span class="q-tag">I</span>If you had to step away for a 2-week vacation tomorrow, what happens to the lead flow?</summary><div>Continuity question. Most owners are imprisoned by their inbox. Painful realization.</div></details>
+
+  <h3>Need-Payoff</h3>
+  <details><summary><span class="q-tag">N</span>If every inquiry got a 30-second AI reply that booked the lead a viewing slot, what happens to your closing ratio?</summary><div>Direct future-state. Visualizes the upside in their language.</div></details>
+  <details><summary><span class="q-tag">N</span>If you could take a real vacation knowing leads were still being qualified, what would that be worth to you?</summary><div>Quality-of-life close. Independents respond to this 10x more than franchise GMs.</div></details>
+</div>
+
+<!-- SCENARIO 3 -->
+<div class="scenario">
+  <div class="scenario-tag">Scenario 3</div>
+  <h2>The Threatened BDC Manager Objection</h2>
+  <div class="briefing">
+    <strong>Setting:</strong> You got the GM excited. Now the BDC manager is in the room, arms crossed. She says "we already have a process." Run SPIN with HER, not the GM. The play here is to turn the threat into a champion.
+  </div>
+
+  <h3>Situation (to the BDC manager directly)</h3>
+  <details><summary><span class="q-tag">S</span>How long have you been running the BDC here?</summary><div>Respect tenure. Use her name. She is being protective of her ground, name it.</div></details>
+  <details><summary><span class="q-tag">S</span>What's the part of the job you wish you could spend more time on?</summary><div>Surfaces frustration. She is buried in low-quality lead replies and can't coach.</div></details>
+
+  <h3>Problem</h3>
+  <details><summary><span class="q-tag">P</span>What's the most frustrating part of your week, what eats your time without payoff?</summary><div>Get her venting. Spam leads, dead leads, late-night messages, repeat questions.</div></details>
+  <details><summary><span class="q-tag">P</span>If you could hand off the dead-end stuff and only touch hot leads, what changes?</summary><div>Reframe AI as her unlock, not her replacement.</div></details>
+
+  <h3>Implication</h3>
+  <details><summary><span class="q-tag">I</span>If your team is spending 60% of their time on low-intent leads, how does that affect the hot-lead conversion?</summary><div>She knows the math. Most BDCs are choking on volume they shouldn't have.</div></details>
+  <details><summary><span class="q-tag">I</span>What would it mean for your standing here if you brought in the tool that 4x'd your team's hot-lead throughput?</summary><div>Personal-career framing. She gets credit for the upgrade.</div></details>
+
+  <h3>Need-Payoff</h3>
+  <details><summary><span class="q-tag">N</span>If we filter every lead so your team only touches the warm ones, what does your team's morning look like?</summary><div>Picture the relief. AI handles the swamp, BDC manager runs a strike team.</div></details>
+  <details><summary><span class="q-tag">N</span>If you owned this rollout, what would a successful 90 days look like to YOU?</summary><div>Co-create. She defines success. Now she has a stake in it succeeding.</div></details>
+</div>
+
+<!-- SCENARIO 4 -->
+<div class="scenario">
+  <div class="scenario-tag">Scenario 4</div>
+  <h2>The "Things Are Fine" Dealer (Cold Call, No Pain Surfaced Yet)</h2>
+  <div class="briefing">
+    <strong>Setting:</strong> Cold-call. GM picked up. You're inside the 2-minute window. Says "we're doing well, things are fine." Run SPIN even when they claim no pain. Pain is always there, just unsurfaced.
+  </div>
+
+  <h3>Situation</h3>
+  <details><summary><span class="q-tag">S</span>That's great to hear. Are you at the volume target you set for the year?</summary><div>Most stores are NOT at target. This question surfaces the gap politely.</div></details>
+  <details><summary><span class="q-tag">S</span>What CRM are you running, and how integrated is it with your phone system?</summary><div>Tech setup question. Often reveals duct-tape integrations.</div></details>
+
+  <h3>Problem</h3>
+  <details><summary><span class="q-tag">P</span>If you had to name one number on the dashboard you'd love to fix this quarter, what is it?</summary><div>Even "doing well" stores have one metric they hate. Lead response time, sub-prime close rate, F&amp;I attach rate, something.</div></details>
+  <details><summary><span class="q-tag">P</span>What's the percentage of leads your team can't reach within an hour?</summary><div>Specific number. Even great stores admit 20-30%.</div></details>
+
+  <h3>Implication</h3>
+  <details><summary><span class="q-tag">I</span>If you're already doing well, what would another 10% of converted leads be worth in gross?</summary><div>Reframe: not "fix your problem" but "compound your win." Winners want to win more.</div></details>
+  <details><summary><span class="q-tag">I</span>What does it mean for your team if Crowfoot or Country Hills installs this and starts beating you on lead response next quarter?</summary><div>Competitive threat. Even comfortable dealers fear losing rank.</div></details>
+
+  <h3>Need-Payoff</h3>
+  <details><summary><span class="q-tag">N</span>If you went from "fine" to "best lead-response in Calgary" with no extra payroll, what does that do for your year?</summary><div>Aspirational. Now you're not fixing a problem, you're stacking dominance.</div></details>
+</div>
+
+<!-- QUESTION BANK -->
+<div class="bank">
+  <h2>The SPIN Question Bank (memorize)</h2>
+  <p class="tagline">Reps should be able to draw any of these from memory in under 2 seconds. Drill weekly.</p>
+
+  <h3>S - Situation (use sparingly)</h3>
+  <ul>
+    <li>How many vehicles do you move per month?</li>
+    <li>Is your BDC in-house or outsourced?</li>
+    <li>What CRM are you on?</li>
+    <li>How many phone lines hit the BDC?</li>
+    <li>Are service and sales BDCs combined or separate?</li>
+    <li>Who decides on tech investments here, you, the GM, or the dealer principal?</li>
+    <li>What does a typical lead flow look like, from inquiry to test drive?</li>
+  </ul>
+
+  <h3>P - Problem (force them to name pain)</h3>
+  <ul>
+    <li>What's the most frustrating part of your current BDC?</li>
+    <li>How often do leads go untouched until next morning?</li>
+    <li>What's your BDC turnover been like in the last 12 months?</li>
+    <li>When was the last lead you can think of that the BDC dropped?</li>
+    <li>Where's response time slowest, evenings or weekends?</li>
+    <li>How often do leads get re-touched at the 7-day or 30-day mark?</li>
+    <li>Have you ever lost a deal to "your competitor got back to me first"?</li>
+    <li>How does your sales floor feel about the BDC handoff quality?</li>
+  </ul>
+
+  <h3>I - Implication (force them to calculate)</h3>
+  <ul>
+    <li>If you're missing 40% of after-hours leads at $3,800 avg gross, what's that a year?</li>
+    <li>What does it cost you in retraining when a BDC rep quits?</li>
+    <li>How does slow lead response affect CSI and manufacturer co-op?</li>
+    <li>What's the impact on floor reps' morale when they get stale leads?</li>
+    <li>What happens to your competitive position if this doesn't change in 12 months?</li>
+    <li>What does the owner say when the monthly leakage report comes out?</li>
+    <li>If your closest competitor installs this first, what's that worth in lost market share?</li>
+  </ul>
+
+  <h3>N - Need-Payoff (let them sell themselves)</h3>
+  <ul>
+    <li>If every lead got a personalized reply in 60 seconds, what's that do for conversion?</li>
+    <li>If BDC payroll dropped 40% with no drop in coverage, what would you spend that on?</li>
+    <li>If your BDC manager could coach instead of grinding, what changes?</li>
+    <li>If your store had the fastest lead response in the city, what's that worth?</li>
+    <li>If you could vacation knowing leads were being qualified, what's that worth personally?</li>
+    <li>If hot-lead conversion went up 10%, where does that put you vs. target?</li>
+    <li>If repeat-buy rate climbed because every customer got AI-personalized follow-up, what's that gross impact?</li>
+  </ul>
+</div>
+
+<div class="self-drill">
+  <h2>The 5-Minute Self-Drill (do this daily)</h2>
+  <ol>
+    <li>Open a timer. <code>5:00</code>.</li>
+    <li>Pick a scenario from above. <strong>Without looking at the answers,</strong> write your 4 Situation, 4 Problem, 4 Implication, 4 Need-Payoff questions on paper.</li>
+    <li>Open the scenario, compare. Anything you missed? Mark it.</li>
+    <li>Re-do that scenario tomorrow.</li>
+    <li>After 30 days, you have 4 scenarios x 16 questions = 64 SPIN questions memorized in your bones. You will not need to think on the floor.</li>
+  </ol>
+</div>
+
+<div class="principle">
+  <div class="quote">"The professional plays scales every morning. The amateur plays gigs without warming up. Drill the questions until you can hum them under stress."</div>
+  <div class="attrib">Drive AI Sales · the discipline rule</div>
+</div>
+
+</div>
+
+<footer>
+  Drive AI Sales Inc. &middot; <a href="https://driveaisales.com">driveaisales.com</a> &middot; SPIN Drills &middot; May 2026 &middot; Print this and run it on every Monday morning
+</footer>
+
+</body>
+</html>
