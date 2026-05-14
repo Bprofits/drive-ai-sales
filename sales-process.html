@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Process - Drive AI Sales</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+    :root {
+      --orange: #f47920;
+      --orange-dim: #c5611a;
+      --orange-glow: rgba(244, 121, 32, 0.15);
+      --blue: #3b82f6;
+      --blue-glow: rgba(59, 130, 246, 0.12);
+      --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.12);
+      --red: #ef4444;
+      --red-glow: rgba(239, 68, 68, 0.12);
+      --surface: #111111;
+      --surface-2: #161616;
+      --border: #1e1e1e;
+      --border-hover: #333;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+    }
+    header {
+      background: linear-gradient(135deg, #141414 0%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    header h1 { font-size: 20px; font-weight: 700; color: #f7fafc; letter-spacing: -0.3px; }
+    header .subtitle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .badge {
+      background: var(--orange-glow); color: var(--orange);
+      font-size: 11px; font-weight: 600;
+      padding: 5px 12px; border-radius: 20px;
+      border: 1px solid rgba(244,121,32,0.3);
+    }
+    .nav-bar {
+      padding: 12px 32px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+    .nav-bar a {
+      color: var(--text-dim); text-decoration: none;
+      padding: 8px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-bar a:hover { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.2); }
+    .nav-bar a.active { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.3); font-weight: 600; }
+    .nav-bar .spacer { flex: 1; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 32px; }
+
+    .hero-quote {
+      background: linear-gradient(135deg, rgba(244,121,32,0.08) 0%, rgba(244,121,32,0.02) 100%);
+      border: 1px solid rgba(244,121,32,0.25);
+      border-left: 3px solid var(--orange);
+      border-radius: 12px;
+      padding: 32px 36px;
+      margin-bottom: 32px;
+    }
+    .hero-quote .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--orange); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hero-quote blockquote {
+      font-size: 22px; font-weight: 500; color: #f7fafc;
+      line-height: 1.4; letter-spacing: -0.2px;
+    }
+    .hero-quote .attribution {
+      font-size: 12.5px; color: var(--text-dim); margin-top: 14px; font-style: italic;
+    }
+
+    .stage {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+    .stage-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--orange); color: #0a0a0a;
+      border-radius: 50%;
+      font-weight: 700; font-size: 14px;
+      margin-right: 12px;
+    }
+    .stage h2 {
+      font-size: 19px; font-weight: 700; color: #f7fafc;
+      margin-bottom: 6px; display: flex; align-items: center;
+    }
+    .stage .stage-tagline {
+      font-size: 13px; color: var(--text-dim); margin-bottom: 18px;
+      padding-left: 44px;
+    }
+    .stage h3 {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--orange); margin: 20px 0 10px;
+    }
+    .stage p { font-size: 14px; color: var(--text); margin-bottom: 12px; }
+    .stage ul, .stage ol { margin: 10px 0 16px 24px; font-size: 14px; color: var(--text); }
+    .stage li { margin-bottom: 6px; }
+
+    .script {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 12px 0;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+    }
+    .script.them { border-left: 3px solid var(--blue); }
+    .script.you { border-left: 3px solid var(--orange); }
+    .script-label {
+      display: inline-block;
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .script.them .script-label { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(59,130,246,0.25); }
+    .script.you .script-label { background: var(--orange-glow); color: var(--orange); border: 1px solid rgba(244,121,32,0.25); }
+
+    .callout {
+      background: var(--green-glow);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 14px 18px; margin: 14px 0;
+      font-size: 13px; color: #d1fae5;
+    }
+    .callout.warn {
+      background: var(--red-glow);
+      border-color: rgba(239,68,68,0.25);
+      border-left-color: var(--red);
+      color: #fecaca;
+    }
+    .callout strong { color: #f7fafc; }
+
+    .flow {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px; margin: 18px 0;
+    }
+    .flow-step {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      position: relative;
+    }
+    .flow-step .num {
+      font-size: 10px; font-weight: 700; color: var(--orange);
+      letter-spacing: 1px;
+    }
+    .flow-step .title {
+      font-size: 14px; font-weight: 600; color: #f7fafc;
+      margin: 6px 0 6px;
+    }
+    .flow-step .desc {
+      font-size: 12.5px; color: var(--text-dim); line-height: 1.45;
+    }
+
+    .checklist {
+      list-style: none; margin: 14px 0; padding: 0;
+    }
+    .checklist li {
+      padding: 10px 14px 10px 38px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      position: relative;
+      font-size: 13.5px;
+    }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 14px; top: 14px;
+      width: 14px; height: 14px;
+      border: 1.5px solid var(--orange);
+      border-radius: 3px;
+    }
+    .checklist li strong { color: var(--orange); }
+
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0;
+    }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+    .col-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .col-card .col-title {
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .col-card.do .col-title { color: var(--green); }
+    .col-card.dont .col-title { color: var(--red); }
+    .col-card ul { margin: 0 0 0 18px; font-size: 13px; color: var(--text); }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px; margin-bottom: 32px;
+    }
+    .toc-title {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+      color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .toc ol { margin-left: 24px; font-size: 14px; }
+    .toc li { margin-bottom: 4px; }
+    .toc a { color: var(--text); text-decoration: none; }
+    .toc a:hover { color: var(--orange); }
+
+    footer {
+      text-align: center; padding: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-muted); margin-top: 40px;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Drive AI Sales Process</h1>
+    <div class="subtitle">Tactical playbook, door to deal</div>
+  </div>
+  <span class="badge">Internal v1.0</span>
+</header>
+
+<div class="nav-bar">
+  <a href="index.html">Edmonton</a>
+  <a href="calgary-dealers.html">Calgary</a>
+  <a href="sales-process.html" class="active">Sales Process</a>
+  <a href="sales-guide.html">Sales Guide</a>
+  <a href="glossary.html">CRM Glossary</a>
+  <span class="spacer"></span>
+  <a href="https://driveaisales.com" target="_blank" style="color: var(--orange);">driveaisales.com &rarr;</a>
+</div>
+
+<div class="container">
+
+<div class="hero-quote">
+  <div class="eyebrow">The 2-Minute Rule, opener</div>
+  <blockquote>"If I can't make this peak your interest in the first two minutes, I don't deserve any more of your time."</blockquote>
+  <div class="attribution">Set a literal timer on the counter. The disarmer flips the power dynamic, you give them the out, they almost never take it.</div>
+</div>
+
+<div class="toc">
+  <div class="toc-title">The 5 Stages</div>
+  <ol>
+    <li><a href="#stage-1">First Touch, the 2-Minute Disarmer</a></li>
+    <li><a href="#stage-2">QR Card Flow, contact in phone + thread open</a></li>
+    <li><a href="#stage-3">Texting Cadence, the next 24 hours</a></li>
+    <li><a href="#stage-4">Discovery, mapping decision makers</a></li>
+    <li><a href="#stage-5">The All-Parties-Present Demo</a></li>
+  </ol>
+</div>
+
+<div id="stage-1" class="stage">
+  <h2><span class="stage-num">1</span>First Touch, the 2-Minute Disarmer</h2>
+  <div class="stage-tagline">Door knock or front-counter approach. Goal: earn 2 minutes, scan the QR.</div>
+
+  <h3>The opener (exact words)</h3>
+  <div class="script you">
+<span class="script-label">You</span>
+"Hey, I know I'm walking in cold. My name's [Rep], I'm with Drive AI Sales.
+
+If I can't make this peak your interest in the first two minutes, I don't deserve any more of your time. Fair?"
+</div>
+
+  <div class="callout">
+    <strong>Why it works:</strong> You hand them the off-ramp before they ask for it. 9 out of 10 say "fair." The 10th is busy, set the texted callback (Stage 3 script).
+  </div>
+
+  <h3>The 2-minute pitch (memorize)</h3>
+  <div class="script you">
+<span class="script-label">You</span>
+"You run [X] vehicles a month. Your BDC is probably costing you [$8-12k] in wages and missing 40% of after-hours leads.
+
+We replace that. AI handles inbound chat, SMS, and inbound calls 24/7, books test drives straight into your CRM, and follows up on every dead lead for 90 days. No new hires, fires no one. Pay nothing till it books your first appointment.
+
+Want me to show you the demo on my phone, or scan this and we'll grab 20 minutes when your sales manager is here?"
+</div>
+
+  <h3>The two outcomes</h3>
+  <div class="two-col">
+    <div class="col-card do">
+      <div class="col-title">Outcome A, they engage</div>
+      <ul>
+        <li>Show 60-sec demo on phone</li>
+        <li>Still hand them the QR card</li>
+        <li>Book the discovery call before you leave</li>
+      </ul>
+    </div>
+    <div class="col-card dont">
+      <div class="col-title">Outcome B, they bounce</div>
+      <ul>
+        <li>"All good, scan this and we'll connect when you have a slot."</li>
+        <li>QR scan opens thread (Stage 2)</li>
+        <li>You're now in their phone</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="stage-2" class="stage">
+  <h2><span class="stage-num">2</span>QR Card Flow, contact in phone + thread open</h2>
+  <div class="stage-tagline">The card itself is a closer. Scan = rep saved + SMS thread opened in one tap.</div>
+
+  <h3>What the QR actually does</h3>
+  <p>The QR on every rep's card points to a personal landing page (e.g. <code>driveaisales.com/r/bond</code>). Mobile-only, single-purpose, three buttons:</p>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="num">SCAN</div>
+      <div class="title">Native camera</div>
+      <div class="desc">Prospect points iPhone or Android camera at QR. Opens landing page in default browser.</div>
+    </div>
+    <div class="flow-step">
+      <div class="num">TAP 1</div>
+      <div class="title">Save Contact</div>
+      <div class="desc">Big orange button. Downloads .vcf vCard with rep name, phone, email, Drive AI org tag. iOS prompts "Add to Contacts."</div>
+    </div>
+    <div class="flow-step">
+      <div class="num">TAP 2</div>
+      <div class="title">Text Me</div>
+      <div class="desc">Pre-filled SMS opens. Body: "Hey [Rep], scanned your card at [Dealership]. Send me the demo." They press send.</div>
+    </div>
+    <div class="flow-step">
+      <div class="num">RESULT</div>
+      <div class="title">Thread open</div>
+      <div class="desc">Rep's phone pings within seconds. You now have a live SMS thread + rep's contact saved in their phone. Reply inside 5 minutes.</div>
+    </div>
+  </div>
+
+  <h3>The card itself</h3>
+  <ul>
+    <li>Matte black, orange Drive AI mark, rep name + title only on the front</li>
+    <li>Back is 80% QR + one line: <strong>"Scan. Save my contact. Text me. I'll send you a 90-second demo."</strong></li>
+    <li>No phone number printed. Forces the scan. Friction creates engagement.</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Tech note:</strong> SMS pre-fill links work natively on iOS (<code>sms:+1xxx&body=...</code>) and on Android (<code>sms:+1xxx?body=...</code>). The landing page detects platform and serves the right link. No app install, no friction.
+  </div>
+
+  <h3>Tracking, every scan logged</h3>
+  <ul>
+    <li>Landing page POSTs to our backend on load (rep ID + timestamp + UA)</li>
+    <li>Save Contact click → logged as "card scanned, contact saved"</li>
+    <li>Text Me click → logged as "thread initiated"</li>
+    <li>Daily Slack ping per rep: scans, saves, text-starts, conversions</li>
+  </ul>
+</div>
+
+<div id="stage-3" class="stage">
+  <h2><span class="stage-num">3</span>Texting Cadence, the next 24 hours</h2>
+  <div class="stage-tagline">Thread is open. Now don't be a salesperson, be a human.</div>
+
+  <h3>Reply within 5 minutes (mandatory)</h3>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Hey, scanned your card at Bonnybrook. Send me the demo."
+</div>
+  <div class="script you">
+<span class="script-label">You, &lt; 5 min later</span>
+"Hey [Name], appreciate it. Here's the 90-sec demo: [link]
+
+Quick question, who else at the store sees the BDC numbers? GM? Sales manager? Want to make sure I don't waste anyone's time when we book a proper sit-down."
+</div>
+
+  <div class="callout warn">
+    <strong>Hard rule:</strong> First reply under 5 min. Studies put response-rate odds at 8x higher inside 5 min vs. 30 min. If you can't reply that fast, text-snooze the rep's calendar.
+  </div>
+
+  <h3>The 24-hour follow-up rhythm</h3>
+  <ol>
+    <li><strong>T+0, immediate.</strong> Demo link + "who else" question.</li>
+    <li><strong>T+3 hours.</strong> If silence: "Hey just checking, did the video play okay? Some Android browsers choke on it."</li>
+    <li><strong>T+24 hours.</strong> If still silence: "All good, you must be slammed. Want me to circle back Friday or just let it go?"</li>
+    <li><strong>T+72 hours.</strong> Last try: "Last text from me unless you say otherwise. Drive AI just booked 42 test drives overnight for [comp dealer in their city]. Worth 20 min?"</li>
+  </ol>
+
+  <div class="callout">
+    <strong>The permission-to-quit move:</strong> The "just let it go?" line is reverse psychology. ~30% of dead threads come back to life on this text.
+  </div>
+</div>
+
+<div id="stage-4" class="stage">
+  <h2><span class="stage-num">4</span>Discovery, mapping decision makers</h2>
+  <div class="stage-tagline">No demo gets scheduled until you know who signs and who blocks.</div>
+
+  <h3>The four roles at every dealership</h3>
+  <div class="two-col">
+    <div class="col-card do">
+      <div class="col-title">Must be on demo</div>
+      <ul>
+        <li><strong>Owner / Dealer Principal</strong>, signs the cheque</li>
+        <li><strong>General Manager</strong>, owns the P&amp;L</li>
+        <li><strong>Sales Manager</strong>, controls floor + CRM</li>
+      </ul>
+    </div>
+    <div class="col-card dont">
+      <div class="col-title">Nice to have</div>
+      <ul>
+        <li>BDC Manager, threatened by the product, manage carefully</li>
+        <li>Marketing Manager, often champions</li>
+        <li>IT, only if they ask</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The mapping question (text or call)</h3>
+  <div class="script you">
+<span class="script-label">You</span>
+"Before I book a time, three quick questions so I bring the right deck:
+
+1. Who has the final yes on tech investments, is that you, the GM, or the owner?
+2. Anyone else that needs to see this before a yes? Sales manager? BDC lead?
+3. What's the worst that could happen for you personally if this works?"
+</div>
+
+  <div class="callout">
+    <strong>Question 3 is the gold:</strong> If they answer "nothing", you have a champion. If they pause or list internal politics, you've identified the real blocker before the demo.
+  </div>
+
+  <h3>What you do with the map</h3>
+  <ul>
+    <li>Log all names + titles in CRM, one record per role</li>
+    <li>Confirm in writing: "So we'll have [GM] + [Sales Mgr] + [Owner] on the call, Thursday 2pm. Right?"</li>
+    <li>If they push back on getting everyone, see Stage 5 reframe script.</li>
+  </ul>
+</div>
+
+<div id="stage-5" class="stage">
+  <h2><span class="stage-num">5</span>The All-Parties-Present Demo</h2>
+  <div class="stage-tagline">No exceptions. If the decision-makers aren't on, the demo doesn't happen.</div>
+
+  <h3>The reframe (when they say "I'll loop them in after")</h3>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Just walk me through it first, I'll bring it back to the GM."
+</div>
+  <div class="script you">
+<span class="script-label">You</span>
+"I get it, but here's the deal. Every time I've demo'd to one person and let them re-pitch it internally, the message gets watered down and I lose a deal that should've closed.
+
+That's bad for me and worse for you because you end up looking like the messenger.
+
+20 minutes with all three of you on the call once is faster than three rounds of telephone. What's the earliest your GM has 20 minutes?"
+</div>
+
+  <div class="callout">
+    <strong>Why this lands:</strong> You're protecting their reputation, not yours. "You end up looking like the messenger" is the unlock. Sales managers and owners care more about their internal credibility than your sales cycle.
+  </div>
+
+  <h3>The 24-hour confirmation move</h3>
+  <p>Day before the demo, text every confirmed attendee (not just the champion):</p>
+  <div class="script you">
+<span class="script-label">You, to each attendee</span>
+"Hey [Name], confirming we're locked in tomorrow 2pm. I'll have 20 min of screen-share + 10 min Q&amp;A.
+
+One ask, if there's a number you'd love to fix at the store this quarter (lead response time, after-hours coverage, BDC cost) text it to me by EOD so I can tailor the demo. Looking forward."
+</div>
+
+  <h3>If anyone bails day-of</h3>
+  <div class="callout warn">
+    <strong>Reschedule. Do not run the demo short-staffed.</strong> Running it without the GM means you re-pitch in 2 weeks anyway. Politely:
+  </div>
+  <div class="script you">
+<span class="script-label">You</span>
+"Totally understand, things come up. Let's move it. I want all three of you in the room so we don't repeat ourselves. What does next Tuesday or Wednesday afternoon look like?"
+</div>
+
+  <h3>Demo open (first 90 seconds)</h3>
+  <ol>
+    <li><strong>0:00-0:20</strong> Thank by name, repeat the number they cared about: "[GM], you texted me yesterday that after-hours leads were leaking. Let's open with that."</li>
+    <li><strong>0:20-1:00</strong> One-sentence company frame: "Drive AI is the only AI BDC built specifically for Alberta dealers. We've replaced or augmented 14 BDCs across Edmonton this quarter."</li>
+    <li><strong>1:00-1:30</strong> The 2-minute disarmer, again: "If 18 minutes from now you don't see a clean ROI math, I'll end the call myself. Fair?"</li>
+  </ol>
+
+  <h3>Close, asked from the GM</h3>
+  <div class="script you">
+<span class="script-label">You, to GM specifically</span>
+"[GM Name], you've seen the numbers and the demo. From your seat, is there a reason this doesn't start at your store Monday?"
+</div>
+  <p>Stop talking. The first to speak loses. If "yes there's a reason", handle the specific objection. If "no, looks good", lock the start date right there.</p>
+</div>
+
+<div class="stage">
+  <h2><span class="stage-num">&#9733;</span>The Drive AI Sales Manifesto</h2>
+  <div class="stage-tagline">Print this. Stick it on every rep's monitor.</div>
+  <ul class="checklist">
+    <li><strong>Earn the time.</strong> 2-minute rule, every cold approach.</li>
+    <li><strong>QR or no deal.</strong> Every prospect leaves with the rep in their phone and an open SMS thread.</li>
+    <li><strong>5 minutes max</strong> to first reply on any inbound text.</li>
+    <li><strong>All parties or nothing.</strong> No demo without GM + Sales Manager + Owner confirmed.</li>
+    <li><strong>The number they care about</strong> is the only one we open the demo with.</li>
+    <li><strong>Silence is the close.</strong> Ask the GM directly, then shut up.</li>
+    <li><strong>Reschedule on bailers.</strong> Never re-pitch the same store twice.</li>
+  </ul>
+</div>
+
+</div>
+
+<footer>
+  Drive AI Sales Inc. &middot; <a href="https://driveaisales.com">driveaisales.com</a> &middot; Internal Sales Process v1.0 &middot; May 2026
+</footer>
+
+</body>
+</html>
