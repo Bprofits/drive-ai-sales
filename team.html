@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team - Drive AI Sales</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a; color: #e2e8f0;
+      min-height: 100vh; line-height: 1.55;
+    }
+    :root {
+      --orange: #f47920;
+      --orange-dim: #c5611a;
+      --orange-glow: rgba(244,121,32,0.15);
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --green-glow: rgba(34,197,94,0.12);
+      --purple: #a855f7;
+      --surface: #111111;
+      --surface-2: #161616;
+      --border: #1e1e1e;
+      --border-hover: #333;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --text-muted: #64748b;
+    }
+    header {
+      background: linear-gradient(135deg, #141414 0%, #0a0a0a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    header h1 { font-size: 20px; font-weight: 700; color: #f7fafc; letter-spacing: -0.3px; }
+    header .subtitle { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+    .badge {
+      background: var(--orange-glow); color: var(--orange);
+      font-size: 11px; font-weight: 600;
+      padding: 5px 12px; border-radius: 20px;
+      border: 1px solid rgba(244,121,32,0.3);
+    }
+    .nav-bar {
+      padding: 12px 32px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+    .nav-bar a {
+      color: var(--text-dim); text-decoration: none;
+      padding: 8px 16px; border-radius: 8px;
+      font-size: 13px; font-weight: 500;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .nav-bar a:hover { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.2); }
+    .nav-bar a.active { color: var(--orange); background: var(--orange-glow); border-color: rgba(244,121,32,0.3); font-weight: 600; }
+    .nav-bar .spacer { flex: 1; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 32px; }
+
+    .intro {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 12px;
+      padding: 24px 28px; margin-bottom: 28px;
+    }
+    .intro .eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--orange); text-transform: uppercase; margin-bottom: 8px;
+    }
+    .intro h2 {
+      font-size: 20px; color: #f7fafc; margin-bottom: 10px;
+    }
+    .intro p {
+      font-size: 14px; color: var(--text); margin-bottom: 10px; max-width: 78ch;
+    }
+    .intro .quick-actions {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;
+    }
+    .intro .quick-actions a {
+      font-size: 12px; font-weight: 600;
+      padding: 8px 14px; border-radius: 6px;
+      color: var(--text-dim); text-decoration: none;
+      border: 1px solid var(--border); background: var(--surface-2);
+      transition: all 0.2s;
+    }
+    .intro .quick-actions a:hover {
+      color: var(--orange); border-color: rgba(244,121,32,0.3);
+    }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .member {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .member:hover {
+      border-color: rgba(244,121,32,0.3);
+      transform: translateY(-2px);
+    }
+    .member .preview {
+      position: relative;
+      background: #000;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .member .preview img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .member:hover .preview img { transform: scale(1.03); }
+    .member .info {
+      padding: 18px 22px 20px;
+    }
+    .member .name {
+      font-size: 17px; font-weight: 700; color: #f7fafc;
+      margin-bottom: 2px;
+    }
+    .member .role {
+      font-size: 13px; color: var(--orange);
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      margin-bottom: 14px;
+    }
+    .member .actions {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .member .actions a {
+      font-size: 12.5px; font-weight: 600;
+      padding: 8px 14px; border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .member .actions a.primary {
+      background: var(--orange); color: #0a0a0a;
+      border: 1px solid var(--orange);
+    }
+    .member .actions a.primary:hover {
+      background: var(--orange-dim); border-color: var(--orange-dim);
+    }
+    .member .actions a.secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .member .actions a.secondary:hover {
+      border-color: var(--border-hover);
+      color: var(--orange);
+    }
+    .member .meta {
+      font-size: 11px; color: var(--text-muted);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      display: flex; justify-content: space-between;
+    }
+
+    .empty-slot {
+      background: var(--surface-2);
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 320px;
+    }
+    .empty-slot .plus {
+      font-size: 32px; color: var(--text-muted);
+      margin-bottom: 10px;
+      opacity: 0.5;
+    }
+    .empty-slot .label {
+      color: var(--text-dim); font-weight: 600; margin-bottom: 6px;
+    }
+
+    .instructions {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .instructions h3 {
+      font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange); margin-bottom: 14px;
+    }
+    .instructions ol {
+      margin-left: 20px; font-size: 13.5px; color: var(--text);
+    }
+    .instructions ol li {
+      margin-bottom: 8px;
+      padding-left: 6px;
+    }
+    .instructions code {
+      background: var(--surface-2); padding: 2px 6px; border-radius: 4px;
+      font-size: 12px; color: var(--orange);
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+
+    .callout {
+      background: var(--green-glow);
+      border: 1px solid rgba(34,197,94,0.25);
+      border-left: 3px solid var(--green);
+      border-radius: 8px;
+      padding: 14px 18px; margin: 14px 0;
+      font-size: 13px; color: #d1fae5;
+    }
+    .callout strong { color: #f7fafc; }
+
+    footer {
+      text-align: center; padding: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--text-muted); margin-top: 40px;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+
+    @media print {
+      body { background: white; }
+      header, .nav-bar, .intro .quick-actions, .empty-slot, .instructions, footer { display: none; }
+      .container { max-width: 100%; padding: 0; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .member { background: white; border: 1px solid #999; page-break-inside: avoid; }
+      .member .info { color: black; }
+      .member .name { color: black; }
+      .member .actions { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Team &amp; QR Cards</h1>
+    <div class="subtitle">Download your Drive AI business card with embedded QR</div>
+  </div>
+  <span class="badge">Internal</span>
+</header>
+
+<div class="nav-bar">
+  <a href="index.html">Edmonton</a>
+  <a href="calgary-dealers.html">Calgary</a>
+  <a href="team.html" class="active">Team</a>
+  <a href="sales-process.html">Sales Process</a>
+  <a href="spin-drills.html">SPIN Drills</a>
+  <a href="objection-rolodex.html">Objections</a>
+  <a href="sales-guide.html">Sales Guide</a>
+  <a href="glossary.html">CRM Glossary</a>
+  <span class="spacer"></span>
+  <a href="https://driveaisales.com" target="_blank" style="color: var(--orange);">driveaisales.com &rarr;</a>
+</div>
+
+<div class="container">
+
+<div class="intro">
+  <div class="eyebrow">The Drive AI Card</div>
+  <h2>Personalized QR cards, one per rep</h2>
+  <p>Every Drive AI rep gets a custom-designed QR card with their name, role, and a scannable QR pointing to their personal landing page (<code style="background:#1a1a1a;padding:2px 6px;border-radius:4px;font-size:12.5px;color:var(--orange);">driveaisales.com/r/[rep-id]</code>). The scan opens a mobile page where prospects can save the rep's contact, send a pre-filled text, and watch a 90-second demo. This is Stage 2 of the Sales Process, physical artifact form.</p>
+  <p>Download your PDF below, send to your local print shop, hand them out at every dealership visit. Don't lose them.</p>
+  <div class="quick-actions">
+    <a href="sales-process.html#stage-3">See the QR card flow in Sales Process &rarr;</a>
+    <a href="#" onclick="window.print(); return false;">Print this page</a>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- JAYDEN NIELSEN -->
+  <div class="member">
+    <a href="team/jayden-nielsen.pdf" target="_blank" rel="noopener" class="preview-link">
+      <div class="preview">
+        <img src="team/jayden-nielsen.png" alt="Jayden Nielsen QR card preview" loading="lazy">
+      </div>
+    </a>
+    <div class="info">
+      <div class="name">Jayden Nielsen</div>
+      <div class="role">Co-Founder</div>
+      <div class="actions">
+        <a href="team/jayden-nielsen.pdf" download="Jayden-Nielsen-DriveAI.pdf" class="primary">Download PDF</a>
+        <a href="team/jayden-nielsen.pdf" target="_blank" rel="noopener" class="secondary">Open preview</a>
+      </div>
+      <div class="meta">
+        <span>Card v1.0</span>
+        <span>Print-ready, 300 DPI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMPTY SLOT FOR NEXT REP -->
+  <div class="empty-slot">
+    <div class="plus">+</div>
+    <div class="label">Next teammate</div>
+    <div>Drop a new <code style="background:#1a1a1a;padding:1px 5px;border-radius:3px;font-size:11px;color:var(--orange);font-family:monospace;">team/[name].pdf</code></div>
+    <div>and add a card above</div>
+  </div>
+
+</div>
+
+<div class="instructions">
+  <h3>How to add a new teammate</h3>
+  <ol>
+    <li>Generate the QR card PDF (matching the Drive AI desert-sunset template).</li>
+    <li>Save the PDF to <code>team/firstname-lastname.pdf</code> in this repo.</li>
+    <li>Render the preview image: <code>sips -s format png team/firstname-lastname.pdf --out team/firstname-lastname.png</code></li>
+    <li>Duplicate the <code>&lt;div class="member"&gt;</code> block in <code>team.html</code>, update name + role + file paths.</li>
+    <li>Run <code>./deploy.sh</code> from the repo root. New teammate goes live in ~30 seconds.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Cards are tied to landing pages.</strong> The QR on each card encodes a personal URL like <code style="background:rgba(0,0,0,0.4);padding:1px 5px;border-radius:3px;font-size:12px;color:var(--orange);font-family:monospace;">driveaisales.com/r/jayden</code>. Before printing a new rep's cards, make sure their landing page is live and the rep is set up to receive inbound SMS.
+  </div>
+</div>
+
+</div>
+
+<footer>
+  Drive AI Sales Inc. &middot; <a href="https://driveaisales.com">driveaisales.com</a> &middot; Team Cards &middot; May 2026
+</footer>
+
+</body>
+</html>
