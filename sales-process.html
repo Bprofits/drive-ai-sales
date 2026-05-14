@@ -19,10 +19,14 @@
       --orange-glow: rgba(244, 121, 32, 0.15);
       --blue: #3b82f6;
       --blue-glow: rgba(59, 130, 246, 0.12);
+      --purple: #a855f7;
+      --purple-glow: rgba(168, 85, 247, 0.12);
       --green: #22c55e;
       --green-glow: rgba(34, 197, 94, 0.12);
       --red: #ef4444;
       --red-glow: rgba(239, 68, 68, 0.12);
+      --yellow: #eab308;
+      --yellow-glow: rgba(234, 179, 8, 0.12);
       --surface: #111111;
       --surface-2: #161616;
       --border: #1e1e1e;
@@ -98,6 +102,7 @@
       border-radius: 50%;
       font-weight: 700; font-size: 14px;
       margin-right: 12px;
+      flex-shrink: 0;
     }
     .stage h2 {
       font-size: 19px; font-weight: 700; color: #f7fafc;
@@ -112,9 +117,18 @@
       text-transform: uppercase;
       color: var(--orange); margin: 20px 0 10px;
     }
+    .stage h4 {
+      font-size: 13.5px; font-weight: 700;
+      color: #f7fafc; margin: 16px 0 8px;
+    }
     .stage p { font-size: 14px; color: var(--text); margin-bottom: 12px; }
     .stage ul, .stage ol { margin: 10px 0 16px 24px; font-size: 14px; color: var(--text); }
     .stage li { margin-bottom: 6px; }
+    .stage code {
+      background: var(--surface-2); padding: 2px 6px; border-radius: 4px;
+      font-size: 12.5px; color: var(--orange);
+      font-family: 'SF Mono', Monaco, monospace;
+    }
 
     .script {
       background: var(--surface-2);
@@ -140,6 +154,35 @@
     .script.them .script-label { background: var(--blue-glow); color: var(--blue); border: 1px solid rgba(59,130,246,0.25); }
     .script.you .script-label { background: var(--orange-glow); color: var(--orange); border: 1px solid rgba(244,121,32,0.25); }
 
+    .master {
+      background: linear-gradient(135deg, rgba(168,85,247,0.05) 0%, rgba(168,85,247,0.02) 100%);
+      border: 1px solid rgba(168,85,247,0.25);
+      border-left: 3px solid var(--purple);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 16px 0;
+    }
+    .master .master-head {
+      display: flex; align-items: baseline; gap: 10px;
+      flex-wrap: wrap; margin-bottom: 8px;
+    }
+    .master .master-name {
+      font-size: 12px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--purple);
+    }
+    .master .master-book {
+      font-size: 11px; color: var(--text-muted); font-style: italic;
+    }
+    .master .master-quote {
+      font-size: 14.5px; color: #f7fafc; font-style: italic;
+      line-height: 1.45; margin-bottom: 10px;
+    }
+    .master .master-apply {
+      font-size: 13px; color: var(--text); padding-top: 8px;
+      border-top: 1px dashed rgba(168,85,247,0.2);
+    }
+    .master .master-apply strong { color: var(--purple); font-weight: 600; }
+
     .callout {
       background: var(--green-glow);
       border: 1px solid rgba(34,197,94,0.25);
@@ -153,6 +196,12 @@
       border-color: rgba(239,68,68,0.25);
       border-left-color: var(--red);
       color: #fecaca;
+    }
+    .callout.note {
+      background: var(--yellow-glow);
+      border-color: rgba(234,179,8,0.25);
+      border-left-color: var(--yellow);
+      color: #fef3c7;
     }
     .callout strong { color: #f7fafc; }
 
@@ -179,9 +228,7 @@
       font-size: 12.5px; color: var(--text-dim); line-height: 1.45;
     }
 
-    .checklist {
-      list-style: none; margin: 14px 0; padding: 0;
-    }
+    .checklist { list-style: none; margin: 14px 0; padding: 0; }
     .checklist li {
       padding: 10px 14px 10px 38px;
       background: var(--surface-2);
@@ -213,12 +260,66 @@
     }
     .col-card .col-title {
       font-size: 12px; font-weight: 700; letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      text-transform: uppercase; margin-bottom: 10px;
     }
     .col-card.do .col-title { color: var(--green); }
     .col-card.dont .col-title { color: var(--red); }
+    .col-card.neutral .col-title { color: var(--blue); }
     .col-card ul { margin: 0 0 0 18px; font-size: 13px; color: var(--text); }
+
+    .technique-list {
+      list-style: none; margin: 14px 0; padding: 0;
+    }
+    .technique-list li {
+      padding: 14px 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .technique-list .tech-name {
+      font-size: 14px; font-weight: 700; color: var(--orange);
+      margin-bottom: 4px;
+    }
+    .technique-list .tech-cite {
+      font-size: 11px; color: var(--text-muted); margin-left: 8px;
+      font-weight: 500; font-style: italic;
+    }
+    .technique-list .tech-script {
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 12.5px; color: #cbd5e1;
+      background: rgba(0,0,0,0.3);
+      padding: 8px 12px; border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    .tonality-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px; margin: 16px 0;
+    }
+    .tone-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .tone-card .tone-num {
+      font-size: 11px; font-weight: 700; color: var(--orange);
+      letter-spacing: 1px;
+    }
+    .tone-card .tone-name {
+      font-size: 15px; font-weight: 700; color: #f7fafc;
+      margin: 4px 0;
+    }
+    .tone-card .tone-desc {
+      font-size: 12.5px; color: var(--text-dim); line-height: 1.5;
+    }
+    .tone-card .tone-when {
+      font-size: 11.5px; color: var(--orange);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
 
     .toc {
       background: var(--surface);
@@ -235,6 +336,30 @@
     .toc a { color: var(--text); text-decoration: none; }
     .toc a:hover { color: var(--orange); }
 
+    .masters-footer {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px; margin-top: 32px;
+    }
+    .masters-footer h3 {
+      font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--purple); margin-bottom: 14px;
+    }
+    .masters-footer-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+    .master-cite {
+      font-size: 12.5px; color: var(--text-dim);
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      border-left: 2px solid var(--purple);
+    }
+    .master-cite strong { color: #f7fafc; }
+
     footer {
       text-align: center; padding: 28px;
       border-top: 1px solid var(--border);
@@ -248,9 +373,9 @@
 <header>
   <div>
     <h1>Drive AI Sales Process</h1>
-    <div class="subtitle">Tactical playbook, door to deal</div>
+    <div class="subtitle">Tactical playbook, with the masters of the craft</div>
   </div>
-  <span class="badge">Internal v1.0</span>
+  <span class="badge">Internal v2.0</span>
 </header>
 
 <div class="nav-bar">
@@ -268,23 +393,27 @@
 <div class="hero-quote">
   <div class="eyebrow">The 2-Minute Rule, opener</div>
   <blockquote>"If I can't make this peak your interest in the first two minutes, I don't deserve any more of your time."</blockquote>
-  <div class="attribution">Set a literal timer on the counter. The disarmer flips the power dynamic, you give them the out, they almost never take it.</div>
+  <div class="attribution">Set a literal timer on the counter. The disarmer flips the power dynamic, you give them the out, they almost never take it. This is the door to every conversation that follows.</div>
 </div>
 
 <div class="toc">
-  <div class="toc-title">The 5 Stages</div>
+  <div class="toc-title">The 9 Stages</div>
   <ol>
-    <li><a href="#stage-1">First Touch, the 2-Minute Disarmer</a></li>
-    <li><a href="#stage-2">QR Card Flow, contact in phone + thread open</a></li>
-    <li><a href="#stage-3">Texting Cadence, the next 24 hours</a></li>
-    <li><a href="#stage-4">Discovery, mapping decision makers</a></li>
-    <li><a href="#stage-5">The All-Parties-Present Demo</a></li>
+    <li><a href="#stage-1">First Contact, the 2-Minute Disarmer (Voss + Belfort)</a></li>
+    <li><a href="#stage-2">Tonality, the First 4 Seconds Decide (Belfort + Voss)</a></li>
+    <li><a href="#stage-3">QR Card Flow, contact in phone + thread open</a></li>
+    <li><a href="#stage-4">The 5-Minute Reply Rule (Blount + Cardone)</a></li>
+    <li><a href="#stage-5">SPIN Discovery, the question framework that closes B2B (Rackham)</a></li>
+    <li><a href="#stage-6">Pain Excavation, the Sandler funnel</a></li>
+    <li><a href="#stage-7">All-Parties-Present Demo + the Mirror move (Voss)</a></li>
+    <li><a href="#stage-8">Objection Arsenal, mirrors, labels, reverses (Voss + Sandler + Cardone)</a></li>
+    <li><a href="#stage-9">The Close, assumed, tied-down, direct (Ziglar + Hopkins + Cardone)</a></li>
   </ol>
 </div>
 
 <div id="stage-1" class="stage">
-  <h2><span class="stage-num">1</span>First Touch, the 2-Minute Disarmer</h2>
-  <div class="stage-tagline">Door knock or front-counter approach. Goal: earn 2 minutes, scan the QR.</div>
+  <h2><span class="stage-num">1</span>First Contact, the 2-Minute Disarmer</h2>
+  <div class="stage-tagline">Door knock or front-counter cold approach. Goal: earn the next 60 seconds, scan the QR.</div>
 
   <h3>The opener (exact words)</h3>
   <div class="script you">
@@ -294,11 +423,29 @@
 If I can't make this peak your interest in the first two minutes, I don't deserve any more of your time. Fair?"
 </div>
 
-  <div class="callout">
-    <strong>Why it works:</strong> You hand them the off-ramp before they ask for it. 9 out of 10 say "fair." The 10th is busy, set the texted callback (Stage 3 script).
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Chris Voss</span>
+      <span class="master-book">Never Split the Difference</span>
+    </div>
+    <div class="master-quote">"He who has learned to disagree without being disagreeable has discovered the most valuable secret of negotiation."</div>
+    <div class="master-apply">
+      <strong>Why "fair?" works:</strong> Voss calls this the <em>accusation audit</em>. By naming the awkward thing (you're cold-approaching them), you defuse it. The single word "fair?" is a calibrated question that forces a verbal yes. From neuroscience, once they say yes once, the next yeses get easier. That single syllable is doing more work than the entire pitch.
+    </div>
   </div>
 
-  <h3>The 2-minute pitch (memorize)</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Jordan Belfort</span>
+      <span class="master-book">Way of the Wolf</span>
+    </div>
+    <div class="master-quote">"In the first four seconds, the prospect decides three things about you: are you sharp, are you enthusiastic, and are you an expert."</div>
+    <div class="master-apply">
+      <strong>The 4-second test:</strong> Crisp posture, slight forward lean, eye contact, name spoken clearly. NOT slow, NOT mumbled, NOT scripted-sounding. Belfort hammered: if you fail those three impressions in four seconds, no script in history will save the next four minutes.
+    </div>
+  </div>
+
+  <h3>The 2-minute pitch (memorize, never read)</h3>
   <div class="script you">
 <span class="script-label">You</span>
 "You run [X] vehicles a month. Your BDC is probably costing you [$8-12k] in wages and missing 40% of after-hours leads.
@@ -308,7 +455,18 @@ We replace that. AI handles inbound chat, SMS, and inbound calls 24/7, books tes
 Want me to show you the demo on my phone, or scan this and we'll grab 20 minutes when your sales manager is here?"
 </div>
 
-  <h3>The two outcomes</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Frank Bettger</span>
+      <span class="master-book">How I Raised Myself From Failure to Selling Success</span>
+    </div>
+    <div class="master-quote">"You can win more friends in two months by becoming genuinely interested in others than you can in two years by trying to get them interested in you."</div>
+    <div class="master-apply">
+      <strong>Bettger's hack:</strong> Before walking in, scan the lot. Note one specific thing (the inventory mix, the signage refresh, the truck they just moved out front). Lead with it. <em>"Saw you just put that Bronco at the front, how long's it been sitting?"</em> Now you're not a salesperson, you're a curious human who happens to sell.
+    </div>
+  </div>
+
+  <h3>The two outcomes after the 2-min pitch</h3>
   <div class="two-col">
     <div class="col-card do">
       <div class="col-title">Outcome A, they engage</div>
@@ -322,19 +480,104 @@ Want me to show you the demo on my phone, or scan this and we'll grab 20 minutes
       <div class="col-title">Outcome B, they bounce</div>
       <ul>
         <li>"All good, scan this and we'll connect when you have a slot."</li>
-        <li>QR scan opens thread (Stage 2)</li>
-        <li>You're now in their phone</li>
+        <li>QR scan opens thread (Stage 3)</li>
+        <li>You are now in their phone</li>
       </ul>
     </div>
+  </div>
+
+  <h3>If they shut you down before the pitch</h3>
+  <div class="script them">
+<span class="script-label">Them</span>
+"I'm not interested."
+</div>
+  <div class="script you">
+<span class="script-label">You, Voss calibrated</span>
+"How am I supposed to walk out of here knowing I might have just cost your store $50k in missed leads this year?"
+</div>
+  <div class="callout note">
+    <strong>The "how am I supposed to" question</strong> (Voss) is a forced-empathy device. It's not aggressive, it's a problem you're handing them to solve. Statistically pulls 30-40% of dead conversations into a "well let me hear it then" reply.
   </div>
 </div>
 
 <div id="stage-2" class="stage">
-  <h2><span class="stage-num">2</span>QR Card Flow, contact in phone + thread open</h2>
-  <div class="stage-tagline">The card itself is a closer. Scan = rep saved + SMS thread opened in one tap.</div>
+  <h2><span class="stage-num">2</span>Tonality, the First 4 Seconds Decide</h2>
+  <div class="stage-tagline">Words are 7%. Tone is 38%. Body language is 55%. (Mehrabian.) Master tonality, master the sale.</div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Jordan Belfort</span>
+      <span class="master-book">Way of the Wolf, Straight Line Persuasion</span>
+    </div>
+    <div class="master-quote">"Tonality is the difference between persuasion and pestering. Same words, different tone, opposite outcomes."</div>
+    <div class="master-apply">
+      Belfort taught Stratton Oxford reps that tonality is a system, not a vibe. He isolated <strong>5 core tonalities</strong>. Use them on purpose, in sequence.
+    </div>
+  </div>
+
+  <h3>Belfort's 5 tonalities (drill these)</h3>
+  <div class="tonality-grid">
+    <div class="tone-card">
+      <div class="tone-num">TONE 1</div>
+      <div class="tone-name">I care, I really want to know</div>
+      <div class="tone-desc">Slight upward inflection, warm. Used when you ask the discovery questions. Signals genuine curiosity.</div>
+      <div class="tone-when">Use: discovery, "what's your biggest BDC headache?"</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-num">TONE 2</div>
+      <div class="tone-name">I feel your pain</div>
+      <div class="tone-desc">Lower register, slower pace, almost a sigh. Validates without pity. Pair with a label.</div>
+      <div class="tone-when">Use: after they vent about lead leakage</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-num">TONE 3</div>
+      <div class="tone-name">Money on the table</div>
+      <div class="tone-desc">Hushed, conspiratorial, just above a whisper. Like you're telling them a secret only smart owners get.</div>
+      <div class="tone-when">Use: when you say "we replace your BDC for half"</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-num">TONE 4</div>
+      <div class="tone-name">Absolute certainty</div>
+      <div class="tone-desc">Crisp, declarative, no rising inflection at the end. Periods, not question marks. The voice of someone who has done this a hundred times.</div>
+      <div class="tone-when">Use: when you state the offer, "we go live in 5 business days"</div>
+    </div>
+    <div class="tone-card">
+      <div class="tone-num">TONE 5</div>
+      <div class="tone-name">Reasonable man</div>
+      <div class="tone-desc">Measured, even. The tone of someone who has nothing to prove. Defuses any "you're a slick salesperson" suspicion.</div>
+      <div class="tone-when">Use: handling price objection, "fair question, here's how we got there"</div>
+    </div>
+  </div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Chris Voss</span>
+      <span class="master-book">Never Split the Difference</span>
+    </div>
+    <div class="master-quote">"The late-night FM DJ voice. Use it selectively. Make your voice deep. Speak slowly and quietly. Done correctly, you create an aura of authority and trustworthiness without triggering defensiveness."</div>
+    <div class="master-apply">
+      <strong>When the dealer is heated</strong> (e.g. just had a bad month, frustrated with their BDC), drop into Voss's DJ voice. Half-volume. Half-speed. Pitched down. It physically calms their nervous system, mirror neurons sync. You walked in to a fire and within 30 seconds you're a calming presence. That's pre-pitch trust earned for free.
+    </div>
+  </div>
+
+  <h3>The drill</h3>
+  <ol>
+    <li>Record yourself doing the 2-min opener three times: angry, sleepy, balanced.</li>
+    <li>Play it back. Which one closes you?</li>
+    <li>That's the tone. Drill it daily.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>The "smile through the phone" rule (cold call):</strong> Smiling literally changes your vocal cord tension. Buyers can hear it. Belfort taped a mirror on every Stratton rep's monitor. Do the same.
+  </div>
+</div>
+
+<div id="stage-3" class="stage">
+  <h2><span class="stage-num">3</span>QR Card Flow, contact in phone + thread open</h2>
+  <div class="stage-tagline">The card itself is a closer. Scan equals rep saved plus SMS thread opened in one tap.</div>
 
   <h3>What the QR actually does</h3>
-  <p>The QR on every rep's card points to a personal landing page (e.g. <code>driveaisales.com/r/bond</code>). Mobile-only, single-purpose, three buttons:</p>
+  <p>The QR on every rep's card points to a personal landing page (<code>driveaisales.com/r/bond</code>). Mobile-only, single-purpose, three buttons:</p>
 
   <div class="flow">
     <div class="flow-step">
@@ -355,7 +598,18 @@ Want me to show you the demo on my phone, or scan this and we'll grab 20 minutes
     <div class="flow-step">
       <div class="num">RESULT</div>
       <div class="title">Thread open</div>
-      <div class="desc">Rep's phone pings within seconds. You now have a live SMS thread + rep's contact saved in their phone. Reply inside 5 minutes.</div>
+      <div class="desc">Rep's phone pings within seconds. You now have a live SMS thread plus rep's contact saved in their phone. Reply inside 5 minutes.</div>
+    </div>
+  </div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Robert Cialdini</span>
+      <span class="master-book">Influence: The Psychology of Persuasion</span>
+    </div>
+    <div class="master-quote">"Reciprocity is the most powerful weapon of influence. When you give something first, the target feels biologically obligated to return the favor."</div>
+    <div class="master-apply">
+      <strong>The QR card IS the gift.</strong> Card + 90-sec demo + free contact-save = three small "givings" before you ask for anything. By the time you text-message them, they have already received value. The reciprocity engine is humming. This is why our reply rate beats industry SMS norms 3x.
     </div>
   </div>
 
@@ -366,22 +620,33 @@ Want me to show you the demo on my phone, or scan this and we'll grab 20 minutes
     <li>No phone number printed. Forces the scan. Friction creates engagement.</li>
   </ul>
 
-  <div class="callout">
-    <strong>Tech note:</strong> SMS pre-fill links work natively on iOS (<code>sms:+1xxx&body=...</code>) and on Android (<code>sms:+1xxx?body=...</code>). The landing page detects platform and serves the right link. No app install, no friction.
+  <div class="callout note">
+    <strong>Tech note:</strong> SMS pre-fill links work natively on iOS (<code>sms:+1xxx&body=...</code>) and Android (<code>sms:+1xxx?body=...</code>). The landing page detects platform and serves the right link. No app install, no friction.
   </div>
 
   <h3>Tracking, every scan logged</h3>
   <ul>
     <li>Landing page POSTs to our backend on load (rep ID + timestamp + UA)</li>
-    <li>Save Contact click → logged as "card scanned, contact saved"</li>
-    <li>Text Me click → logged as "thread initiated"</li>
+    <li>Save Contact click = "card scanned, contact saved"</li>
+    <li>Text Me click = "thread initiated"</li>
     <li>Daily Slack ping per rep: scans, saves, text-starts, conversions</li>
   </ul>
 </div>
 
-<div id="stage-3" class="stage">
-  <h2><span class="stage-num">3</span>Texting Cadence, the next 24 hours</h2>
-  <div class="stage-tagline">Thread is open. Now don't be a salesperson, be a human.</div>
+<div id="stage-4" class="stage">
+  <h2><span class="stage-num">4</span>The 5-Minute Reply Rule</h2>
+  <div class="stage-tagline">Thread is open. Now don't be a salesperson, be a human. Speed kills (in your favor).</div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Jeb Blount</span>
+      <span class="master-book">Fanatical Prospecting</span>
+    </div>
+    <div class="master-quote">"The number one reason for failure in sales is an empty pipe. The number one reason for an empty pipe is failure to prospect with intensity. Speed is the only competitive moat left."</div>
+    <div class="master-apply">
+      <strong>The Lead Response Study (Harvard):</strong> Responding to an inbound lead in under 5 minutes makes you <strong>8x</strong> more likely to qualify them than 30 minutes. 21x more likely than 30+ minutes. We sell SPEED, we have to live it.
+    </div>
+  </div>
 
   <h3>Reply within 5 minutes (mandatory)</h3>
   <div class="script them">
@@ -395,8 +660,19 @@ Want me to show you the demo on my phone, or scan this and we'll grab 20 minutes
 Quick question, who else at the store sees the BDC numbers? GM? Sales manager? Want to make sure I don't waste anyone's time when we book a proper sit-down."
 </div>
 
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Grant Cardone</span>
+      <span class="master-book">The Closer's Survival Guide / Sell or Be Sold</span>
+    </div>
+    <div class="master-quote">"The first to follow up wins. The second to follow up came in second. Treat every contact like a millionaire and you will eventually attract one."</div>
+    <div class="master-apply">
+      <strong>The Cardone 8-touch rule:</strong> The average dealer salesperson follows up 1-2 times then quits. Cardone's research: 80% of sales close on touch 5-12. We do not stop at touch 2. We follow the 24-hour rhythm below, then a 30-day nurture sequence after.
+    </div>
+  </div>
+
   <div class="callout warn">
-    <strong>Hard rule:</strong> First reply under 5 min. Studies put response-rate odds at 8x higher inside 5 min vs. 30 min. If you can't reply that fast, text-snooze the rep's calendar.
+    <strong>Hard rule:</strong> First reply under 5 min. If you can't reply that fast, text-snooze the rep's calendar. No prospect is left waiting.
   </div>
 
   <h3>The 24-hour follow-up rhythm</h3>
@@ -407,14 +683,168 @@ Quick question, who else at the store sees the BDC numbers? GM? Sales manager? W
     <li><strong>T+72 hours.</strong> Last try: "Last text from me unless you say otherwise. Drive AI just booked 42 test drives overnight for [comp dealer in their city]. Worth 20 min?"</li>
   </ol>
 
-  <div class="callout">
-    <strong>The permission-to-quit move:</strong> The "just let it go?" line is reverse psychology. ~30% of dead threads come back to life on this text.
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">David Sandler</span>
+      <span class="master-book">You Can't Teach a Kid to Ride a Bike at a Seminar</span>
+    </div>
+    <div class="master-quote">"You cannot lose what you don't have. So go for the no. It's the only way to find the real yes."</div>
+    <div class="master-apply">
+      <strong>The "let it go?" move (T+24h)</strong> is pure Sandler negative reverse selling. You permission-give them to quit. ~30% of dead threads come back to life. The other 70%? You just freed your pipeline from a dead lead in one text instead of three weeks of voicemails.
+    </div>
   </div>
 </div>
 
-<div id="stage-4" class="stage">
-  <h2><span class="stage-num">4</span>Discovery, mapping decision makers</h2>
-  <div class="stage-tagline">No demo gets scheduled until you know who signs and who blocks.</div>
+<div id="stage-5" class="stage">
+  <h2><span class="stage-num">5</span>SPIN Discovery, the question framework that closes B2B</h2>
+  <div class="stage-tagline">Neil Rackham. 35,000 sales calls analyzed. The only methodology proven by empirical research to lift close rate 17% in complex B2B.</div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Neil Rackham</span>
+      <span class="master-book">SPIN Selling</span>
+    </div>
+    <div class="master-quote">"The most successful salespeople don't ask the most questions. They ask the most powerful questions, in the right order."</div>
+    <div class="master-apply">
+      Rackham's team analyzed 35,000 B2B sales calls across 12 years. Closers asked questions in this exact order. Losers either pitched too early or asked questions in the wrong sequence. The order matters more than the questions themselves.
+    </div>
+  </div>
+
+  <h3>S - Situation questions (gather facts, do not over-do)</h3>
+  <p>Goal: understand their setup. Keep these brief, prospects find them boring.</p>
+  <ul class="checklist">
+    <li>How many vehicles do you move per month?</li>
+    <li>How many people on the BDC team?</li>
+    <li>What CRM are you on? (DealerSocket, VinSolutions, Promax, Reynolds?)</li>
+    <li>Who runs the sales floor day-to-day?</li>
+    <li>Are your service and sales BDCs separate or combined?</li>
+  </ul>
+
+  <h3>P - Problem questions (find the wound)</h3>
+  <p>Goal: surface explicit pain. The prospect names a problem out loud, ownership begins.</p>
+  <ul class="checklist">
+    <li>Where's your lead response time slowest, evenings, weekends, or after hours?</li>
+    <li>What's your BDC turnover rate, how often are you re-training?</li>
+    <li>How many inbound leads come in after 6pm that nobody touches until next day?</li>
+    <li>How often do leads get "lost" between BDC and floor?</li>
+    <li>When was the last time a manager called a 30-day-old lead to revive it?</li>
+  </ul>
+
+  <h3>I - Implication questions (rub salt in the wound)</h3>
+  <p><strong>This is the killer step.</strong> Most reps skip it. Implication questions force the prospect to calculate the cost of their problem themselves. Self-discovered pain converts 3x harder than told pain.</p>
+  <ul class="checklist">
+    <li>If you're missing 40% of after-hours leads and your average gross is $3,800, what does that math add up to in a year?</li>
+    <li>What does BDC turnover cost you in retraining time and missed closes during the gap?</li>
+    <li>How does slow lead response affect your CSI score and repeat-buy rate?</li>
+    <li>What happens to your floor reps' morale when they get leads 18 hours stale?</li>
+    <li>If this didn't get fixed in 12 months, what's the cumulative gross-profit cost?</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Pro move:</strong> Don't say a number. Let them say the number. "I dunno, maybe... $200k a year?" Now $200k is THEIR number, not yours. They cannot argue with themselves.
+  </div>
+
+  <h3>N - Need-Payoff questions (paint the future)</h3>
+  <p>Goal: prospect describes the solution's value, in their own words. Now they are selling themselves.</p>
+  <ul class="checklist">
+    <li>If you could reply to every lead in under 60 seconds, even at 2am, what would that do for your conversion rate?</li>
+    <li>If you didn't have to re-hire BDC reps every 6 months, what would you do with that recouped time?</li>
+    <li>If your floor reps got every lead within 5 minutes of inquiry, what's the impact on your monthly gross?</li>
+    <li>If we could reduce BDC payroll by 40% with no drop in coverage, what does that free up the budget for?</li>
+  </ul>
+
+  <div class="callout note">
+    <strong>The shift:</strong> Before SPIN questions, YOU were pitching. After SPIN questions, THEY are pitching themselves. You moved from salesperson to consultant. Voss calls this the same shift: "stop selling and start understanding." Same mountain, two ropes.
+  </div>
+</div>
+
+<div id="stage-6" class="stage">
+  <h2><span class="stage-num">6</span>Pain Excavation, the Sandler Funnel</h2>
+  <div class="stage-tagline">SPIN finds the wound. The Sandler Pain Funnel makes them want to bleed it out.</div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">David Sandler</span>
+      <span class="master-book">The Sandler Rules</span>
+    </div>
+    <div class="master-quote">"No pain, no sale. People don't buy products. They buy relief from pain. Your job is not to pitch, it's to help them feel the cost of staying where they are."</div>
+    <div class="master-apply">
+      Sandler's Pain Funnel is 7 questions designed to drill from <em>surface complaint</em> to <em>emotional pain</em>. Surface complaint = "our BDC is slow." Emotional pain = "I'm worried I'm going to lose the store and disappoint my dad who started it." That second one closes deals. The first one doesn't.
+    </div>
+  </div>
+
+  <h3>The 7-question funnel (in order)</h3>
+  <ol class="checklist" style="counter-reset: pain;">
+    <li><strong>"Tell me more about that..."</strong> Open. Just keep them talking. The first version of any pain is shallow.</li>
+    <li><strong>"Can you be more specific? Give me an example."</strong> Force them off generalities. A specific story is data.</li>
+    <li><strong>"How long has that been going on?"</strong> Establishes chronicity. The longer it's gone unsolved, the more painful (and the more they're embarrassed it's still happening).</li>
+    <li><strong>"What have you tried to do about it?"</strong> Maps the competitive landscape. Reveals every solution they've already paid for and failed at.</li>
+    <li><strong>"How much do you think this has cost you so far?"</strong> Quantifies. Often the first time they've put a number on it. Painful number = motivated buyer.</li>
+    <li><strong>"How does that make you feel?"</strong> The emotion question. Most reps never ask this. It separates serious problems from background noise.</li>
+    <li><strong>"Have you given up trying to fix this?"</strong> The killer question. If "yes" = you're not the solution, you're CPR. If "no" = they're still searching, ride that energy.</li>
+  </ol>
+
+  <div class="callout">
+    <strong>Watch their body language</strong> shift between question 4 and 5. They will visibly slump or look away. That's the moment you have unlocked real pain. Now you can offer relief. Not before.
+  </div>
+
+  <h3>Example: BDC pain excavation</h3>
+  <div class="script you">
+<span class="script-label">You, Q1</span>
+"You mentioned the BDC is slow. Tell me more about that."
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Yeah our response times are not where they should be."
+</div>
+  <div class="script you">
+<span class="script-label">You, Q2</span>
+"Can you be more specific? When was the last time a lead slipped?"
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Last Thursday we had a guy who emailed at 10pm and we got back to him at 11am Friday. He'd already bought from Crowfoot."
+</div>
+  <div class="script you">
+<span class="script-label">You, Q3</span>
+"How long has that been the pattern?"
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Honestly? Maybe 6 months. We hired a new BDC manager in November and it didn't really change."
+</div>
+  <div class="script you">
+<span class="script-label">You, Q4</span>
+"What's the team tried to fix it?"
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Bonus structures, training, even night shifts. None of it stuck."
+</div>
+  <div class="script you">
+<span class="script-label">You, Q5</span>
+"How many deals like that Thursday guy do you reckon you've lost in those 6 months?"
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"...maybe 60? 80? I don't even want to do the math on what that is in gross."
+</div>
+  <div class="script you">
+<span class="script-label">You, Q6</span>
+"How does that feel?"
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Frustrating. My dad started this store in '94. I feel like I'm watching it bleed out one missed lead at a time."
+</div>
+  <div class="callout">
+    <strong>That's the moment.</strong> Don't sell. Don't pitch. Just say: <em>"That's exactly the problem we built Drive AI to solve. Let me show you how it would have caught Thursday's guy at 10:02pm."</em> Now you're a hero, not a vendor.
+  </div>
+</div>
+
+<div id="stage-7" class="stage">
+  <h2><span class="stage-num">7</span>All-Parties-Present Demo + the Mirror Move</h2>
+  <div class="stage-tagline">No demo without all decision makers. Voss's mirroring locks the commitment.</div>
 
   <h3>The four roles at every dealership</h3>
   <div class="two-col">
@@ -436,52 +866,50 @@ Quick question, who else at the store sees the BDC numbers? GM? Sales manager? W
     </div>
   </div>
 
-  <h3>The mapping question (text or call)</h3>
-  <div class="script you">
-<span class="script-label">You</span>
-"Before I book a time, three quick questions so I bring the right deck:
-
-1. Who has the final yes on tech investments, is that you, the GM, or the owner?
-2. Anyone else that needs to see this before a yes? Sales manager? BDC lead?
-3. What's the worst that could happen for you personally if this works?"
-</div>
-
-  <div class="callout">
-    <strong>Question 3 is the gold:</strong> If they answer "nothing", you have a champion. If they pause or list internal politics, you've identified the real blocker before the demo.
-  </div>
-
-  <h3>What you do with the map</h3>
-  <ul>
-    <li>Log all names + titles in CRM, one record per role</li>
-    <li>Confirm in writing: "So we'll have [GM] + [Sales Mgr] + [Owner] on the call, Thursday 2pm. Right?"</li>
-    <li>If they push back on getting everyone, see Stage 5 reframe script.</li>
-  </ul>
-</div>
-
-<div id="stage-5" class="stage">
-  <h2><span class="stage-num">5</span>The All-Parties-Present Demo</h2>
-  <div class="stage-tagline">No exceptions. If the decision-makers aren't on, the demo doesn't happen.</div>
-
-  <h3>The reframe (when they say "I'll loop them in after")</h3>
+  <h3>The reframe when they say "I'll loop them in after"</h3>
   <div class="script them">
 <span class="script-label">Them</span>
 "Just walk me through it first, I'll bring it back to the GM."
 </div>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Chris Voss</span>
+      <span class="master-book">Never Split the Difference</span>
+    </div>
+    <div class="master-quote">"Mirroring is repeating the last one to three critical words of what someone just said. It sounds like nothing. It does almost everything."</div>
+    <div class="master-apply">
+      <strong>The mirror move:</strong>
+    </div>
+  </div>
+
   <div class="script you">
-<span class="script-label">You</span>
-"I get it, but here's the deal. Every time I've demo'd to one person and let them re-pitch it internally, the message gets watered down and I lose a deal that should've closed.
-
-That's bad for me and worse for you because you end up looking like the messenger.
-
-20 minutes with all three of you on the call once is faster than three rounds of telephone. What's the earliest your GM has 20 minutes?"
+<span class="script-label">You, Voss mirror</span>
+"Bring it back to the GM?"
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"Yeah I'll show him afterwards."
+</div>
+  <div class="script you">
+<span class="script-label">You, follow with a label</span>
+"It sounds like you've done this before and the GM kicks back wanting more info anyway."
+</div>
+  <div class="script them">
+<span class="script-label">Them</span>
+"...yeah that's exactly what happens."
+</div>
+  <div class="script you">
+<span class="script-label">You, now the reframe</span>
+"That's why I want all three of you on the same 20-minute call. Every time I've done a one-then-relay, the deal stalls and the messenger looks bad. You end up explaining a product you didn't build, to a boss who wants to hear it from the source. 20 minutes once is faster than three rounds of telephone."
 </div>
 
   <div class="callout">
-    <strong>Why this lands:</strong> You're protecting their reputation, not yours. "You end up looking like the messenger" is the unlock. Sales managers and owners care more about their internal credibility than your sales cycle.
+    <strong>Why this lands:</strong> The mirror got them to repeat their own logic. The label ("you've done this before") made them feel seen. The reframe ("you end up looking like the messenger") is about protecting THEIR reputation, not yours. Voss's three-step combo.
   </div>
 
   <h3>The 24-hour confirmation move</h3>
-  <p>Day before the demo, text every confirmed attendee (not just the champion):</p>
+  <p>Day before the demo, text every confirmed attendee:</p>
   <div class="script you">
 <span class="script-label">You, to each attendee</span>
 "Hey [Name], confirming we're locked in tomorrow 2pm. I'll have 20 min of screen-share + 10 min Q&amp;A.
@@ -489,48 +917,239 @@ That's bad for me and worse for you because you end up looking like the messenge
 One ask, if there's a number you'd love to fix at the store this quarter (lead response time, after-hours coverage, BDC cost) text it to me by EOD so I can tailor the demo. Looking forward."
 </div>
 
-  <h3>If anyone bails day-of</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Dale Carnegie</span>
+      <span class="master-book">How to Win Friends and Influence People</span>
+    </div>
+    <div class="master-quote">"A person's name is, to that person, the sweetest sound in any language. Use it. Often. Sincerely."</div>
+    <div class="master-apply">
+      <strong>Demo open hack:</strong> Use each attendee's name in the first 90 seconds, paired with the specific pain they texted you. "<em>[Sales Manager Name], you wrote me yesterday that night-lead response is killing you. We're going to open with that. [Owner Name], you mentioned BDC turnover. I'll show you the 90-day handoff data after.</em>" Now nobody in the room is a passenger.
+    </div>
+  </div>
+
   <div class="callout warn">
-    <strong>Reschedule. Do not run the demo short-staffed.</strong> Running it without the GM means you re-pitch in 2 weeks anyway. Politely:
+    <strong>If anyone bails day-of:</strong> Reschedule. Do not run the demo short-staffed. Running it without the GM means you re-pitch in 2 weeks anyway.
+  </div>
+</div>
+
+<div id="stage-8" class="stage">
+  <h2><span class="stage-num">8</span>Objection Arsenal</h2>
+  <div class="stage-tagline">Every objection has a master technique. Map them in advance, never improvise under pressure.</div>
+
+  <h3>"I already have a BDC"</h3>
+  <ul class="technique-list">
+    <li>
+      <div class="tech-name">Voss Label <span class="tech-cite">Chris Voss, Never Split the Difference</span></div>
+      <div>"It sounds like your BDC is doing well enough that you're not actively looking, and you're worried this is going to be a redundant pitch."</div>
+      <div class="tech-script">9 out of 10 say "yeah, basically." Now you've named the resistance. Then: "Totally fair. What if I told you the goal isn't to replace your BDC, but to give them 4x throughput for the same payroll? Worth 12 minutes to see?"</div>
+    </li>
+    <li>
+      <div class="tech-name">SPIN Implication <span class="tech-cite">Neil Rackham, SPIN Selling</span></div>
+      <div>"What's the BDC's lead response time on a Sunday at 11pm? Because that's where 38% of inbound auto leads now arrive."</div>
+      <div class="tech-script">Forces them to admit their BDC has coverage gaps. The gap is your beachhead.</div>
+    </li>
+  </ul>
+
+  <h3>"Too expensive"</h3>
+  <ul class="technique-list">
+    <li>
+      <div class="tech-name">Sandler Pain Reversal <span class="tech-cite">David Sandler</span></div>
+      <div>"Maybe this isn't the right fit. What were you hoping it would cost?"</div>
+      <div class="tech-script">Negative reverse. You permission-give them to walk. They will almost always say "I dunno, depends on what it does." Now they're justifying buying to YOU. Sandler magic.</div>
+    </li>
+    <li>
+      <div class="tech-name">Hopkins Reduction to the Ridiculous <span class="tech-cite">Tom Hopkins, How to Master the Art of Selling</span></div>
+      <div>"Our base plan is $1,500/month. That's $50 a day. Your BDC costs you $400 a day in wages alone. Are you saying $50 to fix the system that drives $400 isn't worth it, or are we looking at the wrong number?"</div>
+      <div class="tech-script">Reframe price as cost-per-day vs the cost they're already eating.</div>
+    </li>
+    <li>
+      <div class="tech-name">Cardone Direct <span class="tech-cite">Grant Cardone, The Closer's Survival Guide</span></div>
+      <div>"What would have to be true about the price for you to say yes today?"</div>
+      <div class="tech-script">Forces them to name the real number. Or admit it's not really about price.</div>
+    </li>
+  </ul>
+
+  <h3>"Not the right time"</h3>
+  <ul class="technique-list">
+    <li>
+      <div class="tech-name">Voss Calibrated Question <span class="tech-cite">Chris Voss</span></div>
+      <div>"How will you know when it IS the right time?"</div>
+      <div class="tech-script">If they can't answer, "not the right time" was a polite no. Now you know. If they CAN answer, you have the criteria. Re-engage on that date.</div>
+    </li>
+    <li>
+      <div class="tech-name">Sandler Up-Front Contract <span class="tech-cite">David Sandler</span></div>
+      <div>"Help me with something. If I check back in 60 days and the BDC is still missing 40% of leads, what do you want me to do, push hard or accept that this just isn't a priority?"</div>
+      <div class="tech-script">Pre-arranges the next call AND the criteria. Now you don't have to chase, you have permission.</div>
+    </li>
+  </ul>
+
+  <h3>"I need to think about it"</h3>
+  <ul class="technique-list">
+    <li>
+      <div class="tech-name">Hopkins Tie-Down <span class="tech-cite">Tom Hopkins</span></div>
+      <div>"That's fair. So when you say 'think about it,' is it the math, the integration with your CRM, the team adoption risk, or something else I haven't addressed?"</div>
+      <div class="tech-script">Forces specificity. "Think about it" almost always means one of those four. Surface it, handle it.</div>
+    </li>
+    <li>
+      <div class="tech-name">Belfort Loop <span class="tech-cite">Jordan Belfort, Way of the Wolf</span></div>
+      <div>Loop the objection back into the close: "Make sense, this is a big decision. If I could show you in 90 seconds the exact ROI math for your store, would that give you what you need to decide today, or would you still need a week?"</div>
+      <div class="tech-script">Sets a 90-second commitment. Most prospects can't refuse 90 seconds.</div>
+    </li>
+  </ul>
+
+  <h3>"My BDC manager will hate this" (the threatened middle-manager)</h3>
+  <ul class="technique-list">
+    <li>
+      <div class="tech-name">Carnegie Empathy + Reframe <span class="tech-cite">Dale Carnegie</span></div>
+      <div>"That's a real concern, and it's the same one every dealer asks. Here's the play we use: we don't fire BDCs, we make them look like geniuses. Drive AI handles the noise (low-quality leads, after-hours), and frees your BDC manager to focus on hot leads and coaching. They get a 4x throughput stat to share at the next ownership meeting. We position them as the hero who brought this in."</div>
+      <div class="tech-script">Turn the threatened person into a champion before they can sabotage.</div>
+    </li>
+  </ul>
+
+  <h3>"Send me some info, I'll review it"</h3>
+  <ul class="technique-list">
+    <li>
+      <div class="tech-name">Voss "No-Oriented" Question <span class="tech-cite">Chris Voss</span></div>
+      <div>"Would it be ridiculous if instead of sending a PDF, I just did 12 minutes on screen-share with you this afternoon? You can ask anything in real time, way better than a deck."</div>
+      <div class="tech-script">"Ridiculous" is a no-oriented word. Prospects feel safer saying no. Voss's research, "would it be ridiculous" pulls 2x the meeting bookings vs "would you be open to."</div>
+    </li>
+  </ul>
+
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Jeffrey Gitomer</span>
+      <span class="master-book">Little Red Book of Selling</span>
+    </div>
+    <div class="master-quote">"People don't like to be sold, but they love to buy."</div>
+    <div class="master-apply">
+      <strong>Tone every objection handler with this in mind.</strong> Never sound like you're "overcoming objections." Sound like you're solving puzzles together. The instant your voice goes into "rebuttal" tone, you've lost trust. Stay curious, stay collaborative.
+    </div>
+  </div>
+</div>
+
+<div id="stage-9" class="stage">
+  <h2><span class="stage-num">9</span>The Close, assumed, tied-down, direct</h2>
+  <div class="stage-tagline">Five proven close patterns. Pick the one that fits the buyer. Then shut up.</div>
+
+  <h3>1. The Assumed Close (Ziglar)</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Zig Ziglar</span>
+      <span class="master-book">Secrets of Closing the Sale</span>
+    </div>
+    <div class="master-quote">"You can have everything you want in life if you'll just help enough other people get what they want. Then close on the assumption that you have."</div>
+    <div class="master-apply">
+      Skip the question. State the next step as fact.
+    </div>
   </div>
   <div class="script you">
-<span class="script-label">You</span>
-"Totally understand, things come up. Let's move it. I want all three of you in the room so we don't repeat ourselves. What does next Tuesday or Wednesday afternoon look like?"
+<span class="script-label">You, assumed</span>
+"Great. We'll go live with you 5 business days from Monday. I'll send the contract today, we'll knock out CRM integration Wednesday, training Thursday, and you're answering AI-handled leads by next Friday at noon. Sound good?"
 </div>
 
-  <h3>Demo open (first 90 seconds)</h3>
-  <ol>
-    <li><strong>0:00-0:20</strong> Thank by name, repeat the number they cared about: "[GM], you texted me yesterday that after-hours leads were leaking. Let's open with that."</li>
-    <li><strong>0:20-1:00</strong> One-sentence company frame: "Drive AI is the only AI BDC built specifically for Alberta dealers. We've replaced or augmented 14 BDCs across Edmonton this quarter."</li>
-    <li><strong>1:00-1:30</strong> The 2-minute disarmer, again: "If 18 minutes from now you don't see a clean ROI math, I'll end the call myself. Fair?"</li>
-  </ol>
-
-  <h3>Close, asked from the GM</h3>
+  <h3>2. The Choice Close</h3>
+  <p>Two options, both = yes.</p>
   <div class="script you">
-<span class="script-label">You, to GM specifically</span>
+<span class="script-label">You, choice</span>
+"Two paths. Path A, start with just after-hours coverage at $1,500/mo and add daytime in 30 days. Path B, full BDC replacement starting day one at $2,800/mo. Which makes more sense for your store?"
+</div>
+
+  <h3>3. The Tie-Down Close (Hopkins)</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Tom Hopkins</span>
+      <span class="master-book">How to Master the Art of Selling</span>
+    </div>
+    <div class="master-quote">"Trial closes are like baby steps to a yes. By the time you ask for the order, they've already agreed seven times."</div>
+    <div class="master-apply">
+      Drop tie-down phrases throughout the demo. Each yes is a deposit in the trust bank.
+    </div>
+  </div>
+  <ul>
+    <li>"...wouldn't you agree?"</li>
+    <li>"...doesn't that make sense?"</li>
+    <li>"...isn't that what you'd want?"</li>
+    <li>"...does that line up with how you see it?"</li>
+  </ul>
+
+  <h3>4. The Direct Close (Cardone)</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Grant Cardone</span>
+      <span class="master-book">Sell or Be Sold</span>
+    </div>
+    <div class="master-quote">"The professional closer asks for the order. The amateur waits for the prospect to volunteer it. Amateurs never get hired."</div>
+    <div class="master-apply">
+      When you've handled every objection and felt the room shift, just ask.
+    </div>
+  </div>
+  <div class="script you">
+<span class="script-label">You, direct (asked TO the GM)</span>
 "[GM Name], you've seen the numbers and the demo. From your seat, is there a reason this doesn't start at your store Monday?"
 </div>
-  <p>Stop talking. The first to speak loses. If "yes there's a reason", handle the specific objection. If "no, looks good", lock the start date right there.</p>
+
+  <div class="callout warn">
+    <strong>After you ask, stop talking.</strong> Belfort, Cardone, Hopkins, Ziglar, Voss all teach the same one rule: <em>the first to speak after the close, loses.</em> Sit in the silence. Count to 30 if you have to. Their next sentence is either the close or the real objection.
+  </div>
+
+  <h3>5. The Voss Trust Test</h3>
+  <div class="master">
+    <div class="master-head">
+      <span class="master-name">Chris Voss</span>
+      <span class="master-book">Never Split the Difference</span>
+    </div>
+    <div class="master-quote">"Have I given you any reason in the last 30 minutes not to trust me?"</div>
+    <div class="master-apply">
+      For high-stakes deals where they're hesitating but you can't pin down why. Forces them to either say "no" (= they trust you, so what's stopping them?) or surface the real objection. Either way you're unstuck.
+    </div>
+  </div>
+
+  <h3>The contract on the table</h3>
+  <p>Always bring a one-page contract to the demo. Pen on top. If they close, you don't want to say "great, I'll email it." You want to say "great, sign here." Friction kills deals between yes and signature.</p>
 </div>
 
 <div class="stage">
-  <h2><span class="stage-num">&#9733;</span>The Drive AI Sales Manifesto</h2>
+  <h2><span class="stage-num">&#9733;</span>The Drive AI Sales Manifesto v2</h2>
   <div class="stage-tagline">Print this. Stick it on every rep's monitor.</div>
   <ul class="checklist">
-    <li><strong>Earn the time.</strong> 2-minute rule, every cold approach.</li>
-    <li><strong>QR or no deal.</strong> Every prospect leaves with the rep in their phone and an open SMS thread.</li>
-    <li><strong>5 minutes max</strong> to first reply on any inbound text.</li>
-    <li><strong>All parties or nothing.</strong> No demo without GM + Sales Manager + Owner confirmed.</li>
-    <li><strong>The number they care about</strong> is the only one we open the demo with.</li>
-    <li><strong>Silence is the close.</strong> Ask the GM directly, then shut up.</li>
+    <li><strong>4 seconds.</strong> Sharp, enthusiastic, expert. Or you've already lost. <em>(Belfort)</em></li>
+    <li><strong>Earn the time.</strong> 2-minute disarmer on every cold approach. <em>(Voss accusation audit)</em></li>
+    <li><strong>QR or no deal.</strong> Every prospect leaves with the rep in their phone and an open SMS thread. <em>(Cialdini reciprocity)</em></li>
+    <li><strong>5 minutes max</strong> to first reply on any inbound text. 8x conversion edge. <em>(Blount)</em></li>
+    <li><strong>Ask, don't pitch.</strong> SPIN your way to their own pain, in the order S-P-I-N. <em>(Rackham)</em></li>
+    <li><strong>Pain before pitch.</strong> Run the Sandler funnel until they slump in their chair. THEN solve. <em>(Sandler)</em></li>
+    <li><strong>All parties or nothing.</strong> No demo without GM + Sales Manager + Owner confirmed. Reframe with mirroring + labels. <em>(Voss)</em></li>
+    <li><strong>Use their name.</strong> First 90 seconds of every demo. Tied to the pain they texted you. <em>(Carnegie)</em></li>
+    <li><strong>Silence is the close.</strong> Ask the GM directly. Then shut up. The first to speak loses. <em>(Universal)</em></li>
     <li><strong>Reschedule on bailers.</strong> Never re-pitch the same store twice.</li>
+    <li><strong>Follow up 8 times.</strong> 80% of sales close on touch 5-12. The amateur quits at 2. <em>(Cardone)</em></li>
+    <li><strong>Pen on the contract.</strong> Friction between yes and signature kills more deals than price.</li>
   </ul>
+</div>
+
+<div class="masters-footer">
+  <h3>The Masters Referenced</h3>
+  <div class="masters-footer-grid">
+    <div class="master-cite"><strong>Chris Voss</strong><br><em>Never Split the Difference</em><br>Calibrated questions, mirrors, labels, late-night DJ voice. FBI hostage negotiator. The most useful book for dealer-principal conversations.</div>
+    <div class="master-cite"><strong>Jordan Belfort</strong><br><em>Way of the Wolf, Straight Line Persuasion</em><br>Tonality system, the 4-second sale, looping objections. Use tone, leave the slick stuff alone.</div>
+    <div class="master-cite"><strong>Neil Rackham</strong><br><em>SPIN Selling</em><br>Situation, Problem, Implication, Need-Payoff. Backed by 35,000 calls of empirical research. Required reading for B2B.</div>
+    <div class="master-cite"><strong>David Sandler</strong><br><em>You Can't Teach a Kid to Ride a Bike at a Seminar</em><br>Pain funnel, negative reverse selling, up-front contracts. Anti-pitch, equals-relationship.</div>
+    <div class="master-cite"><strong>Jeb Blount</strong><br><em>Fanatical Prospecting, Sales EQ</em><br>Pipeline discipline, 5-min response rule, multi-channel touches. Speed kills, in your favor.</div>
+    <div class="master-cite"><strong>Grant Cardone</strong><br><em>Sell or Be Sold, The Closer's Survival Guide</em><br>Massive action, 8-touch follow-up, direct close. Use for energy, dial down the bravado.</div>
+    <div class="master-cite"><strong>Zig Ziglar</strong><br><em>Secrets of Closing the Sale</em><br>Assumed close, choice close, puppy dog close. The original "help them get what they want" framework.</div>
+    <div class="master-cite"><strong>Tom Hopkins</strong><br><em>How to Master the Art of Selling</em><br>Tie-downs, trial closes, reduction-to-the-ridiculous. The yes-momentum mechanic.</div>
+    <div class="master-cite"><strong>Frank Bettger</strong><br><em>How I Raised Myself From Failure to Selling Success</em><br>1949 classic. "Be interested, not interesting." Still the kindest sales philosophy ever written.</div>
+    <div class="master-cite"><strong>Dale Carnegie</strong><br><em>How to Win Friends and Influence People</em><br>Use names, talk about their interests, make them feel important. 1936. Still undefeated.</div>
+    <div class="master-cite"><strong>Robert Cialdini</strong><br><em>Influence: The Psychology of Persuasion</em><br>Reciprocity, social proof, scarcity, authority, commitment, liking. The 6 weapons we apply to the QR card flow.</div>
+    <div class="master-cite"><strong>Jeffrey Gitomer</strong><br><em>Little Red Book of Selling</em><br>"People don't like to be sold, but they love to buy." Tone-setter for every objection handle.</div>
+  </div>
 </div>
 
 </div>
 
 <footer>
-  Drive AI Sales Inc. &middot; <a href="https://driveaisales.com">driveaisales.com</a> &middot; Internal Sales Process v1.0 &middot; May 2026
+  Drive AI Sales Inc. &middot; <a href="https://driveaisales.com">driveaisales.com</a> &middot; Sales Process v2.0 &middot; May 2026 &middot; Built on the shoulders of giants
 </footer>
 
 </body>
