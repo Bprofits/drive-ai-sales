@@ -187,13 +187,80 @@
       color: var(--text-dim); font-weight: 600; margin-bottom: 6px;
     }
 
-    .instructions {
+    .instructions, .wallpaper-guide {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 24px 28px;
       margin-bottom: 24px;
     }
+    .wallpaper-guide {
+      border-left: 3px solid var(--orange);
+    }
+    .wallpaper-guide h2 {
+      font-size: 19px; color: #f7fafc; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .wallpaper-guide .lead {
+      font-size: 13.5px; color: var(--text-dim); margin-bottom: 18px;
+    }
+    .wallpaper-guide .killer-move {
+      background: linear-gradient(135deg, rgba(244,121,32,0.08) 0%, rgba(244,121,32,0.02) 100%);
+      border: 1px solid rgba(244,121,32,0.25);
+      border-left: 3px solid var(--orange);
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+    }
+    .wallpaper-guide .killer-move .label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--orange); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .wallpaper-guide .killer-move p {
+      font-size: 14px; color: #f7fafc; line-height: 1.5; margin: 0;
+    }
+    .platform-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin: 16px 0;
+    }
+    @media (max-width: 720px) { .platform-grid { grid-template-columns: 1fr; } }
+    .platform {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .platform .ptitle {
+      font-size: 13px; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .platform ol {
+      margin: 0 0 0 20px; font-size: 13px; color: var(--text);
+      line-height: 1.6;
+    }
+    .platform ol li { margin-bottom: 8px; }
+    .platform .optional {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 4px;
+    }
+    .tip-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px; margin-top: 14px;
+    }
+    .tip {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 12.5px; color: var(--text);
+    }
+    .tip strong { color: var(--orange); display: block; margin-bottom: 4px; font-size: 11.5px; letter-spacing: 0.8px; text-transform: uppercase; }
     .instructions h3 {
       font-size: 13px; font-weight: 700; letter-spacing: 1px;
       text-transform: uppercase;
@@ -290,8 +357,29 @@
       <div class="name">Jayden Nielsen</div>
       <div class="role">Co-Founder</div>
       <div class="actions">
-        <a href="team/jayden-nielsen.pdf" download="Jayden-Nielsen-DriveAI.pdf" class="primary">Download PDF</a>
-        <a href="team/jayden-nielsen.pdf" target="_blank" rel="noopener" class="secondary">Open preview</a>
+        <a href="team/jayden-nielsen-wallpaper.png" download="Jayden-Nielsen-DriveAI-Wallpaper.png" class="primary">Save as Wallpaper</a>
+        <a href="team/jayden-nielsen.pdf" download="Jayden-Nielsen-DriveAI.pdf" class="secondary">Print PDF</a>
+      </div>
+      <div class="meta">
+        <span>Card v1.0</span>
+        <span>Print-ready, 300 DPI</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAZ DHILLION -->
+  <div class="member">
+    <a href="team/jaz-dhillion.pdf" target="_blank" rel="noopener" class="preview-link">
+      <div class="preview">
+        <img src="team/jaz-dhillion.png" alt="Jaz Dhillion QR card preview" loading="lazy">
+      </div>
+    </a>
+    <div class="info">
+      <div class="name">Jaz Dhillion</div>
+      <div class="role">DAI Representative</div>
+      <div class="actions">
+        <a href="team/jaz-dhillion.png" download="Jaz-Dhillion-DriveAI-Wallpaper.png" class="primary">Save as Wallpaper</a>
+        <a href="team/jaz-dhillion.pdf" download="Jaz-Dhillion-DriveAI.pdf" class="secondary">Print PDF</a>
       </div>
       <div class="meta">
         <span>Card v1.0</span>
@@ -310,12 +398,67 @@
 
 </div>
 
+<div class="wallpaper-guide">
+  <h2>Save Your Card as Phone Wallpaper</h2>
+  <p class="lead">Tap "Save as Wallpaper" on your card above, then follow the steps below. The play: prospect scans your lock screen, no business card needed.</p>
+
+  <div class="killer-move">
+    <div class="label">The Killer Move</div>
+    <p>Set your Drive AI card as your phone lock screen, enable always-on display. Walk up to a dealer principal, tap your phone screen on. The QR is right there at thumb level. They scan, save your contact, and send you a text in one motion. No fumbling, no business-card hand-off, no typing. Cards are insurance. The lock screen is the play.</p>
+  </div>
+
+  <div class="platform-grid">
+    <div class="platform">
+      <div class="ptitle">iPhone (iOS 16+)</div>
+      <ol>
+        <li>Tap <strong>Save as Wallpaper</strong> on your card. Image saves to Photos.</li>
+        <li>Open <strong>Settings &rarr; Wallpaper &rarr; Add New Wallpaper</strong>.</li>
+        <li>Pick <strong>Photos</strong>, choose your Drive AI card.</li>
+        <li>Pinch-zoom to position the QR above the clock area, drag to center.</li>
+        <li>Tap <strong>Set as Wallpaper Pair</strong> (applies to lock + home).</li>
+        <li class="optional">Bonus: Settings &rarr; Display &amp; Brightness &rarr; Always On &rarr; Enable. QR scannable without unlocking.</li>
+      </ol>
+    </div>
+
+    <div class="platform">
+      <div class="ptitle">Android (12+, Samsung / Pixel)</div>
+      <ol>
+        <li>Tap <strong>Save as Wallpaper</strong> on your card. Image saves to Gallery.</li>
+        <li>Long-press anywhere on the home screen, tap <strong>Wallpapers</strong>.</li>
+        <li>Pick <strong>My Wallpapers / Gallery</strong>, choose your Drive AI card.</li>
+        <li>Choose <strong>Set on Lock Screen</strong> (or both if you want home too).</li>
+        <li>Position the QR vertically with the crop handles.</li>
+        <li class="optional">Bonus: Settings &rarr; Display &rarr; Always On Display &rarr; Enable.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="tip-row">
+    <div class="tip">
+      <strong>Position</strong>
+      Crop so the QR is centered vertically around 55-60% down the screen. That's where a thumb naturally rests when phone comes out of a front pocket.
+    </div>
+    <div class="tip">
+      <strong>The Pocket Test</strong>
+      Pull phone out, screen wakes, prospect scans before you finish saying "let me show you something." If your phone takes 2 seconds to wake, fix it. Tap-to-wake on.
+    </div>
+    <div class="tip">
+      <strong>Smartwatch Too</strong>
+      Set the same image as your Apple Watch / Galaxy Watch face. "Scan my watch" is more memorable than any business card.
+    </div>
+    <div class="tip">
+      <strong>Test Before You Pitch</strong>
+      Scan your own lock screen from another phone. Make sure it resolves to your <code style="background:rgba(0,0,0,0.4);padding:1px 4px;border-radius:3px;font-size:11px;color:var(--orange);font-family:monospace;">/r/[your-id]</code> page cleanly. If the screen brightness is too low, the QR won't read.
+    </div>
+  </div>
+</div>
+
 <div class="instructions">
   <h3>How to add a new teammate</h3>
   <ol>
     <li>Generate the QR card PDF (matching the Drive AI desert-sunset template).</li>
     <li>Save the PDF to <code>team/firstname-lastname.pdf</code> in this repo.</li>
-    <li>Render the preview image: <code>sips -s format png team/firstname-lastname.pdf --out team/firstname-lastname.png</code></li>
+    <li>Render the wallpaper-quality PNG: <code>sips -s format png --resampleHeightWidthMax 2400 team/firstname-lastname.pdf --out team/firstname-lastname.png</code></li>
     <li>Duplicate the <code>&lt;div class="member"&gt;</code> block in <code>team.html</code>, update name + role + file paths.</li>
     <li>Run <code>./deploy.sh</code> from the repo root. New teammate goes live in ~30 seconds.</li>
   </ol>
