@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Drive AI Sales Inc. — Every Lead. Answered. Now.</title>
+<title>Drive AI Sales Inc., Every Lead. Answered. Now.</title>
 <meta name="description" content="AI-powered lead response for dealerships. Under 60 seconds. 24/7. Text, email, voice. Works inside your CRM.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="logo/logo-hires.png" type="image/png">
@@ -19,7 +19,7 @@
 html,body{overscroll-behavior:none}
 body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* WANDA SPHERICAL ORB — glossy 3D sphere with internal aurora plasma + floating particles */
+/* WANDA SPHERICAL ORB, glossy 3D sphere with internal aurora plasma + floating particles */
 .orb-wrap{position:relative;width:520px;height:520px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:1;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .orb-wrap:hover{transform:scale(1.04)}
 .orb-wrap:hover .orb-canvas{filter:brightness(1.1) saturate(1.1)}
@@ -117,7 +117,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 .sec-right .sec-inner{justify-content:flex-end}
 .sec-center .sec-inner{justify-content:center}
 
-/* Text block: frame-range gated — visible only when canvas is in its scene.
+/* Text block: frame-range gated, visible only when canvas is in its scene.
    Drives a cinematic sync between video and story. */
 .text-block{max-width:500px;padding:1.75rem 2rem;border-radius:14px;background:rgba(0,0,0,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.06);opacity:0;transform:translateY(30px);transition:opacity .6s cubic-bezier(.215,.61,.355,1),transform .6s cubic-bezier(.215,.61,.355,1)}
 .text-block.in-scene{opacity:1;transform:translateY(0)}
@@ -171,7 +171,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 @keyframes sw{0%{transform:translate(-50%,0);opacity:1}70%{transform:translate(-50%,14px);opacity:.2}100%{transform:translate(-50%,0);opacity:0}}
 @keyframes chev{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(3px)}}
 
-/* CPU CHIP — motherboard-style hub with L-shaped traces, vias, and traveling particle dots */
+/* CPU CHIP, motherboard-style hub with L-shaped traces, vias, and traveling particle dots */
 .chip{position:relative;z-index:2;padding:6rem 2rem 6rem;min-height:auto;display:flex;flex-direction:column;align-items:center;gap:4rem;overflow:hidden}
 .chip-hd{position:relative;width:min(640px,94vw);max-width:640px;text-align:center;z-index:3;margin:0 auto;align-self:center}
 .chip-hd .ol{margin-bottom:.5rem}
@@ -182,7 +182,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 /* Square die in the middle with layered substrate rings */
 .chip-core{position:absolute;top:38%;left:38%;width:24%;height:24%;display:flex;align-items:center;justify-content:center;z-index:3;border-radius:14%;background:radial-gradient(circle at 30% 25%,rgba(255,180,90,.35),rgba(232,122,0,.08) 65%);border:1.5px solid rgba(232,122,0,.55);box-shadow:0 0 55px rgba(232,122,0,.45),0 0 110px rgba(232,122,0,.2),inset 0 0 38px rgba(232,122,0,.2),inset 0 0 0 4px rgba(0,0,0,.35)}
 .chip-core::before{content:"";position:absolute;inset:8%;border:1px solid rgba(232,122,0,.35);border-radius:10%}
-/* Halo ring pulses via opacity only — GPU-composited, zero repaint cost */
+/* Halo ring pulses via opacity only, GPU-composited, zero repaint cost */
 .chip-core::after{content:"";position:absolute;inset:-14%;border:1px solid rgba(232,122,0,.35);border-radius:16%;opacity:.35;animation:corehalo 3.2s ease-in-out infinite}
 .chip-core-lbl{font-family:'Bebas Neue',sans-serif;font-size:clamp(.95rem,2.1vw,1.4rem);letter-spacing:2.5px;color:#fff;text-shadow:0 0 14px rgba(232,122,0,.9);position:relative;z-index:2;text-align:center;line-height:.95;padding:0 .3rem}
 .chip-core-lbl em{font-style:normal;color:#E87A00;display:block;font-size:.72em;letter-spacing:4px;margin-top:.15rem}
@@ -197,13 +197,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 .chip-pad{fill:#FFB060}
 .chip-particle{fill:#FFC070}
 
-/* Node cards — 8 capability labels around the chip. Position via inline top/left %.
+/* Node cards, 8 capability labels around the chip. Position via inline top/left %.
    width in % keeps them stable at any container size (no overlap on mobile). */
 .chip-node{position:absolute;width:19%;min-width:96px;max-width:160px;transform:translate(-50%,-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:.45rem;padding:.9rem .5rem;background:rgba(10,10,12,.88);border:1px solid rgba(232,122,0,.22);border-radius:10px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:all .4s cubic-bezier(.2,.8,.2,1);cursor:default}
 .chip-node::before{content:"";position:absolute;inset:-1px;border-radius:10px;background:linear-gradient(135deg,rgba(232,122,0,.4),transparent 60%);opacity:0;transition:opacity .4s;z-index:-1;filter:blur(6px)}
 .chip-node:hover{border-color:rgba(232,122,0,.7);background:rgba(232,122,0,.1);box-shadow:0 0 0 1px rgba(232,122,0,.35),0 14px 36px rgba(232,122,0,.3),0 0 50px rgba(232,122,0,.18);transform:translate(-50%,-50%) scale(1.06)}
 .chip-node:hover::before{opacity:.5}
-/* Node dots — static glow (no box-shadow animation, opacity pulse on a halo ring is GPU-cheap). */
+/* Node dots, static glow (no box-shadow animation, opacity pulse on a halo ring is GPU-cheap). */
 .chip-node-dot{width:9px;height:9px;border-radius:50%;background:#E87A00;box-shadow:0 0 10px #E87A00,0 0 20px rgba(232,122,0,.5);position:relative}
 .chip-node-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(232,122,0,.55);opacity:.3;animation:nodehalo 2s ease-in-out infinite}
 .chip-node:nth-child(even) .chip-node-dot::after{animation-delay:.4s}
@@ -221,7 +221,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   .chip-node-dot{width:7px;height:7px}
 }
 
-/* SERVICES ACCORDION — single-column list, click each to expand */
+/* SERVICES ACCORDION, single-column list, click each to expand */
 .services{background:rgba(0,0,0,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);padding:6rem 2rem;position:relative;z-index:2}
 .services-inner{max-width:880px;margin:0 auto;text-align:center}
 .services-hd .ol{margin-bottom:.8rem}
@@ -335,7 +335,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       <canvas class="orb-canvas" id="wandaModalCanvas"></canvas>
     </div>
     <div class="wanda-title" id="wandaTitle">WANDA<em>Inbound Intake · Drive AI Sales Inc.</em></div>
-    <div class="wanda-sub"><strong>This is what we build for you.</strong> Wanda is Drive AI Sales Inc.'s own inbound intake AI — call her to experience exactly what we'd set up for your dealership. She answers in under 10 seconds, qualifies, books a discovery call, and hands off to the team. 24/7.</div>
+    <div class="wanda-sub"><strong>This is what we build for you.</strong> Wanda is Drive AI Sales Inc.'s own inbound intake AI, call her to experience exactly what we'd set up for your dealership. She answers in under 10 seconds, qualifies, books a discovery call, and hands off to the team. 24/7.</div>
     <div class="wanda-btns">
       <a href="tel:+15875257155" class="btn btn-liquid" id="wandaPhone">Call Wanda Now</a>
     </div>
@@ -369,13 +369,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </ul>
 </nav>
 
-<!-- SCENE 1: HERO (frames 0-713) — two-column split with Wanda particle orb -->
+<!-- SCENE 1: HERO (frames 0-713), two-column split with Wanda particle orb -->
 <section class="sec sec-left hero-split" id="s0">
   <div class="sec-inner">
     <div class="text-block">
       <div class="ol">Edmonton's Premier Dealership AI CRM</div>
       <h1 class="h1">Leads In.<br>Appointments<br><em>Out.</em></h1>
-      <div class="bd"><strong>Phone. Email. SMS. Social messaging.</strong> Every channel a buyer uses — we answer on it in under 60 seconds. 24/7. Inside your CRM. Before your competitor even sees the lead.</div>
+      <div class="bd"><strong>Phone. Email. SMS. Social messaging.</strong> Every channel a buyer uses, we answer on it in under 60 seconds. 24/7. Inside your CRM. Before your competitor even sees the lead.</div>
       <div style="font-family:monospace;font-size:14px;color:#E87A00;margin-bottom:1.2rem;min-height:1.5em;"><span id="typewriter"></span><span style="border-right:2px solid #E87A00;animation:blink .8s step-end infinite;">&nbsp;</span></div>
       <div class="btn-row">
         <a href="diagnostic.html" class="btn btn-liquid">Free Diagnostic</a>
@@ -394,7 +394,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       </div>
     </div>
 
-    <!-- WANDA particle orb — click to open call modal. Canvas renders orange particle field. -->
+    <!-- WANDA particle orb, click to open call modal. Canvas renders orange particle field. -->
     <div class="orb-wrap" id="wandaOrb" role="button" tabindex="0" aria-label="Talk to Wanda, our AI voice agent">
       <canvas class="orb-canvas" id="wandaHeroCanvas"></canvas>
       <div class="orb-caption">Tap to talk to <strong>Wanda</strong></div>
@@ -402,14 +402,14 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- SCENE 2: AI INTELLIGENCE — CPU chip hub -->
+<!-- SCENE 2: AI INTELLIGENCE, CPU chip hub -->
 <section class="chip" id="s-ai">
   <!-- Header is a SIBLING of chip-inner (not a child), so the flex column layout
        stacks it above the chip cleanly. -->
   <div class="chip-hd text-block" style="background:none;border:none;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none">
     <div class="ol">The Intelligence</div>
     <div class="h2">One AI. <em>Every Channel.</em></div>
-    <div class="bd">A dealership nervous system. Lead comes in on any channel — we pick it up, qualify it, book it, follow up. All routed through one AI core.</div>
+    <div class="bd">A dealership nervous system. Lead comes in on any channel, we pick it up, qualify it, book it, follow up. All routed through one AI core.</div>
   </div>
 
   <div class="chip-inner">
@@ -421,14 +421,14 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 
     <!--
       PCB traces: L-shaped paths from each node → core.
-      Core bounding box: 38–62 both axes.
+      Core bounding box: 38-62 both axes.
       Nodes sit at cardinal + diagonal compass points (3/18/50/82/97%).
       Cardinal traces are straight. Diagonal traces bend at 90° before entering core.
       Vias (circles) drawn at each bend point.
       Traveling "electrons" = <circle> + <animateMotion> along the named path.
     -->
     <svg class="chip-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-      <!-- Static traces: from each new node position to the core die edge (38–62).
+      <!-- Static traces: from each new node position to the core die edge (38-62).
            Cardinals are straight, diagonals L-bend at (38/62, 20) or (38/62, 80). -->
       <path id="trN"  class="chip-trace" d="M 50 8 V 38"/>
       <path id="trE"  class="chip-trace" d="M 92 50 H 62"/>
@@ -470,7 +470,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       <circle class="chip-particle" r="1.1"><animateMotion dur="3s" repeatCount="indefinite" begin="-2.8s"><mpath href="#trNW"/></animateMotion></circle>
     </svg>
 
-    <!-- Capability nodes (8 positioned via inline top/left %) — pulled inward
+    <!-- Capability nodes (8 positioned via inline top/left %), pulled inward
          from extreme edges so cards never spill past chip-inner or into the header. -->
     <div class="chip-node" style="top:8%;left:50%"><div class="chip-node-dot"></div><div class="chip-node-lbl">Phone AI</div></div>
     <div class="chip-node" style="top:20%;left:80%"><div class="chip-node-dot"></div><div class="chip-node-lbl">SMS / Text</div></div>
@@ -489,7 +489,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Problem</div>
       <div class="h2">Your Sales Manager<br>Is <em>Drowning.</em></div>
-      <div class="bd">The industry average dealership takes <strong>17 hours</strong> to respond to a lead. Half are never followed up at all. Meanwhile <strong>78% of buyers purchase from whoever calls back first</strong> — and by the time your team gets to their pipeline, those deals have already been written somewhere else.</div>
+      <div class="bd">The industry average dealership takes <strong>17 hours</strong> to respond to a lead. Half are never followed up at all. Meanwhile <strong>78% of buyers purchase from whoever calls back first</strong>, and by the time your team gets to their pipeline, those deals have already been written somewhere else.</div>
       <div class="counter-row">
         <div class="counter-item"><div class="counter" data-target="17" data-suffix="hrs">0</div><div class="sl">Industry Avg Response</div></div>
         <div class="counter-item"><div class="counter" data-target="50" data-suffix="%">0</div><div class="sl">Leads Never Worked</div></div>
@@ -506,7 +506,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Integration</div>
       <div class="h2">We <em>Integrate</em> With<br>Your Current Tools.</div>
-      <div class="bd">Whatever you're already running — CRM, phone system, inventory software, booking platform — we work around it. We build <strong>custom integrations and automations</strong> tailored to your stack, so nothing changes for your team except that leads stop falling through the cracks.</div>
+      <div class="bd">Whatever you're already running, CRM, phone system, inventory software, booking platform, we work around it. We build <strong>custom integrations and automations</strong> tailored to your stack, so nothing changes for your team except that leads stop falling through the cracks.</div>
       <div class="pills">
         <div class="pill">Phone Automation</div>
         <div class="pill">SMS / Text</div>
@@ -517,7 +517,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
         <div class="pill">Tailored Integrations</div>
         <div class="pill">Live in &lt;24h</div>
       </div>
-      <div class="bd" style="font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:0">Built around your existing tools. Direct integrations depend on what your platform allows — we'll scope it with you on the discovery call.</div>
+      <div class="bd" style="font-size:.82rem;color:rgba(255,255,255,.5);margin-bottom:0">Built around your existing tools. Direct integrations depend on what your platform allows, we'll scope it with you on the discovery call.</div>
     </div>
   </div>
 </section>
@@ -528,7 +528,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Response</div>
       <div class="h2"><em>Under 60 Seconds.</em><br>Every Time.</div>
-      <div class="bd">Contacting a lead within <strong>5 minutes makes them 21x more likely to convert</strong> than waiting 30 minutes. We answer in under a minute on the exact channel they used — SMS, email, phone, or social DM — so your dealership is always first.</div>
+      <div class="bd">Contacting a lead within <strong>5 minutes makes them 21x more likely to convert</strong> than waiting 30 minutes. We answer in under a minute on the exact channel they used, SMS, email, phone, or social DM, so your dealership is always first.</div>
       <div class="counter-row">
         <div class="counter-item"><div class="counter" data-target="60" data-prefix="&lt;" data-suffix="s">0</div><div class="sl">Response</div></div>
         <div class="counter-item"><div class="counter" data-target="8" data-suffix="+">0</div><div class="sl">Touches / Lead</div></div>
@@ -554,7 +554,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
         <div class="rr"><span class="rr-l">Gross Profit / Mo</span><span class="rr-v">+$33K</span></div>
         <div class="rr"><span class="rr-l">Staff Added</span><span class="rr-v">0</span></div>
       </div>
-      <div class="bd" style="margin-top:1rem;font-style:italic;color:rgba(255,255,255,.6)">"I stopped checking the CRM every hour because I finally trusted something was handling it."<br><span style="font-style:normal;font-size:.7rem;color:rgba(255,255,255,.35);">— GM, Mid-Size Alberta Franchise Dealer</span></div>
+      <div class="bd" style="margin-top:1rem;font-style:italic;color:rgba(255,255,255,.6)">"I stopped checking the CRM every hour because I finally trusted something was handling it."<br><span style="font-style:normal;font-size:.7rem;color:rgba(255,255,255,.35);">- GM, Mid-Size Alberta Franchise Dealer</span></div>
     </div>
   </div>
 </section>
@@ -565,7 +565,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     <div class="text-block">
       <div class="ol">The Close</div>
       <div class="h2">Your Team Closes.<br>We <em>Handle Everything Else.</em></div>
-      <div class="bd">You walk deals across the line on the showroom floor. We work the top of the funnel 24/7 — qualifying, following up, booking, reminding, re-engaging. Zero new staff. Zero new tools. One dashboard in the CRM you already use.</div>
+      <div class="bd">You walk deals across the line on the showroom floor. We work the top of the funnel 24/7, qualifying, following up, booking, reminding, re-engaging. Zero new staff. Zero new tools. One dashboard in the CRM you already use.</div>
       <div class="btn-row">
         <a href="#capture" class="btn btn-liquid">See Your Score</a>
         <a href="discovery.html" class="btn btn-ghost">Book a Call</a>
@@ -574,13 +574,13 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
   </div>
 </section>
 
-<!-- SERVICES ACCORDION — single-column, click to expand -->
+<!-- SERVICES ACCORDION, single-column, click to expand -->
 <section class="services" id="services">
   <div class="services-inner">
     <div class="services-hd">
       <div class="ol">What We Automate</div>
       <div class="h2">Every Touch.<br><em>Automated.</em></div>
-      <div class="bd">14 workflows your team used to do manually — now running 24/7 inside your stack. Tap any to expand.</div>
+      <div class="bd">14 workflows your team used to do manually, now running 24/7 inside your stack. Tap any to expand.</div>
     </div>
     <div class="services-list">
 
@@ -591,7 +591,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
           <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="svc-body">
-          Every inbound lead gets a response in <strong>under 60 seconds</strong>, on the exact channel the buyer used — phone, SMS, email, or social DM. No leads sitting in the CRM while your team is on the floor.
+          Every inbound lead gets a response in <strong>under 60 seconds</strong>, on the exact channel the buyer used, phone, SMS, email, or social DM. No leads sitting in the CRM while your team is on the floor.
           <ul><li>Phone · SMS · Email · Social</li><li>24/7</li><li>Channel-matched</li></ul>
         </div>
       </details>
@@ -603,7 +603,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
           <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="svc-body">
-          Qualified, booked, and confirmed. SMS reminders land the night before and morning of — the one-two that lifts show rates from an industry-average <strong>41% to 68%</strong>.
+          Qualified, booked, and confirmed. SMS reminders land the night before and morning of, the one-two that lifts show rates from an industry-average <strong>41% to 68%</strong>.
           <ul><li>SMS reminders</li><li>Rebooking</li><li>No-show recovery</li></ul>
         </div>
       </details>
@@ -639,7 +639,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
           <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="svc-body">
-          24/7 website chat that actually answers. Inventory questions, pricing, trade-in estimates, test-drive booking — all handled in-chat, with a human pulled in for anything that needs one.
+          24/7 website chat that actually answers. Inventory questions, pricing, trade-in estimates, test-drive booking, all handled in-chat, with a human pulled in for anything that needs one.
           <ul><li>Always on</li><li>Trade-in estimates</li><li>Instant booking</li></ul>
         </div>
       </details>
@@ -687,7 +687,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
           <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="svc-body">
-          Pre-built response templates for every common dealership scenario — fresh lead, no-show, financing question, trade-in, post-sale — all customized to your brand voice, activated automatically on pattern match.
+          Pre-built response templates for every common dealership scenario, fresh lead, no-show, financing question, trade-in, post-sale, all customized to your brand voice, activated automatically on pattern match.
           <ul><li>Scenario library</li><li>Brand-voice tuned</li><li>Auto-trigger</li></ul>
         </div>
       </details>
@@ -699,7 +699,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
           <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="svc-body">
-          Drip campaigns, seasonal promos, event invitations, incentive rollouts — launched on your schedule, measured against actual conversions not just opens.
+          Drip campaigns, seasonal promos, event invitations, incentive rollouts, launched on your schedule, measured against actual conversions not just opens.
           <ul><li>Drip sequences</li><li>Seasonal promos</li><li>Conversion-tracked</li></ul>
         </div>
       </details>
@@ -747,7 +747,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
           <span class="svc-chev" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M3 5L7 9L11 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </summary>
         <div class="svc-body">
-          Custom integrations built around your CRM, phone, inventory, chat, and DMS — whatever you run, we work around it. Direct integrations depend on what your platform allows; we scope it on the discovery call.
+          Custom integrations built around your CRM, phone, inventory, chat, and DMS, whatever you run, we work around it. Direct integrations depend on what your platform allows; we scope it on the discovery call.
           <ul><li>CRM sync</li><li>Phone system</li><li>Inventory feed</li><li>DMS</li></ul>
         </div>
       </details>
@@ -768,7 +768,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       <input type="text" name="dealership" placeholder="Dealership" required>
       <button type="submit">Send me the audit →</button>
     </form>
-    <div class="capture-alt">Or <a href="discovery.html">book a 15-min discovery call</a> — zero pressure.</div>
+    <div class="capture-alt">Or <a href="discovery.html">book a 15-min discovery call</a>, zero pressure.</div>
   </div>
 </section>
 
@@ -782,7 +782,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
       <a href="https://linkedin.com/company/drive-ai-sales" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="icons/linkedin-icon.png" alt="" loading="lazy" decoding="async"></a>
     </div>
     <div class="footer-bot">
-      <div class="footer-c">© 2026 Drive AI Sales Inc. — Edmonton, AB</div>
+      <div class="footer-c">© 2026 Drive AI Sales Inc., Edmonton, AB</div>
       <div class="footer-l">
         <a href="diagnostic.html">Diagnostic</a>
         <a href="discovery.html">Book a Call</a>
@@ -852,14 +852,14 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     if(!force && i === lastDrawn) return;
     var img = frames[i];
     // If target frame isn't loaded yet, walk BACKWARD only (never show future
-    // frames the user hasn't scrolled to — prevents "flash ahead" jump).
+    // frames the user hasn't scrolled to, prevents "flash ahead" jump).
     // If nothing found going back, hold whatever's currently drawn.
     if(!img){
       for(var step=1; step<=30; step++){
         if(frames[i-step]){ img = frames[i-step]; i = i-step; break; }
       }
     }
-    if(!img) return; // hold lastDrawn — no flicker
+    if(!img) return; // hold lastDrawn, no flicker
     var cw = c.width, ch = c.height;
     var iw = img.naturalWidth, ih = img.naturalHeight;
     var scale = Math.max(cw/iw, ch/ih);
@@ -914,7 +914,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
     for(var w=0; w<BATCH; w++) blockWorkers.push(blockWorker());
     await Promise.all(blockWorkers);
 
-    // Draw the first frame, fit canvas, release loader — user can scroll now
+    // Draw the first frame, fit canvas, release loader, user can scroll now
     fitCanvas();
     drawFrame(0, true);
     ready = true;
@@ -937,7 +937,7 @@ body{background:#000;color:#fff;font-family:'Barlow',sans-serif;-webkit-font-smo
 
   /* ==== SECTION REVEAL (IntersectionObserver, viewport-based) ==== */
   // Earlier we gated on frame index, which decoupled from DOM position and
-  // caused "invisible on scroll down" — by the time the user was looking at a
+  // caused "invisible on scroll down", by the time the user was looking at a
   // section, its frame window had already passed. Fix: reveal when section
   // actually enters the viewport. Simpler, and matches what the eye expects.
   var textBlocks = document.querySelectorAll('.sec .text-block, .chip-hd.text-block');
@@ -1038,14 +1038,14 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
    Glossy 3D sphere with flowing aurora plasma interior.
    Inspired by ChatGPT voice-mode, Gemini sphere, Humane Ai Pin aesthetic.
    Layered render:
-     1) Outer halo — soft radial bloom
-     2) Sphere body — clipped circle with dark warm base
-     3) Plasma blobs — 7 orbiting orange/amber radial gradients (composited 'lighter')
-     4) Central glow — warm light from 30%/30% lit from above-left
-     5) Rim light — subtle bottom crescent bounce
-     6) Specular highlight — bright reflection top-left
-     7) Outer rim stroke — defines sphere edge cleanly
-     8) Orbiting satellites — 3 tiny sparks around outside
+     1) Outer halo, soft radial bloom
+     2) Sphere body, clipped circle with dark warm base
+     3) Plasma blobs, 7 orbiting orange/amber radial gradients (composited 'lighter')
+     4) Central glow, warm light from 30%/30% lit from above-left
+     5) Rim light, subtle bottom crescent bounce
+     6) Specular highlight, bright reflection top-left
+     7) Outer rim stroke, defines sphere edge cleanly
+     8) Orbiting satellites, 3 tiny sparks around outside
    amplitude drives: halo size+brightness, plasma speed, satellite orbit speed */
 (function(){
   function createOrb(canvas){
@@ -1056,7 +1056,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w = 0, h = 0, cx = 0, cy = 0, R = 0;
 
-    // Plasma blobs — flowing color clouds inside the sphere (11 blobs, richer interior)
+    // Plasma blobs, flowing color clouds inside the sphere (11 blobs, richer interior)
     var blobs = [];
     var SHADES = [
       'rgba(255,200,120,',
@@ -1084,8 +1084,8 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       });
     }
 
-    // AMBIENT FLOATING PARTICLES — 80 small drifting particles in and around the sphere.
-    // They give the "life" feel — tiny motes orbiting at many radii with slight turbulence.
+    // AMBIENT FLOATING PARTICLES, 80 small drifting particles in and around the sphere.
+    // They give the "life" feel, tiny motes orbiting at many radii with slight turbulence.
     var particles = [];
     for(var p=0; p<80; p++){
       particles.push({
@@ -1102,7 +1102,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       });
     }
 
-    // BRIGHT FEATURE SATELLITES — 5 larger glow sparks orbiting outside
+    // BRIGHT FEATURE SATELLITES, 5 larger glow sparks orbiting outside
     var sats = [];
     for(var s=0; s<5; s++){
       sats.push({
@@ -1119,7 +1119,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       h = Math.max(1, Math.round(rect.height * dpr));
       canvas.width = w; canvas.height = h;
       cx = w/2; cy = h/2;
-      // Sphere at 28% of canvas — leaves 44% clearance for halo/particles/satellites
+      // Sphere at 28% of canvas, leaves 44% clearance for halo/particles/satellites
       R = Math.min(w, h) * 0.28;
     }
 
@@ -1148,11 +1148,11 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       ctx.arc(cx, cy, R, 0, Math.PI * 2);
       ctx.clip();
 
-      // Dark warm base — black with an orange undertone
+      // Dark warm base, black with an orange undertone
       ctx.fillStyle = '#0a0400';
       ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
 
-      // Plasma blobs — additive blended so they bloom where they overlap
+      // Plasma blobs, additive blended so they bloom where they overlap
       ctx.globalCompositeOperation = 'lighter';
       for(var i=0; i<blobs.length; i++){
         var b = blobs[i];
@@ -1171,7 +1171,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
         ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
       }
 
-      // Central warm glow — light seems to come from upper-left (like a lit sphere)
+      // Central warm glow, light seems to come from upper-left (like a lit sphere)
       var coreX = cx - R * 0.25, coreY = cy - R * 0.25;
       var g2 = ctx.createRadialGradient(coreX, coreY, 0, coreX, coreY, R * 1.1);
       g2.addColorStop(0, 'rgba(255,220,160,' + (0.35 + amplitude * 0.25) + ')');
@@ -1180,7 +1180,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       ctx.fillStyle = g2;
       ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
 
-      // Rim light — bottom-right crescent gives a 3D shading hint
+      // Rim light, bottom-right crescent gives a 3D shading hint
       var rimX = cx + R * 0.35, rimY = cy + R * 0.55;
       var g3 = ctx.createRadialGradient(rimX, rimY, 0, rimX, rimY, R * 0.85);
       g3.addColorStop(0, 'rgba(255,140,50,0.22)');
@@ -1200,7 +1200,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       ctx.fillStyle = gS;
       ctx.beginPath(); ctx.arc(sx, sy, R * 0.32, 0, Math.PI * 2); ctx.fill();
 
-      // -------- 7) OUTER RIM STROKE — crisp edge definition --------
+      // -------- 7) OUTER RIM STROKE, crisp edge definition --------
       ctx.lineWidth = 1 * dpr;
       ctx.strokeStyle = 'rgba(255,160,80,0.45)';
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
@@ -1208,7 +1208,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       ctx.strokeStyle = 'rgba(0,0,0,0.3)';
       ctx.beginPath(); ctx.arc(cx, cy, R - 1.5 * dpr, 0, Math.PI * 2); ctx.stroke();
 
-      // -------- 8) AMBIENT FLOATING PARTICLES — 80 motes drifting in and around sphere --------
+      // -------- 8) AMBIENT FLOATING PARTICLES, 80 motes drifting in and around sphere --------
       ctx.globalCompositeOperation = 'lighter';
       for(var pi=0; pi<particles.length; pi++){
         var pt = particles[pi];
@@ -1234,7 +1234,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       }
       ctx.globalCompositeOperation = 'source-over';
 
-      // -------- 9) BRIGHT SATELLITES — 5 feature sparks on outer orbit --------
+      // -------- 9) BRIGHT SATELLITES, 5 feature sparks on outer orbit --------
       for(var si=0; si<sats.length; si++){
         var sat = sats[si];
         sat.angle += sat.speed * (1 + amplitude * 0.8);
@@ -1253,7 +1253,7 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
         ctx.beginPath(); ctx.arc(satX, satY, 2 * dpr, 0, Math.PI * 2); ctx.fill();
       }
 
-      // Amplitude easing — idle breathing + talk pulse
+      // Amplitude easing, idle breathing + talk pulse
       var target;
       if(talking){
         target = 0.4 + 0.35 * Math.abs(Math.sin(performance.now() * 0.006))
@@ -1344,8 +1344,8 @@ document.querySelectorAll('.btn-liquid').forEach(function(btn){
       // Fallback: mailto with prefilled body (no formspree set up yet)
       e.preventDefault();
       var fd = new FormData(form);
-      var subject = 'Drive AI — Diagnostic request from ' + (fd.get('name') || '');
-      var body = 'Name: ' + (fd.get('name')||'') + '\nEmail: ' + (fd.get('email')||'') + '\nDealership: ' + (fd.get('dealership')||'') + '\n\n—';
+      var subject = 'Drive AI, Diagnostic request from ' + (fd.get('name') || '');
+      var body = 'Name: ' + (fd.get('name')||'') + '\nEmail: ' + (fd.get('email')||'') + '\nDealership: ' + (fd.get('dealership')||'') + '\n\n-';
       window.location.href = 'mailto:brandon@driveaisales.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     }
   });
